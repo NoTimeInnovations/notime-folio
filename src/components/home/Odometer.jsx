@@ -10,7 +10,7 @@ const Odometer = ({value}) => {
 
   return (
     <ScrollTrigger onEnter={()=>setCounterOn(true)} onExit={()=>setCounterOn(false)}>
-        {counterOn && <CountUp start={0} end={value} duration={2} delay={0.5} />}
+        {counterOn && <CountUp start={0} end={value} duration={5} delay={0.5} />}
     </ScrollTrigger>
   )
 }

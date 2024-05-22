@@ -33,7 +33,7 @@ const WhatWillYouLearn = () => {
   ];
 
   return (
-    <div className="grid gap-10 md:gap-10 my-10 max-w-6xl overflow-y-hidden">
+    <div id="details" className="grid gap-10 md:gap-10 my-10 max-w-6xl overflow-y-hidden">
       {/* heading  */}
       <H1 className="flex items-center justify-center gap-3 mb-16">
         {/* arrow left  */}

@@ -93,7 +93,7 @@ const HeroSection = () => {
         {...motionAttributes}
         transition={{ ...motionAttributes.transition, delay: 0.8 }}
       >
-        <ScrollDownButton text={"Scroll to the Detail"} to={"#detail"} />
+        <ScrollDownButton text={"Scroll to the Detail"} to={"#details"} />
       </motion.div>
     </motion.div>
   );

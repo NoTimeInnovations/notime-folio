@@ -90,6 +90,11 @@ const HomePage = () => {
           <DevelopersSection />
         </div>
 
+        {/* founder section */}
+        <div className="flex justify-center">
+          <Founder />
+        </div>
+
         {/* social links */}
         <div className="flex justify-center lg:absolute top-10">
           <SocialLinks />
