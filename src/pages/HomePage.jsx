@@ -9,6 +9,8 @@ import SocialLinks from "@/components/home/SocialLinks";
 import Founder from "@/components/home/Founder";
 import CountsSection from "@/components/home/CountsSection";
 
+import DevelopersSection from "@/components/home/DevelopersSection";
+
 const HomePage = () => {
   return (
     <section className="min-h-screen w-screen text-white px-5 md:px-10 lg:px-12 pt-24 md:pt-32 xl:px-[10%] xl:pt-48">
@@ -75,12 +77,17 @@ const HomePage = () => {
           <SwiperSlider />
         </motion.div>
       </div>
-        
+
       {/* more contents  */}
-      <div className="relative">
+      <div className="relative ">
         {/* counts  */}
         <div className="flex justify-center">
           <CountsSection />
+        </div>
+
+        {/* developers section */}
+        <div className="flex justify-center py-10">
+          <DevelopersSection />
         </div>
 
         {/* social links */}
