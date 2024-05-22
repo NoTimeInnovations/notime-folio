@@ -75,16 +75,18 @@ const HomePage = () => {
           <SwiperSlider />
         </motion.div>
       </div>
+        
+      {/* more contents  */}
+      <div className="relative">
+        {/* counts  */}
+        <div className="flex justify-center">
+          <CountsSection />
+        </div>
 
-      {/* bottom */}
-      <div className="grid place-items-center gap-20 lg:grid-cols-2 lg:place-items-start lg:mt-20 relative">
-        {/* <Founder /> */}
-        <SocialLinks />
-      </div>
-
-      {/* counts  */}
-      <div className="flex justify-center">
-        <CountsSection />
+        {/* social links */}
+        <div className="flex justify-center lg:absolute top-10">
+          <SocialLinks />
+        </div>
       </div>
     </section>
   );
