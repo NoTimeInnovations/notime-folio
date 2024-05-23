@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import H1 from "../common/H1";
-import P from "../common/P";
-import GradientText from "../common/GradientText";
-import NormalButton from "../common/NormalButton";
+import H1 from "../../common/H1";
+import P from "../../common/P";
+import GradientText from "../../common/GradientText";
+import NormalButton from "../../common/NormalButton";
 import SheduleTestForm from "./SheduleTestForm";
 import { motion } from "framer-motion";
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import H1 from "../common/H1";
-import { client } from "../../utils/sanity/client";
+import H1 from "../../common/H1";
+import { client } from "../../../utils/sanity/client";
 import LevelCard from "./LevelCard";
 
 const WhatWillYouLearn = () => {
@@ -33,7 +33,10 @@ const WhatWillYouLearn = () => {
   ];
 
   return (
-    <div id="details" className="grid gap-10 md:gap-10 my-10 max-w-6xl overflow-y-hidden">
+    <div
+      id="details"
+      className="grid gap-10 md:gap-10 my-10 max-w-6xl overflow-y-hidden"
+    >
       {/* heading  */}
       <H1 className="flex items-center justify-center gap-3 mb-16">
         {/* arrow left  */}

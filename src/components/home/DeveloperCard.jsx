@@ -48,7 +48,7 @@ const DeveloperCard = () => {
                 {/* experience  */}
                 <div className="flex items-center mt-3 gap-3">
                     {/* label  */}
-                    <div className="font-semibold text-xs lg:text-sm">Experience</div>
+                    <div className="font-semibold text-xs lg:text-sm">Skill</div>
                     {/* stars  */}
                     <div className="flex items-center">{renderStars()}</div>
                 </div>

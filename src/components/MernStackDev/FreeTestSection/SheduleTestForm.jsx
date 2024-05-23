@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import NormalButton from "../common/NormalButton";
+import NormalButton from "../../common/NormalButton";
 import { ValidateAndSubmit } from "@/app/actions/FreeTestForm";
-import TickMark from "../common/TickMark";
-import GradientText from "../common/GradientText";
-import P from "../common/P";
+import TickMark from "../../common/TickMark";
+import GradientText from "../../common/GradientText";
+import P from "../../common/P";
 
 const SheduleTestForm = ({ isOpen, setFormOpen }) => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);

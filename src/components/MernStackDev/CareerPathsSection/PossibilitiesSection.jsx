@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import H1 from "../common/H1";
-import P from "../common/P";
+import H1 from "../../common/H1";
+import P from "../../common/P";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import PossibilitieCard from "./PossibilitieCard";
 

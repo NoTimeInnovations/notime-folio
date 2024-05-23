@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Banner from "../components/common/Banner";
-import VideoCard from "../components/youtube-videos/VideoCard";
+import VideoCard from "../components/youtubeVideos/VideoCard";
 import ScrollProgressIndicator from "../components/common/ScrollProgressIndicator";
 import { client } from "../utils/sanity/client";
 

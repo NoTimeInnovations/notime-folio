@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Banner from "../components/common/Banner";
-import ProjectCard from "../components/student-projects/ProjectCard";
+import ProjectCard from "../components/studentProjects/ProjectCard";
 import ScrollProgressIndicator from "../components/common/ScrollProgressIndicator";
 import { client } from "../utils/sanity/client";
 

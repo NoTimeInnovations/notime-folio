@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
-import P from "../common/P";
-import GradientText from "../common/GradientText";
-import { client } from "../../utils/sanity/client";
+import P from "../../common/P";
+import GradientText from "../../common/GradientText";
+import { client } from "../../../utils/sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
-import H1 from "../common/H1";
+import H1 from "../../common/H1";
 import { motion } from "framer-motion";
 
 const LevelCard = ({ level, gradient }) => {

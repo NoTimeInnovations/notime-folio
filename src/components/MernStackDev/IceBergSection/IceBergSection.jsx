@@ -1,8 +1,8 @@
 import React from "react";
-import H1 from "../common/H1";
-import GradientText from "../common/GradientText";
+import H1 from "../../common/H1";
+import GradientText from "../../common/GradientText";
 import { motion } from "framer-motion";
-import P from "../common/P";
+import P from "../../common/P";
 
 const IceBergSection = () => {
   return (

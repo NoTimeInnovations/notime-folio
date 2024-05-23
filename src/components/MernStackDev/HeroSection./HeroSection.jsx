@@ -1,6 +1,6 @@
 import React from "react";
-import ScrollDownButton from "../common/ScrollDownButton";
-import P from "../common/P";
+import ScrollDownButton from "../../common/ScrollDownButton";
+import P from "../../common/P";
 import { motion } from "framer-motion";
 import MainImage from "./MainImage";
 

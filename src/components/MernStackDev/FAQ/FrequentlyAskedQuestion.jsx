@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { client } from "../../utils/sanity/client";
+import { client } from "../../../utils/sanity/client";
 import QuestionItem from "./QuestionItem";
 
 const FrequentlyAskedQuestion = () => {

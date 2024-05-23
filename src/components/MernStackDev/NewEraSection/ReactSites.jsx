@@ -1,5 +1,5 @@
 import React from "react";
-import { logos } from "../../../Logos";
+import { logos } from "./Logos";
 import { motion } from "framer-motion";
 import Image from "next/image";
 

@@ -1,7 +1,7 @@
 import React from "react";
-import P from "../common/P";
+import P from "../../common/P";
 import ReactSites from "./ReactSites";
-import H1 from "../common/H1";
+import H1 from "../../common/H1";
 
 const NewEraSection = () => {
   return (
