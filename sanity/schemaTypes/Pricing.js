@@ -12,6 +12,11 @@ export default {
             type : "string"
         },
         {
+            name : "order",
+            title : "Order",
+            type : "number",
+        },
+        {
             name : "subTag",
             title : "Sub Tag",
             type : "string"
@@ -19,7 +24,7 @@ export default {
         {
             name : "price",
             title : "Price",
-            type : "string"
+            type : "number"
         },
         {
             name : "description",

@@ -5,7 +5,8 @@ import review from './schemaTypes/review'
 import subContents from './schemaTypes/subContents'
 import youtubeVideo from './schemaTypes/youtubeVideo'
 import CourseLevels from './schemaTypes/CourseLevels'
+import Pricing from './schemaTypes/Pricing'
 
 export const schema = {
-  types: [studentProject, CourseLevels , subContents , youtubeVideo , review , frequentlyAskedQues , blockContent],
+  types: [studentProject, Pricing ,CourseLevels , subContents , youtubeVideo , review , frequentlyAskedQues , blockContent],
 }
