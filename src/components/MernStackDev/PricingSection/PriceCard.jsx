@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
-const PriceCard = ({ pricingLevel, gradientColor , index }) => {
+const PriceCard = ({ pricingLevel, gradientColor, index }) => {
+
   return (
-    <div className={`bg-[#151B24] rounded-xl relative md:max-w-xl flex-1 h-fit`}>
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      className={`bg-[#151B24] rounded-xl relative md:max-w-xl flex-1 h-fit`}
+    >
       {/* main container  */}
-      <div className={`bg-[#151B24] px-5 py-10 md:px-10 md:py-20 rounded-xl relative z-[49] m-[1px] grid place-items-center gap-5 `}>
+      <div
+        className={`bg-[#151B24] px-5 py-10 md:px-10 md:py-20 rounded-xl relative z-[49] m-[1px] grid place-items-center gap-5 `}
+      >
         {/* type tag */}
         <div className="py-2 px-10 bg-[#0e1218] rounded text-center font-semibold text-xl ">
           {/* gradient  */}
@@ -20,9 +29,14 @@ const PriceCard = ({ pricingLevel, gradientColor , index }) => {
         </div>
 
         {/* price  */}
-        <div className="font-bold text-6xl md:text-7xl">
+        <motion.div
+          initial={{ scale: 0.1 }}
+          whileInView={{ scale: 1 }}
+          transition={{ delay: 0.2 }}
+          className="font-bold text-6xl md:text-7xl"
+        >
           ₹{pricingLevel?.price ? pricingLevel.price.toLocaleString() : "0"}
-        </div>
+        </motion.div>
 
         {/* price sub tag  */}
         <div className="text-lg font-semibold text-slate-300">
@@ -37,9 +51,9 @@ const PriceCard = ({ pricingLevel, gradientColor , index }) => {
         </button>
 
         {/* description  */}
-        <div className="text-sm text-slate-400 md:text-base">
+        <motion.div initial={{ opacity : 0 , y : 100 }} whileInView={{ opacity : 1 , y : 0 }} className="text-sm text-slate-400 md:text-base">
           {pricingLevel?.description}
-        </div>
+        </motion.div>
 
         {/* it includes divider  */}
         <div className="flex items-center w-full gap-3">
@@ -60,7 +74,10 @@ const PriceCard = ({ pricingLevel, gradientColor , index }) => {
           {/* features list  */}
           <div className="grid gap-4">
             {pricingLevel?.features.map((feature, index) => (
-              <div
+              <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 key={`${pricingLevel?.tag}_feature_${index}`}
                 className="flex gap-3 items-start"
               >
@@ -68,7 +85,7 @@ const PriceCard = ({ pricingLevel, gradientColor , index }) => {
                 <div className="text-lg md:text-xl font-medium text-slate-300">
                   {feature}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -78,7 +95,7 @@ const PriceCard = ({ pricingLevel, gradientColor , index }) => {
       <div
         className={` bg-gradient-to-b ${gradientColor} absolute top-0 left-0 w-full h-full rounded-xl z-[48] `}
       ></div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,23 +1,35 @@
 import React from "react";
 import H1 from "../common/H1";
 import P from "../common/P";
+import { motion } from "framer-motion";
 
 const Founder = ({ photo, name }) => {
   return (
-    <div className="flex flex-col justify-center items-center md:flex-row gap-3 md:gap-5">
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay : 0.2 }}
+      className="flex flex-col justify-center items-center md:flex-row gap-3 md:gap-5"
+    >
       <img
         src={photo}
         alt={name}
         className="w-16 lg:w-20 aspect-square rounded-full"
       />
       <div className="text-center font-medium lg:text-lg">{name}</div>
-    </div>
+    </motion.div>
   );
 };
 
 const Testimonial = () => {
   return (
-    <div className="max-w-6xl mt-10 border-[0.5px] border-[#171b22] bg-[#0b0e13]  pt-10 w-full grid place-items-center gap-5 lg:gap-10 rounded-xl relative overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.2 }}
+      className="max-w-6xl mt-10 border-[0.5px] border-[#171b22] bg-[#0b0e13]  pt-10 w-full grid place-items-center gap-5 lg:gap-10 rounded-xl relative overflow-hidden"
+    >
       {/* testimonial container  */}
       <div className="grid place-items-center gap-5 lg:grid-cols-[min-content,1fr] lg:px-10 lg:gap-10">
         {/* logo  */}
@@ -60,7 +72,7 @@ const Testimonial = () => {
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

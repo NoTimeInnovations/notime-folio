@@ -34,14 +34,14 @@ const PricingSection = () => {
   return (
     <div id="#pricing" className="grid gap-10 md:max-w-[80%] place-items-center mt-10">
       {/* heading  */}
-      <motion.p
+      <motion.div
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="text-[2rem] leading-[2rem] md:text-[4rem] md:leading-[4rem] font-bold text-center max-w-4xl"
       >
         Become a top 1% MERN Stack developer in only one course
-      </motion.p>
+      </motion.div>
 
       {/* price card  */}
       <div className="flex flex-col xl:flex-row-reverse gap-10 justify-center items-center">
