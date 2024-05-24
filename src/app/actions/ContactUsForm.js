@@ -54,12 +54,12 @@ const submitForm = async (form, setIsFormSubmitted) => {
     },
     body: JSON.stringify({
       fields: {
-        Name: form.name,
-        Email: form.email,
-        Reason: form.reason,
-        Phone: form.phone,
-        Message: form.message,
-        Communication_Method:form.communication_method
+        name: form.name,
+        email: form.email,
+        reason: form.reason,
+        phone: `+91${form.phone}`,
+        message: form.message,
+        communication_preference:form.communication_method
       },
     }),
   });

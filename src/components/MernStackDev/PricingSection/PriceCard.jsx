@@ -3,9 +3,9 @@ import Image from "next/image";
 
 const PriceCard = ({ pricingLevel, gradientColor , index }) => {
   return (
-    <div className={`bg-[#151B24] rounded-xl relative max-w-xl`}>
+    <div className={`bg-[#151B24] rounded-xl relative md:max-w-xl flex-1 h-fit`}>
       {/* main container  */}
-      <div className="bg-[#151B24] px-5 py-10 md:px-10 md:py-20 rounded-xl relative z-[49] m-[1px] grid place-items-center gap-5">
+      <div className={`bg-[#151B24] px-5 py-10 md:px-10 md:py-20 rounded-xl relative z-[49] m-[1px] grid place-items-center gap-5 `}>
         {/* type tag */}
         <div className="py-2 px-10 bg-[#0e1218] rounded text-center font-semibold text-xl ">
           {/* gradient  */}

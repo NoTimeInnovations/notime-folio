@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import NormalButton from "../../common/NormalButton";
-import { ValidateAndSubmit } from "@/app/actions/FreeTestForm";
+import { ValidateAndSubmit } from "@/app/actions/EnrollForm";
 import TickMark from "../../common/TickMark";
 import GradientText from "../../common/GradientText";
 import P from "../../common/P";
 
 const SheduleTestForm = ({ isOpen, setFormOpen }) => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-  const [currentDate, setCurrentDate] = useState("2024-01-01T00:00");
 
   const varients = {
     open: {
@@ -27,47 +26,12 @@ const SheduleTestForm = ({ isOpen, setFormOpen }) => {
     },
   };
 
-  const getFormatedDate = (date) => {
-    const formattedDateTimeString = date;
-    const formattedDateTime = new Date(formattedDateTimeString);
-
-    const year = formattedDateTime.getFullYear();
-    const month = String(formattedDateTime.getMonth() + 1).padStart(2, "0");
-    const day = String(formattedDateTime.getDate()).padStart(2, "0");
-    const hours = formattedDateTime.getHours();
-    const minutes = String(formattedDateTime.getMinutes()).padStart(2, "0");
-    const ampm = hours >= 12 ? "PM" : "AM";
-    const formattedHours = hours % 12 || 12;
-
-    const formattedDate = `${month}/${day}/${year}`;
-    const formattedTime = `${formattedHours}:${minutes} ${ampm}`;
-    const formattedDateAndTime = `${formattedDate} - ${formattedTime}`;
-
-    return formattedDateAndTime;
-  };
-
   const [form, setForm] = useState({
     name: "",
     email: "",
     phone: "",
-    date: "",
+    referral_code: "",
   });
-
-  useEffect(() => {
-    const currentTime = new Date().toLocaleTimeString("en-US", {
-      hour12: false,
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    const currentDate = new Date().getDate();
-    const currentMonth = new Date().getMonth() + 1;
-    const currentYear = new Date().getFullYear();
-    const currentDateTime = `${currentYear}-${
-      currentMonth < 10 && "0" + currentMonth
-    }-${currentDate}T${currentTime}`;
-    setCurrentDate(currentDateTime);
-    setForm({ ...form, date: currentDateTime });
-  }, []);
 
   return (
     <div className="relative">
@@ -118,16 +82,14 @@ const SheduleTestForm = ({ isOpen, setFormOpen }) => {
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
             />
 
-            {/* date */}
+            {/* Referral code  */}
             <input
               className="lg:text-xl focus:outline-none focus:border-white bg-transparent border-b border-b-[#1c222e] text-white w-full p-2"
-              type="datetime-local"
-              name="date"
-              id="date"
-              pattern="\d{2}-\d{2}-\d{4}"
-              min={currentDate}
-              defaultValue={form.date}
-              onChange={(e) => setForm({ ...form, date: e.target.value })}
+              placeholder="Referral code [optional]"
+              type="text"
+              name="referral_code"
+              id="referral_code"
+              onChange={(e) => setForm({ ...form, referral_code: e.target.value })}
             />
 
             {/* buttons */}
@@ -173,8 +135,7 @@ const SheduleTestForm = ({ isOpen, setFormOpen }) => {
           animate={isFormSubmitted && { opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          Your test is scheduled on <br />{" "}
-          <GradientText>{getFormatedDate(form.date)}</GradientText>
+          Thankyou for enrolling!
         </motion.div>
 
         {/* info  */}

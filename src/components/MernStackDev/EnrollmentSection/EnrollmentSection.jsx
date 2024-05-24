@@ -3,7 +3,7 @@ import H1 from "../../common/H1";
 import P from "../../common/P";
 import GradientText from "../../common/GradientText";
 import NormalButton from "../../common/NormalButton";
-import SheduleTestForm from "./SheduleTestForm";
+import SheduleTestForm from "./EnrollForm";
 import { motion } from "framer-motion";
 
 const FreeTestSection = () => {
@@ -27,17 +27,25 @@ const FreeTestSection = () => {
     <div className="text-white max-w-2xl grid gap-4">
       {/* heading  */}
       <H1>
-        Select your level by clearing a{" "}
-        <GradientText className={"text-[120%]"}>free test</GradientText>
+        Enroll in Our Comprehensive{" "}
+        <GradientText className={"text-[120%]"}>Course Today!</GradientText>
       </H1>
       {/* description  */}
       <P>
-        Welcome to our comprehensive level assessment test! Take advantage of
-        this complimentary opportunity to gauge your proficiency and select the
-        appropriate level for your learning journey. Whether you're a beginner,
-        intermediate, or advanced learner, this test will provide valuable
-        insights to help you progress effectively. Clear the test with
-        confidence and embark on your path to success!
+        Unlock your potential and take the first step towards achieving your
+        educational and career goals by enrolling in our comprehensive course.
+        Our program is designed to provide you with the skills and knowledge you
+        need to succeed. Join our community of learners today and embark on a
+        journey of growth and discovery. Don't wait—enroll now and secure your
+        future!
+        <br />
+        <P className={"mt-10"}>
+          <GradientText
+            gradient={"bg-gradient-to-r from-yellow-500 to-rose-500"}
+          >
+            Enroll to see pricing details <span className="text-4xl">!</span>
+          </GradientText>
+        </P>
       </P>
       {/* form  */}
       <SheduleTestForm isOpen={isOpen} setFormOpen={setFormOpen} />
@@ -49,10 +57,10 @@ const FreeTestSection = () => {
         <NormalButton
           onClick={() => setFormOpen(true)}
           gradient={
-            "bg-gradient-to-r from-sky-500 to-sky-600 white-shadow mt-10"
+            "bg-gradient-to-r from-sky-500 to-sky-600 white-shadow"
           }
         >
-          Schedule Now
+          Enroll Now
         </NormalButton>
       </motion.div>
     </div>

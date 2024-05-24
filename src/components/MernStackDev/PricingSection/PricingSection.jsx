@@ -32,7 +32,7 @@ const PricingSection = () => {
   ];
 
   return (
-    <div className="grid gap-10 max-w-[80%] place-items-center">
+    <div className="grid gap-10 md:max-w-[80%] place-items-center mt-10">
       {/* heading  */}
       <motion.p
         initial={{ opacity: 0, y: 100 }}
@@ -44,7 +44,7 @@ const PricingSection = () => {
       </motion.p>
 
       {/* price card  */}
-      <div className="grid place-items-center gap-10 xl:grid-cols-3">
+      <div className="flex flex-col xl:flex-row-reverse gap-10 justify-center items-center">
         {pricingLevels.map((pricingLevel, index) => (
           <PriceCard
             key={`Pricing_level_${index}`}

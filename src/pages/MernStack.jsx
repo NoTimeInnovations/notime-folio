@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import HeroSection from "../components/MernStackDev/HeroSection./HeroSection";
 import NewEraSection from "../components/MernStackDev/NewEraSection/NewEraSection";
 import ScrollProgressIndicator from "../components/common/ScrollProgressIndicator";
-import FreeTestSection from "../components/MernStackDev/FreeTestSection/FreeTestSection";
+import FreeTestSection from "../components/MernStackDev/EnrollmentSection/EnrollmentSection";
 import PossibilitiesSection from "../components/MernStackDev/CareerPathsSection/PossibilitiesSection";
 import IceBergSection from "../components/MernStackDev/IceBergSection/IceBergSection";
 import FrequentlyAskedQuestion from "../components/MernStackDev/FAQ/FrequentlyAskedQuestion";
@@ -39,11 +39,11 @@ const MernStack = () => {
       {/* what will you learn  */}
       <WhatWillYouLearn />
 
-      {/* pricing section  */}
-      <PricingSection />
-
       {/* Free Test  */}
       <FreeTestSection />
+
+      {/* pricing section  */}
+      <PricingSection />
 
       {/* FrequentlyAskedQuestion  */}
       <FrequentlyAskedQuestion />
