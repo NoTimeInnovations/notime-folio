@@ -12,7 +12,7 @@ const DeveloperCard = () => {
     };
 
     return (
-        <div className="bg-[#151B24] py-10 grid place-items-center rounded-xl w-[280px] md:w-[300px]">
+        <div className=" border-[0.5px] border-[#242b34] bg-[#151B24] py-10 grid place-items-center rounded-xl w-[280px] md:w-[300px]">
             {/* profile  */}
             <div className="grid place-items-center gap-2">
                 {/* profile image  */}

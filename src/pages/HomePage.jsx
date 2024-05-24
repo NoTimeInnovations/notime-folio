@@ -6,14 +6,14 @@ import { motion } from "framer-motion";
 import Button from "@/components/home/Button";
 import Link from "next/link";
 import SocialLinks from "@/components/home/SocialLinks";
-import Founder from "@/components/home/Founder";
 import CountsSection from "@/components/home/CountsSection";
 
 import DevelopersSection from "@/components/home/DevelopersSection";
+import Testimonial from "@/components/common/Testimonial";
 
 const HomePage = () => {
   return (
-    <section className="min-h-screen w-screen text-white px-5 md:px-10 lg:px-12 pt-24 md:pt-32 xl:px-[10%] xl:pt-48">
+    <section className="min-h-screen w-screen text-white px-5 md:px-10 lg:px-12 pt-24 md:py-32 xl:px-[10%] xl:py-48">
       {/* top section */}
       <div className="grid grid-cols-1 place-items-center lg:place-items-start lg:justify-center lg:grid-cols-2">
         {/* left side */}
@@ -90,9 +90,9 @@ const HomePage = () => {
           <DevelopersSection />
         </div>
 
-        {/* founder section */}
+        {/* testimonial section */}
         <div className="flex justify-center">
-          <Founder />
+          <Testimonial/>
         </div>
 
         {/* social links */}
