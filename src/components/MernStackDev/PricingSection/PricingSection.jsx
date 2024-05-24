@@ -32,7 +32,7 @@ const PricingSection = () => {
   ];
 
   return (
-    <div className="grid gap-10 md:max-w-[80%] place-items-center mt-10">
+    <div id="#pricing" className="grid gap-10 md:max-w-[80%] place-items-center mt-10">
       {/* heading  */}
       <motion.p
         initial={{ opacity: 0, y: 100 }}

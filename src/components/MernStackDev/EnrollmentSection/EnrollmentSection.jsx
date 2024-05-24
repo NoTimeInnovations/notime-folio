@@ -24,7 +24,7 @@ const FreeTestSection = () => {
   };
 
   return (
-    <div className="text-white max-w-2xl grid gap-4">
+    <div id="enroll" className="text-white max-w-2xl grid gap-4">
       {/* heading  */}
       <H1>
         Enroll in Our Comprehensive{" "}
@@ -38,14 +38,6 @@ const FreeTestSection = () => {
         need to succeed. Join our community of learners today and embark on a
         journey of growth and discovery. Don't wait—enroll now and secure your
         future!
-        <br />
-        <P className={"mt-10"}>
-          <GradientText
-            gradient={"bg-gradient-to-r from-yellow-500 to-rose-500"}
-          >
-            Enroll to see pricing details <span className="text-4xl">!</span>
-          </GradientText>
-        </P>
       </P>
       {/* form  */}
       <SheduleTestForm isOpen={isOpen} setFormOpen={setFormOpen} />

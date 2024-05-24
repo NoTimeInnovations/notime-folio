@@ -13,15 +13,18 @@ import Link from "next/link";
 import WhatWillYouLearn from "../components/MernStackDev/WhatWillYouLearnSection/WhatWillYouLearn";
 import Image from "next/image";
 import PricingSection from "@/components/MernStackDev/PricingSection/PricingSection";
+import ScrolltoEnrollBtn from "@/components/common/ScrolltoEnrollBtn";
 
 const MernStack = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <div className="min-h-screen w-screen overflow-hidden py-40 px-5 md:px-10 lg:px-16 text-white grid gap-10 lg:gap-32 place-items-center">
+
+      {/* scroll progress indicator  */}
       <ScrollProgressIndicator />
+
+      {/* enroll now floating button  */}
+      <ScrolltoEnrollBtn /> 
 
       {/* hero section  */}
       <HeroSection />
