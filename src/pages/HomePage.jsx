@@ -9,7 +9,7 @@ import SocialLinks from "@/components/home/SocialLinks";
 import CountsSection from "@/components/home/CountsSection";
 
 import DevelopersSection from "@/components/home/DevelopersSection";
-import Testimonial from "@/components/common/Testimonial";
+import Testimonial from "@/components/home/Testimonial";
 
 const HomePage = () => {
   return (
@@ -92,7 +92,7 @@ const HomePage = () => {
 
         {/* testimonial section */}
         <div className="flex justify-center">
-          <Testimonial/>
+          <Testimonial />
         </div>
 
         {/* social links */}

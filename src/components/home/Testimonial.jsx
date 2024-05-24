@@ -1,11 +1,15 @@
 import React from "react";
-import H1 from "./H1";
-import P from "./P";
+import H1 from "../common/H1";
+import P from "../common/P";
 
 const Founder = ({ photo, name }) => {
   return (
     <div className="flex flex-col justify-center items-center md:flex-row gap-3 md:gap-5">
-      <img src={photo} alt={name} className="w-16 lg:w-20 aspect-square rounded-full" />
+      <img
+        src={photo}
+        alt={name}
+        className="w-16 lg:w-20 aspect-square rounded-full"
+      />
       <div className="text-center font-medium lg:text-lg">{name}</div>
     </div>
   );
@@ -41,7 +45,9 @@ const Testimonial = () => {
       {/* founder container  */}
       <div className="bg-[#090c0e] grid gap-5 w-full p-5 md:p-10 lg:flex lg:justify-between">
         {/* title  */}
-        <div className="text-xl font-semibold lg:text-2xl xl:text-3xl lg:flex items-center text-gray-700">Founders</div>
+        <div className="text-xl font-semibold lg:text-2xl xl:text-3xl lg:flex items-center text-gray-700">
+          Founders
+        </div>
 
         {/* founders  */}
         <div className="grid grid-cols-2 gap-5">
