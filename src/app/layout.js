@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "NoTime",
   description: "Master Modern Web Development With a Project Based Approach",
-  image: "/website-thumbnail.png",
+  "og:image" : "https://i.ibb.co/M88xDfy/Home-Page-SEO.png"
 };
 
 export default function RootLayout({ children }) {
