@@ -1,27 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import H1 from "../common/H1";
 import P from "../common/P";
 import { motion } from "framer-motion";
+import { client } from "../../utils/sanity/client";
+import imageUrlBuilder from "@sanity/image-url";
 
 const Founder = ({ photo, name }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay : 0.2 }}
+      transition={{ delay: 0.2 }}
       className="flex flex-col justify-center items-center md:flex-row gap-3 md:gap-5"
     >
-      <img
-        src={photo}
-        alt={name}
-        className="w-16 lg:w-20 aspect-square rounded-full"
-      />
+      {/* photo  */}
+      <div className="w-16 lg:w-20 aspect-square overflow-hidden rounded-full">
+        <img
+          src={photo}
+          alt={name}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      {/* name  */}
       <div className="text-center font-medium lg:text-lg">{name}</div>
     </motion.div>
   );
 };
 
 const Testimonial = () => {
+  const builder = imageUrlBuilder(client);
+  const [founders, setFounders] = useState();
+
+  useEffect(() => {
+    const query = `*[_type == 'founder']{
+      name,
+      profile_image
+    }`;
+
+    client.fetch(query).then((res) => {
+      setFounders(res);
+      console.log(res);
+    });
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 0, y: 100 }}
@@ -63,13 +83,13 @@ const Testimonial = () => {
 
         {/* founders  */}
         <div className="grid grid-cols-2 gap-5">
-          {/* founder  1 */}
-          <Founder photo={"/founder/thrisha.jpeg"} name={"Thrisha K"} />
-          {/* founder 2  */}
-          <Founder
-            photo={"/founder/thrisha.jpeg"}
-            name={"Muhammed Rinshad S R"}
-          />
+          {founders?.map((founder, index) => (
+            <Founder
+              key={index}
+              photo={builder.image(founder?.profile_image).url()}
+              name={founder?.name}
+            />
+          ))}
         </div>
       </div>
     </motion.div>

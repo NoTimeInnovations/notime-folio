@@ -6,7 +6,10 @@ import subContents from './schemaTypes/subContents'
 import youtubeVideo from './schemaTypes/youtubeVideo'
 import CourseLevels from './schemaTypes/CourseLevels'
 import Pricing from './schemaTypes/Pricing'
+import BestDev from './schemaTypes/BestDev'
+import Founder from './schemaTypes/Founder'
+import Odometer from './schemaTypes/Odometer'
 
 export const schema = {
-  types: [studentProject, Pricing ,CourseLevels , subContents , youtubeVideo , review , frequentlyAskedQues , blockContent],
+  types: [studentProject, Founder, Odometer , BestDev ,Pricing ,CourseLevels , subContents , youtubeVideo , review , frequentlyAskedQues , blockContent],
 }
