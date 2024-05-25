@@ -9,7 +9,8 @@ import Pricing from './schemaTypes/Pricing'
 import BestDev from './schemaTypes/BestDev'
 import Founder from './schemaTypes/Founder'
 import Odometer from './schemaTypes/Odometer'
+import Images from './schemaTypes/Images'
 
 export const schema = {
-  types: [studentProject, Founder, Odometer , BestDev ,Pricing ,CourseLevels , subContents , youtubeVideo , review , frequentlyAskedQues , blockContent],
+  types: [studentProject, Images , Founder, Odometer , BestDev ,Pricing ,CourseLevels , subContents , youtubeVideo , review , frequentlyAskedQues , blockContent],
 }

@@ -9,7 +9,9 @@ export const metadata = {
   title: "NoTime",
   description: "Master Modern Web Development With a Project Based Approach",
   openGraph: {
-    images: ["/website-thumbnail.svg"],
+    images: [
+      "https://cdn.sanity.io/images/tgzcz07i/production/80c6f026b58e75e993aeb105654f971e76a50981-2557x1342.png",
+    ],
   },
 };
 
