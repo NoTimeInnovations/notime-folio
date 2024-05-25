@@ -9,7 +9,7 @@ export const metadata = {
   title: "NoTime",
   description: "Master Modern Web Development With a Project Based Approach",
   openGraph: {
-    images: ["/website-thumbnail.png"],
+    images: ["/website-thumbnail.svg"],
   },
 };
 
