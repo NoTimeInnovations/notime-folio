@@ -39,7 +39,6 @@ const Testimonial = () => {
 
     client.fetch(query).then((res) => {
       setFounders(res);
-      console.log(res);
     });
   }, []);
   return (

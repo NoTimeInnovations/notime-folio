@@ -24,7 +24,7 @@ const ProjectCard = ({ project }) => {
           >
             Visit Site
           </motion.div>
-          <img className="rounded-t-lg aspect-[16/8]" src={builder.image(project?.project_image).url()} alt="" />
+          <img className="rounded-t-lg aspect-[16/8]" src={builder?.image(project?.project_image).url()} alt="" />
         </a>
 
         <div className="p-5 flex gap-5">
@@ -32,7 +32,7 @@ const ProjectCard = ({ project }) => {
           <div>
             <img
               className="w-12 rounded-md aspect-square"
-              src={builder.image(project?.profile_image).url()}
+              src={builder?.image(project?.profile_image).url()}
               alt={project?.name}
             />
           </div>

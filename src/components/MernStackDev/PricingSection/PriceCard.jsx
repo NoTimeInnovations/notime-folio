@@ -81,7 +81,7 @@ const PriceCard = ({ pricingLevel, gradientColor, index }) => {
                 key={`${pricingLevel?.tag}_feature_${index}`}
                 className="flex gap-3 items-start"
               >
-                <Image src="checkmark.svg" width={25} height={25} />
+                <Image src="checkmark.svg" width={25} height={25} alt="checkmark" />
                 <div className="text-lg md:text-xl font-medium text-slate-300">
                   {feature}
                 </div>

@@ -19,7 +19,7 @@ const PossibilitieCard = ({ heading, children, arrange }) => {
         damping: 20,
       }}
       ref={ref}
-      className={`flex items-center ${arrange}`}
+      className={`flex items-center ${arrange} relative`}
     >
       <div className="w-[300px] md:w-[400px] lg:w-[600px] p-[0.04rem] md:p-[0.1rem] grid place-items-center rounded-xl overflow-hidden relative">
         <motion.div
