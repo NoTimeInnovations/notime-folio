@@ -7,60 +7,41 @@ import MainImage from "./MainImage";
 const HeroSection = () => {
   const motionAttributes = {
     initial: { opacity: 0, y: 100 },
-    animate: { opacity: 1, y: 0 },
+    whileInView: { opacity: 1, y: 0 },
     transition: { duration: 0.3 },
   };
 
   return (
-    <motion.div
-      {...motionAttributes}
-      className="text-center grid gap-10 place-items-center max-w-5xl"
-    >
+    <div className="text-center grid gap-10 place-items-center max-w-5xl">
       {/* headings */}
-      <motion.div
-        {...motionAttributes}
-        transition={{ ...motionAttributes.transition, delay: 0.1 }}
-        className="grid gap-5"
-      >
+      <div className="grid gap-5">
         {/* top heading */}
-        <motion.p
-          {...motionAttributes}
-          transition={{ ...motionAttributes.transition, delay: 0.2 }}
-          className="text-[#6ce2ff] font-medium tracking-[1px]"
-        >
+        <p className="text-[#6ce2ff] font-medium tracking-[1px]">
           FOR DEVELOPERS WHO WANT TO STAND OUT AND BECOME IRREPLACEABLE
-        </motion.p>
+        </p>
 
         {/* main heading */}
-        <motion.p
-          {...motionAttributes}
-          transition={{ ...motionAttributes.transition, delay: 0.3 }}
-          className="text-[2rem] leading-[2rem] md:text-[4rem] md:leading-[4rem] font-bold"
-        >
+        <p className="text-[2rem] leading-[2rem] md:text-[4rem] md:leading-[4rem] font-bold">
           Become a top 1%{" "}
           <span className="bg-gradient-to-r from-green-400 to-yellow-500 bg-overlay">
             MERN Stack
           </span>{" "}
           developer in only one course
-        </motion.p>
+        </p>
 
         {/* sub heading */}
-        <motion.p
-          {...motionAttributes}
+        <p
           transition={{ ...motionAttributes.transition, delay: 0.4 }}
           className="font-medium text-slate-300 md:text-[1.3rem] md:px-10 lg:text-[1.7rem]"
         >
           Escape the shallow content & dive deep into the hottest tech of 2024
-        </motion.p>
-      </motion.div>
+        </p>
+      </div>
 
       {/* image */}
-      <motion.div
-        {...motionAttributes}
-        transition={{ ...motionAttributes.transition, delay: 0.5 }}
-      >
+      <div>
         <MainImage />
-      </motion.div>
+      </div>
 
       {/* uptodate mark */}
       <motion.div
@@ -95,7 +76,7 @@ const HeroSection = () => {
       >
         <ScrollDownButton text={"Scroll to the Detail"} to={"#details"} />
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
 

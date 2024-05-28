@@ -6,7 +6,6 @@ const NavMenu = ({ isOpen, setIsOpen }) => {
   const menuVariants = {
     open: {
       clipPath: "circle(150% at 78% 0)",
-      x: 0,
       transition: {
         type: "spring",
         stiffness: 200,
@@ -15,7 +14,6 @@ const NavMenu = ({ isOpen, setIsOpen }) => {
     },
     closed: {
       clipPath: "circle(0% at 78% 0)",
-      x: 100,
       transition: {
         type: "spring",
         stiffness: 400,
