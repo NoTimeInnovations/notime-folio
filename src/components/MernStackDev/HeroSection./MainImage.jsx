@@ -22,7 +22,7 @@ const MainImage = () => {
               repeat: Infinity,
             },
           }}
-          className="relative aspect-square h-[300px] xs:h-[380px] md:h-[500px] "
+          className="relative aspect-square h-[350px] xs:h-[380px] md:h-[500px] "
         >
           {/* mongodb  */}
           <img
