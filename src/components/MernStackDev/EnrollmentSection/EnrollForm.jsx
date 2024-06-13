@@ -5,9 +5,12 @@ import { ValidateAndSubmit } from "@/app/actions/EnrollForm";
 import TickMark from "../../common/TickMark";
 import GradientText from "../../common/GradientText";
 import P from "../../common/P";
+import toast from "react-hot-toast";
 
 const SheduleTestForm = ({ isOpen, setFormOpen }) => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [imageUploadPlaceholder, setImageUploadPlaceholder] = useState("Upload transaction screenshot");
+  const [transactionScreenshot, setTransactionScreenshot] = useState(null);
 
   const varients = {
     open: {
@@ -33,6 +36,23 @@ const SheduleTestForm = ({ isOpen, setFormOpen }) => {
     referral_code: "",
   });
 
+
+  const handleImageUpload = (e) => {
+
+    const file = e.target.files[0];
+
+    if (file) {
+
+      const extension = file.name.split(".")[1];
+      if (extension !== "jpg" && extension !== "jpeg" && extension !== "png") {
+        return toast.error("Invalid file format. Only jpg, jpeg and png files are allowed");
+      }
+
+      setImageUploadPlaceholder(file.name);
+      setTransactionScreenshot(file);
+    }
+  }
+
   return (
     <div className="relative">
       {/* form  */}
@@ -48,7 +68,7 @@ const SheduleTestForm = ({ isOpen, setFormOpen }) => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              ValidateAndSubmit(form, setIsFormSubmitted);
+              ValidateAndSubmit(form, setIsFormSubmitted , transactionScreenshot);
             }}
             className="grid gap-5 mt-10 lg:gap-10 py-10"
           >
@@ -91,6 +111,22 @@ const SheduleTestForm = ({ isOpen, setFormOpen }) => {
               id="referral_code"
               onChange={(e) => setForm({ ...form, referral_code: e.target.value })}
             />
+
+            {/* transaction photo  */}
+            <div className="w-full">
+              <input type="file" name="transaction_photo" id="transaction_photo" onChange={handleImageUpload} className="hidden" />
+
+              <label htmlFor="transaction_photo" className=" flex items-center gap-3 cursor-pointer lg:text-xl focus:outline-none focus:border-white bg-transparent border-b border-b-[#1c222e] text-[#9ca3af] w-full p-2" >
+
+                {/* icon  */}
+                <img src="/upload.svg" alt="upload" className="w-8" />
+
+                {/* text  */}
+                <p className="ml-2 max-w-[350px] text-ellipsis overflow-hidden text-nowrap ">{imageUploadPlaceholder}</p>
+
+              </label>
+
+            </div>
 
             {/* buttons */}
             <div className="flex items-center gap-5 relative z-[49]">

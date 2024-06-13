@@ -29,26 +29,26 @@ const PriceCard = ({ pricingLevel, gradientColor, index }) => {
         </div>
 
         {/* price  */}
-        <motion.div
+        {/* <motion.div
           initial={{ scale: 0.1 }}
           whileInView={{ scale: 1 }}
           transition={{ delay: 0.2 }}
           className="font-bold text-6xl md:text-7xl"
         >
           ₹{pricingLevel?.price ? pricingLevel.price.toLocaleString() : "0"}
-        </motion.div>
+        </motion.div> */}
 
         {/* price sub tag  */}
-        <div className="text-lg font-semibold text-slate-300">
+        {/* <div className="text-lg font-semibold text-slate-300">
           Price including sales tax
-        </div>
+        </div> */}
 
         {/* buy now button  */}
-        <button
+        {/* <button
           className={`bg-gradient-to-r ${gradientColor} py-3 text-sm md:text-base w-full rounded-lg`}
         >
           Buy now
-        </button>
+        </button> */}
 
         {/* description  */}
         <motion.div initial={{ opacity : 0 , y : 100 }} whileInView={{ opacity : 1 , y : 0 }} className="text-sm text-slate-400 md:text-base">
