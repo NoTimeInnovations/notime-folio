@@ -34,7 +34,7 @@ const Header = () => {
       ></div>
 
       {/* freelancing link  */}
-      <div className="lg:hidden fixed bottom-0 left-0 w-screen py-3 z-[51] flex justify-center bg-[#0000006e] backdrop-blur-md border-t-[.5px] border-[#ffffff2d]">
+      <div className={`lg:hidden fixed bottom-0 left-0 w-screen py-3 z-[51] flex justify-center bg-[#0000006e] backdrop-blur-md border-t-[.5px] border-[#ffffff2d] ${ pathname === '/interested-in-freelancing' && 'hidden' }`}>
         <InterestedInFreelancingText />
       </div>
 
@@ -65,7 +65,7 @@ const Header = () => {
         {/* hamburger icon  */}
 
         <div className="flex items-center gap-5 xl:gap-10">
-          <InterestedInFreelancingText className={'hidden lg:block'} />
+          <InterestedInFreelancingText className={`hidden ${ pathname !== '/interested-in-freelancing' && 'lg:block' }`} />
           <HamburgerIcon isOpen={isOpen} toggleOpen={toggleOpen} />
         </div>
 
