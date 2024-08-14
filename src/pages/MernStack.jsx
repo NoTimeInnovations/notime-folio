@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import HeroSection from "../components/MernStackDev/HeroSection./HeroSection";
+import HeroSection from "../components/MernStackDev/HeroSection/HeroSection";
 import NewEraSection from "../components/MernStackDev/NewEraSection/NewEraSection";
 import ScrollProgressIndicator from "../components/common/ScrollProgressIndicator";
 import FreeTestSection from "../components/MernStackDev/EnrollmentSection/EnrollmentSection";
