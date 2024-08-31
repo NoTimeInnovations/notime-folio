@@ -14,10 +14,12 @@ const DevelopersSection = () => {
       number_of_projects,
       best_project_link,
       skill,
-      profile_image
+      "profile_image" : image
     }`;
 
     client.fetch(query).then((res) => {
+      console.log(res);
+      
       setDevelopers(res);
     });
   }, []);

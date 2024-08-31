@@ -30,7 +30,7 @@ export default {
         type : 'number'
     },
     {
-        name : 'profile_image',
+        name : 'image',
         title : 'Profile Image',
         type : 'image',
         options : {
