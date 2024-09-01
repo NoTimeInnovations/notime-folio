@@ -29,16 +29,16 @@ const VideoCard = ({ video }) => {
             alt=""
           />
         </a>
-        <div className="p-5 flex gap-5">
+        <div className="p-5 gap-5">
           <a href="https://www.youtube.com/@notimeinstitution6818">
             <img
-              className="rounded-full w-16"
+              className="rounded-full w-14"
               src="/channel_profile.jpg"
               alt="channel"
             />
           </a>
           {/* title and desc  */}
-          <div>
+          <div className="mt-5">
             <a href="#">
               <h5 className="mb-2 text-xl font-bold tracking-tight text-white">
                 {video?.title}
