@@ -37,21 +37,21 @@ const SheduleTestForm = ({ isOpen, setFormOpen }) => {
   });
 
 
-  const handleImageUpload = (e) => {
+  // const handleImageUpload = (e) => {
 
-    const file = e.target.files[0];
+  //   const file = e.target.files[0];
 
-    if (file) {
+  //   if (file) {
 
-      const extension = file.name.split(".")[1];
-      if (extension !== "jpg" && extension !== "jpeg" && extension !== "png") {
-        return toast.error("Invalid file format. Only jpg, jpeg and png files are allowed");
-      }
+  //     const extension = file.name.split(".")[1];
+  //     if (extension !== "jpg" && extension !== "jpeg" && extension !== "png") {
+  //       return toast.error("Invalid file format. Only jpg, jpeg and png files are allowed");
+  //     }
 
-      setImageUploadPlaceholder(file.name);
-      setTransactionScreenshot(file);
-    }
-  }
+  //     setImageUploadPlaceholder(file.name);
+  //     setTransactionScreenshot(file);
+  //   }
+  // }
 
   return (
     <div className="relative">

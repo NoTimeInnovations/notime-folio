@@ -8,11 +8,10 @@ const isValidEmail = (email) => {
 
 export const ValidateAndSubmit = (
   form,
-  setIsFormSubmitted,
-  transactionScreenshot
+  setIsFormSubmitted
 ) => {
   const isAnyFieldMissing =
-    !form.name || !form.email || !form.phone || !transactionScreenshot;
+    !form.name || !form.email || !form.phone ;
   if (isAnyFieldMissing) {
     return toast.error("All fields are required");
   }
@@ -28,9 +27,6 @@ export const ValidateAndSubmit = (
   // If all validations pass, submit the form
   toast.promise(
     SubmitForm(form, setIsFormSubmitted)
-      .then(() => {
-        sendTransactionScreenshot(form, transactionScreenshot);
-      })
       .then(() => {
         setIsFormSubmitted(true);
       }),
@@ -73,31 +69,5 @@ const SubmitForm = async (form) => {
 
   if (json.error) {
     return Promise.reject(json.error);
-  }
-};
-
-const sendTransactionScreenshot = async (form, transactionScreenshot) => {
-  const teleUrl = process.env.NEXT_PUBLIC_TELE_URL;
-
-  const formData = new FormData();
-  const extension = transactionScreenshot.name.split(".")[1];
-  const imageFile = new File(
-    [transactionScreenshot],
-    `${form.name}'s_transaction.${extension}`
-  );
-  const fileCaption = `Name : ${form.name} \nEmail : ${form.email} \nPhone : +91${form.phone} \nReferral Code : ${form.referral_code}`;
-
-  formData.append("file", imageFile);
-  formData.append("foldername", fileCaption);
-
-  const telegramResponse = await fetch(`${teleUrl}/upload`, {
-    method: "POST",
-    body: formData,
-  });
-
-  const telegramJson = await telegramResponse.json();
-
-  if (telegramJson.error) {
-    return Promise.reject(telegramJson.error);
   }
 };
