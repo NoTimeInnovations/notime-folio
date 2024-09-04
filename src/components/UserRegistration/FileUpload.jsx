@@ -2,34 +2,31 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import LoadingSpinner from '../common/LoadingSpinner';
+import { RxCross1 } from "react-icons/rx";
 
-export default function FileUpload({setText}) {
+export default function FileUpload({ setText, loading, filePath, setFilePath, handelImageUpload }) {
 
-    const [profileImgURL, setProfileImgURL] = useState(null);
-    const [loading, setLoading] = useState(false);
-
-    const handelImageUpload = async (e) => {
-        const file = e.target.files[0];
-        console.log(file)
-        const data = new FormData();
-        data.set('profileImage', file)
-        try {
-            setLoading(true)
-            const response = await axios.post("/api/registration", data)
-            // console.log(response.data)
-            setProfileImgURL(response.data.profileImageUrl)
-            setText("Image Uploaded")
-            setLoading(false)
-        } catch (error) {
-            setLoading(false)
-            setText("Failed to Upload")
-            console.log("Some Error Occured")
-        }
+    const handelChangeImage = () => {
+        setFilePath(null)
+        setText("Upload Profile Image")
     }
+
     return (
         <>
-            {loading ? <LoadingSpinner /> :
-                profileImgURL ? <img src={profileImgURL} alt="" className="w-full h-full object-cover" /> :
+            {filePath ? <div className="relative w-full h-full">
+                <img
+                    src={`http://localhost:3000/${filePath}`}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                />
+                <button
+                    className="absolute top-2 right-2 bg-white text-gray-700 rounded-full p-1 hover:bg-gray-200 focus:outline-none flex items-center justify-center"
+
+                >
+                    <RxCross1 onClick={handelChangeImage} />
+                </button>
+            </div>
+                : loading ? <LoadingSpinner /> :
                     <div className="flex items-center justify-center w-full">
                         <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                             <div className="flex flex-col items-center justify-center pt-5 pb-6">
