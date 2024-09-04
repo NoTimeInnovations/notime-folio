@@ -17,12 +17,13 @@ export default function RegistrationPage() {
     const [loading, setLoading] = useState(false);
     const [submit, setSubmit] = useState(false);
     const [filePath, setFilePath] = useState(null);
-    const [alertMsg, setAlertMsg] = useState(null)
+    const [alertMsg,setAlertMsg] = useState(null)
 
 
 
     const handelImageUpload = async (e) => {
         setText("Upload Profile Image");
+        setAlertMsg(null)
         const file = e.target.files[0];
         console.log(file)
         const data = new FormData();
@@ -69,11 +70,13 @@ export default function RegistrationPage() {
     const handelOnFormSubmit = async (e) => {
         e.preventDefault();
         setAlertMsg(null)
-        if (filePath) {
+        if(filePath)
+        {
             setText("Profile Image Loaded")
         }
-        else {
-            setText("Upload Profile Image");
+        else
+        {
+        setText("Upload Profile Image");
         }
         const name = e.target.name.value;
         const email = e.target.email.value;
@@ -107,7 +110,7 @@ export default function RegistrationPage() {
             <div className='grid xs:grid-cols-1 xs:gap-10 lg:grid-cols-2 items-center justify-center w-3/4 mx-auto'>
                 <div>
                     {alertMsg && <Alert msg={alertMsg} />}
-                    <FileUpload setText={setText} filePath={filePath} loading={loading} handelImageUpload={handelImageUpload} setFilePath={setFilePath} />
+                    <FileUpload setText={setText} filePath={filePath} loading={loading} handelImageUpload={handelImageUpload} setFilePath={setFilePath} setAlertMsg= {setAlertMsg} />
                     <div>
                         <h4
                             className={`text-sm text-center mt-6 ${text === "Image Uploaded"

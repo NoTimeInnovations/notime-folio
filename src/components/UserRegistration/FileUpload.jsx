@@ -4,10 +4,11 @@ import React, { useState } from 'react'
 import LoadingSpinner from '../common/LoadingSpinner';
 import { RxCross1 } from "react-icons/rx";
 
-export default function FileUpload({ setText, loading, filePath, setFilePath, handelImageUpload }) {
+export default function FileUpload({ setText, loading, filePath, setFilePath, handelImageUpload, setAlertMsg }) {
 
     const handelChangeImage = () => {
         setFilePath(null)
+        setAlertMsg(null)
         setText("Upload Profile Image")
     }
 
