@@ -37,21 +37,21 @@ const SheduleTestForm = ({ isOpen, setFormOpen }) => {
   });
 
 
-  const handleImageUpload = (e) => {
+  // const handleImageUpload = (e) => {
 
-    const file = e.target.files[0];
+  //   const file = e.target.files[0];
 
-    if (file) {
+  //   if (file) {
 
-      const extension = file.name.split(".")[1];
-      if (extension !== "jpg" && extension !== "jpeg" && extension !== "png") {
-        return toast.error("Invalid file format. Only jpg, jpeg and png files are allowed");
-      }
+  //     const extension = file.name.split(".")[1];
+  //     if (extension !== "jpg" && extension !== "jpeg" && extension !== "png") {
+  //       return toast.error("Invalid file format. Only jpg, jpeg and png files are allowed");
+  //     }
 
-      setImageUploadPlaceholder(file.name);
-      setTransactionScreenshot(file);
-    }
-  }
+  //     setImageUploadPlaceholder(file.name);
+  //     setTransactionScreenshot(file);
+  //   }
+  // }
 
   return (
     <div className="relative">
@@ -113,20 +113,20 @@ const SheduleTestForm = ({ isOpen, setFormOpen }) => {
             />
 
             {/* transaction photo  */}
-            <div className="w-full">
+            {/* <div className="w-full">
               <input type="file" name="transaction_photo" id="transaction_photo" onChange={handleImageUpload} className="hidden" />
 
-              <label htmlFor="transaction_photo" className=" flex items-center gap-3 cursor-pointer lg:text-xl focus:outline-none focus:border-white bg-transparent border-b border-b-[#1c222e] text-[#9ca3af] w-full p-2" >
+              <label htmlFor="transaction_photo" className=" flex items-center gap-3 cursor-pointer lg:text-xl focus:outline-none focus:border-white bg-transparent border-b border-b-[#1c222e] text-[#9ca3af] w-full p-2" > */}
 
                 {/* icon  */}
-                <img src="/upload.svg" alt="upload" className="w-8" />
+                {/* <img src="/upload.svg" alt="upload" className="w-8" /> */}
 
                 {/* text  */}
-                <p className="ml-2 max-w-[350px] text-ellipsis overflow-hidden text-nowrap ">{imageUploadPlaceholder}</p>
+                {/* <p className="ml-2 max-w-[350px] text-ellipsis overflow-hidden text-nowrap ">{imageUploadPlaceholder}</p> */}
 
-              </label>
+              {/* </label>
 
-            </div>
+            </div> */}
 
             {/* buttons */}
             <div className="flex items-center gap-5 relative z-[49]">

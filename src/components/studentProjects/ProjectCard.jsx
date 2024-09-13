@@ -1,39 +1,52 @@
 import React from "react";
 import { motion } from "framer-motion";
-import imageUrlBuilder from '@sanity/image-url'
+import imageUrlBuilder from "@sanity/image-url";
 import { client } from "../../utils/sanity/client";
 import Image from "next/image";
 
 const ProjectCard = ({ project }) => {
-  const builder = imageUrlBuilder(client)
+  const builder = imageUrlBuilder(client);
 
   return (
     <>
       <motion.div
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{  duration: 0.5}}
-        className="max-w-sm bg-[#0e1116] border-[#252d39] border rounded-lg shadow "
+        transition={{ duration: 0.5 }}
+        className=" bg-[#0e1116] h-full border-[#252d39] border rounded-lg shadow  overflow-hidden"
       >
         {/* thumbnail  */}
-        <a target="_blank" href={project?.project_link} className="relative cursor-pointer">
+        <a
+          target="_blank"
+          href={project?.project_link}
+          className="relative cursor-pointer "
+        >
           <motion.div
             initial={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
-            className=" absolute top-0 left-0 w-full h-full bg-[#00000071] rounded-t-lg backdrop-blur-sm text-white font-medium text-2xl grid place-content-center "
+            className=" absolute z-[1] top-0 left-0 w-full h-full bg-[#00000071] rounded-t-lg backdrop-blur-sm text-white font-medium text-2xl grid place-content-center "
           >
             Visit Site
           </motion.div>
-          <img className="rounded-t-lg aspect-[16/8]" src={builder?.image(project?.project_image).url()} alt="" />
+          <div className="relative w-full aspect-[16/9] overflow-hidden rounded">
+            <Image
+              src={builder?.image(project?.project_image).url()}
+              alt={project?.name}
+              fill
+              className="object-cover w-full h-full"
+            />
+          </div>
         </a>
 
-        <div className="p-5 flex gap-5">
+        {/* details  */}
+        <div className="p-5 grid gap-5">
           {/* developer  */}
-          <div>
-            <img
-              className="w-12 rounded-md aspect-square"
-              src={builder?.image(project?.profile_image).url()}
+          <div className="w-[48px] rounded relative aspect-square overflow-hidden">
+            <Image
+              src={builder.image(project?.profile_image).url()}
               alt={project?.name}
+              fill
+              className="object-cover w-full h-full"
             />
           </div>
 

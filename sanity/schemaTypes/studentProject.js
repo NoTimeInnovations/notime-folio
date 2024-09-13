@@ -32,7 +32,7 @@ export default {
       name: "project_description",
       title: "Project Description",
       type: "text",
-      validation: (Rule) => Rule.max(100).min(30),
+      validation: (Rule) => Rule.max(150).min(30),
     },
     {
       name: "project_link",
