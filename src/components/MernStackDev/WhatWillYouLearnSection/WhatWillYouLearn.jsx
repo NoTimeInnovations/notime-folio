@@ -49,7 +49,7 @@ const WhatWillYouLearn = () => {
 
       {/* levels */}
 
-      <div className="grid gap-20 place-items-center lg:grid-cols-2">
+      <div className="grid gap-20 lg:grid-cols-2">
         {levels?.map((level, index) => (
           <LevelCard
             key={`${level?.title}_${index}`}
