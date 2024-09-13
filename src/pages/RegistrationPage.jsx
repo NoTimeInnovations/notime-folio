@@ -17,7 +17,7 @@ export default function RegistrationPage() {
     const [loading, setLoading] = useState(false);
     const [submit, setSubmit] = useState(false);
     const [filePath, setFilePath] = useState(null);
-    const [alertMsg,setAlertMsg] = useState(null)
+    const [alertMsg, setAlertMsg] = useState(null)
 
 
 
@@ -70,13 +70,11 @@ export default function RegistrationPage() {
     const handelOnFormSubmit = async (e) => {
         e.preventDefault();
         setAlertMsg(null)
-        if(filePath)
-        {
+        if (filePath) {
             setText("Profile Image Loaded")
         }
-        else
-        {
-        setText("Upload Profile Image");
+        else {
+            setText("Upload Profile Image");
         }
         const name = e.target.name.value;
         const email = e.target.email.value;
@@ -110,7 +108,7 @@ export default function RegistrationPage() {
             <div className='grid xs:grid-cols-1 xs:gap-10 lg:grid-cols-2 items-center justify-center w-3/4 mx-auto'>
                 <div>
                     {alertMsg && <Alert msg={alertMsg} />}
-                    <FileUpload setText={setText} filePath={filePath} loading={loading} handelImageUpload={handelImageUpload} setFilePath={setFilePath} setAlertMsg= {setAlertMsg} />
+                    <FileUpload setText={setText} filePath={filePath} loading={loading} handelImageUpload={handelImageUpload} setFilePath={setFilePath} setAlertMsg={setAlertMsg} />
                     <div>
                         <h4
                             className={`text-sm text-center mt-6 ${text === "Image Uploaded"
@@ -169,11 +167,14 @@ export default function RegistrationPage() {
                             </div>
                         </div>
 
-                        <div className="flex items-start mb-5">
+                        <div className="flex items-start mb-1">
                             <div className="flex items-center h-5">
                                 <input id="terms" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
                             </div>
                             <label htmlFor="terms" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a></label>
+                        </div>
+                        <div className="flex items-start mb-1">
+                            <label htmlFor="terms" className="text-[11px] font-medium text-gray-900 dark:text-gray-300">Already registered  <Link href="/auth/login" className='text-blue-600 hover:underline dark:text-blue-500 text-sm font-medium'>login</Link></label>
                         </div>
 
                         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
