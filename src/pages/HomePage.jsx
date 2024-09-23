@@ -83,7 +83,7 @@ const HomePage = () => {
       <div className="relative ">
 
         {/* stop things  */}
-        <div className="lg:sticky lg:top-[-90px] z-[10]">
+        <div className="lg:sticky lg:top-[-270px] z-[10]">
           {/* counts  */}
           <div className="flex justify-center">
             <CountsSection />
