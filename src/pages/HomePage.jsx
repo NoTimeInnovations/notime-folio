@@ -83,7 +83,7 @@ const HomePage = () => {
       <div className="relative ">
 
         {/* stop things  */}
-        <div className="sticky top-[-90px] z-[10]">
+        <div className="lg:sticky lg:top-[-90px] z-[10]">
           {/* counts  */}
           <div className="flex justify-center">
             <CountsSection />
@@ -91,7 +91,11 @@ const HomePage = () => {
 
           {/* teaching flow  */}
           <div className="pb-20 pt-10">
-            <TeachingFlow />
+            <TeachingFlow startIndex={0} number={5} />
+          </div>
+
+          <div className="pb-20 pt-10 hidden lg:block">
+            <TeachingFlow startIndex={5} number={10} />
           </div>
 
           {/* developers section */}
