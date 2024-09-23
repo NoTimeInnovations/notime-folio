@@ -10,6 +10,7 @@ import CountsSection from "@/components/home/CountsSection";
 
 import DevelopersSection from "@/components/home/DevelopersSection";
 import Testimonial from "@/components/home/Testimonial";
+import TeachingFlow from "@/components/home/TeachingFlow";
 
 const HomePage = () => {
   return (
@@ -80,20 +81,32 @@ const HomePage = () => {
 
       {/* more contents  */}
       <div className="relative ">
-        {/* counts  */}
-        <div className="flex justify-center">
-          <CountsSection />
-        </div>
 
-        {/* developers section */}
-        <div className="flex justify-center py-10">
-          <DevelopersSection />
-        </div>
+        {/* stop things  */}
+        <div className="sticky top-[-90px] z-[10]">
+          {/* counts  */}
+          <div className="flex justify-center">
+            <CountsSection />
+          </div>
 
-        {/* testimonial section */}
-        <div className="flex justify-center">
+          {/* teaching flow  */}
+          <div className="pb-20 pt-10">
+            <TeachingFlow />
+          </div>
+
+          {/* developers section */}
+          <div className="flex justify-center py-10 z-[10]">
+            <DevelopersSection />
+          </div>
+
+          {/* testimonial section */}
+        <div className="flex justify-center relative ">
           <Testimonial />
         </div>
+        </div>
+
+        {/* required for animation  */}
+        <div className="min-h-[200vh]"></div>
 
         {/* social links */}
         <div className="flex justify-center lg:absolute top-10">

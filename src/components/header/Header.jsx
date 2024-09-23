@@ -28,7 +28,7 @@ const Header = () => {
     <nav className={`${isStuduio && "hidden"}`}>
       {/* backdrop  */}
       <div
-        className={`lg:hidden bg-[#0000004d] pointer-events-none fixed top-0 left-0 h-screen w-screen backdrop-blur-md z-[51] transition-all ${
+        className={`lg:hidden bg-[#0000004d] pointer-events-none fixed -top-[1px] left-0 h-screen w-screen backdrop-blur-md z-[51] transition-all ${
           isOpen ? "opacity-1 pointer-events-none" : "opacity-0"
         }`}
       ></div>
