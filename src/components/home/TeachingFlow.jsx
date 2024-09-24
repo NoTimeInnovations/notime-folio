@@ -92,7 +92,7 @@ const flows = [
     desc: "Get support for job placements and career opportunities.",
   },
   {
-    title: "Skill Development",
+    title: "Skill Development Continues",
     desc: "Continuous learning to enhance your skills and career prospects.",
   },
 ];
