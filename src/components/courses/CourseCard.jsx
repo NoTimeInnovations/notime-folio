@@ -3,8 +3,8 @@ import GradientText from "../common/GradientText";
 
 const CourseCard = ({ course }) => {
   return (
-    <div>
-      <div className="max-w-sm bg-[#0e1116] border-[#252d39] border rounded-lg shadow">
+    <div className="cursor-pointer hover:scale-110 transition-all">
+      <div className="md:w-[40rem] w-[20rem] bg-[#0e1116] border-[#252d39] border rounded-lg shadow">
         <div>
           <img className="rounded-t-lg" src={course.image} alt="" />
         </div>
