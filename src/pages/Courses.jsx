@@ -60,12 +60,12 @@ const Courses = () => {
   }, []);
 
   return (
-    <div className="min-h-screen px-5 md:px-10 lg:px-16 xl:px-[15%]">
+    <div>
       <ScrollProgressIndicator />
 
       {/* courses  */}
 
-      <div className="grid gap-10 lg:grid-cols-3 lg:mt-20 place-items-center">
+      <div className="grid gap-10 lg:grid-cols-2 lg:mt-20 place-items-center justify-center">
         {courses.map((course, index) => (
           <CourseCard key={index} course={course} />
         ))}
