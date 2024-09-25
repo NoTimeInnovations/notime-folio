@@ -29,7 +29,7 @@ const Banner = ({ text }) => {
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className="bg-[#181d24] py-20 px-20 rounded-md relative"
+      className="bg-[#181d2448] py-20 px-20 rounded-md relative flex justify-center items-center h-10 rounded-2xl"
     >
       {/* banner title */}
       <div className="text-white text-4xl xl:text-6xl text-center font-bold relative z-40">
