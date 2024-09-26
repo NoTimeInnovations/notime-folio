@@ -1,4 +1,5 @@
 import HeroCarousel from "@/components/EventsPage/HeroCarousel";
+import UpcomingEvents from "@/components/EventsPage/UpcomingEvents";
 import React from "react";
 
 export const EventDetails = [
@@ -9,7 +10,7 @@ export const EventDetails = [
     date: "2024-10-12",
     status: "upcoming",
     location: "San Francisco, CA",
-    trending : true
+    trending: true,
   },
   {
     title: "JavaScript Essentials Workshop",
@@ -18,7 +19,7 @@ export const EventDetails = [
     date: "2024-09-25",
     status: "completed",
     location: "New York, NY",
-    trending : true
+    trending: true,
   },
   {
     title: "React.js Best Practices",
@@ -27,7 +28,7 @@ export const EventDetails = [
     date: "2024-10-05",
     status: "completed",
     location: "Los Angeles, CA",
-    trending : true
+    trending: true,
   },
   {
     title: "GraphQL API with Node.js",
@@ -36,7 +37,7 @@ export const EventDetails = [
     date: "2024-11-15",
     status: "upcoming",
     location: "Austin, TX",
-    trending : true
+    trending: true,
   },
   {
     title: "Deploying MERN Apps to the Cloud",
@@ -45,15 +46,16 @@ export const EventDetails = [
     date: "2024-12-01",
     status: "upcoming",
     location: "Seattle, WA",
-    trending : false
+    trending: false,
   },
 ];
 
 const EventsPage = () => {
   return (
-    <div className="px-[8%]  py-[150px] ">
+    <main className="px-[5%] sm:px-[8%]  py-[120px] ">
       <HeroCarousel />
-    </div>
+      <UpcomingEvents />
+    </main>
   );
 };
 

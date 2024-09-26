@@ -22,7 +22,7 @@ export default function HeroCarousel() {
   );
 
   return (
-    <>
+    <section>
       <Swiper
         breakpoints={{
           1024: {
@@ -114,6 +114,6 @@ export default function HeroCarousel() {
           </SwiperSlide>
         ))}
       </Swiper>
-    </>
+    </section>
   );
 }
