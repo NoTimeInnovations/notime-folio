@@ -17,6 +17,10 @@ import { EventDetails } from "@/pages/EventsPage";
 import Image from "next/image";
 
 export default function HeroCarousel() {
+  const TreandingEvents = EventDetails?.filter(
+    (events) => events.trending === true
+  );
+
   return (
     <>
       <Swiper
@@ -53,7 +57,7 @@ export default function HeroCarousel() {
         modules={[Autoplay, Pagination, Navigation, EffectCoverflow]}
         className="mySwiper event-page-swiper"
       >
-        {EventDetails?.map((event, index) => (
+        {TreandingEvents?.map((event, index) => (
           <SwiperSlide
             className="relative group rounded-md overflow-hidden"
             key={`${event?.title}_${index}_carousel`}
