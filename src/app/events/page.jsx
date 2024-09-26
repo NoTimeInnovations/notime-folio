@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import EventsPage from "@/pages/EventsPage";
 
-const EventsPage = () => {
-  return (
-    <div>EventsPage</div>
-  )
-}
+const page = () => {
+  return <EventsPage/>
+};
 
-export default EventsPage
+export default page;
