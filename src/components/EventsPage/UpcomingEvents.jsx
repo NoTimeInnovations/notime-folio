@@ -19,7 +19,7 @@ const UpcomingEvents = () => {
       </H1>
 
       {/* events  */}
-      <div className="grid grid-cols-2 md:grid-cols-3 mt-10 gap-3 sm:gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 mt-5 sm:mt-10 gap-3 sm:gap-5">
         {upcomingEvents?.map((event,index) => (
           <EventsCard key={`${event?.title}_${index}_upcoming`} event={event} />
         ))}

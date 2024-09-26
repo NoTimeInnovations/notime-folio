@@ -15,6 +15,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 import { EventDetails } from "@/pages/EventsPage";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function HeroCarousel() {
   const TreandingEvents = EventDetails?.filter(
@@ -22,7 +23,7 @@ export default function HeroCarousel() {
   );
 
   return (
-    <section>
+    <motion.section initial={{ opacity : 0 , filter : 'blur(10px)'  }} whileInView={{ opacity : 1 , filter : 'blur(0px)' }} transition={{ duration : .5 }} >
       <Swiper
         breakpoints={{
           1024: {
@@ -114,6 +115,6 @@ export default function HeroCarousel() {
           </SwiperSlide>
         ))}
       </Swiper>
-    </section>
+    </motion.section>
   );
 }

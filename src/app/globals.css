@@ -74,13 +74,15 @@ input[type="number"] {
 .event-page-swiper {
 
   .swiper-button-next,
-  .swiper-button-prev {
+  .swiper-button-prev,
+  .swiper-pagination{
     display: none !important;
   }
 
   @media (min-width: 768px) {
     .swiper-button-next,
-    .swiper-button-prev {
+    .swiper-button-prev,
+    .swiper-pagination {
       display: block !important;
     }
   }
