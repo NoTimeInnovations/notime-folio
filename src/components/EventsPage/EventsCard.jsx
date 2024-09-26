@@ -1,11 +1,18 @@
 import React from "react";
 import GradientText from "../common/GradientText";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const EventsCard = ({ event }) => {
   return (
     <>
-      <div className="w-full bg-[#0e1116] border-[#252d39] border rounded-lg shadow overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once : true }}
+        className="w-full bg-[#0e1116] border-[#252d39] border rounded-lg shadow overflow-hidden"
+      >
         <div className="relative h-[100px] sm:h-[200px] w-full overflow-hidden">
           <Image
             src={event?.image}
@@ -20,7 +27,9 @@ const EventsCard = ({ event }) => {
               {event?.title}
             </h5>
           </a>
-          <p className="mb-3 font-normal text-gray-400 text-xs sm:text-base overflow-hidden text-ellipsis">{event?.desc}</p>
+          <p className="mb-3 font-normal text-gray-400 text-xs sm:text-base overflow-hidden text-ellipsis">
+            {event?.desc}
+          </p>
           <a
             href="#"
             className="inline-flex items-center py-2 text-sm font-medium text-center "
@@ -43,7 +52,7 @@ const EventsCard = ({ event }) => {
             </svg>
           </a>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

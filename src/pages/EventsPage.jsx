@@ -1,3 +1,4 @@
+import AllEvents from "@/components/EventsPage/AllEvents";
 import HeroCarousel from "@/components/EventsPage/HeroCarousel";
 import UpcomingEvents from "@/components/EventsPage/UpcomingEvents";
 import React from "react";
@@ -55,6 +56,7 @@ const EventsPage = () => {
     <main className="px-[5%] sm:px-[8%]  py-[120px] ">
       <HeroCarousel />
       <UpcomingEvents />
+      <AllEvents />
     </main>
   );
 };
