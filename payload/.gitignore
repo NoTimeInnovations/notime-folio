@@ -1,12 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-.env
-
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+
+/.idea/*
+!/.idea/runConfigurations
 
 # testing
 /coverage
@@ -37,6 +38,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/.idea/*
-!/.idea/runConfigurations
-!/.idea/payload.iml
+.env
+
+/media
