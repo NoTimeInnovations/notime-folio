@@ -1,16 +1,16 @@
-import { CollectionConfig } from "payload";
+import { AccessArgs, CollectionConfig } from 'payload'
 
-export const Users:CollectionConfig = {
+export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
     useAsTitle: 'email',
   },
   auth: true,
   access: {
-    create: () => true, 
-    read: ({ req }: { req: { user?: { role?: string } } }) => req.user?.role === 'admin',
-    update: ({ req }: { req: { user?: { role?: string } } }) => req.user?.role === 'admin', 
-    delete: ({ req }: { req: { user?: { role?: string } } }) => req.user?.role === 'admin', 
+    create: () => true,
+    read: ({ req }: AccessArgs) => req.user?.role === 'admin',
+    update: ({ req }: AccessArgs) => req.user?.role === 'admin',
+    delete: ({ req }: AccessArgs) => req.user?.role === 'admin',
   },
   fields: [
     {
@@ -31,7 +31,7 @@ export const Users:CollectionConfig = {
           value: 'mentor',
         },
       ],
-      defaultValue: 'admin', 
+      defaultValue: 'admin',
       required: true,
     },
     {
@@ -40,7 +40,7 @@ export const Users:CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-        condition: (data: { role: string; }) => data.role === 'student' || data.role === 'mentor',
+        condition: (data: { role?: string }) => data.role === 'student' || data.role === 'mentor',
       },
     },
     {
@@ -49,9 +49,8 @@ export const Users:CollectionConfig = {
       type: 'text',
       required: true,
       admin: {
-        condition: (data: { role: string; }) => data.role === 'student' || data.role === 'mentor',
+        condition: (data: { role?: string }) => data.role === 'student' || data.role === 'mentor',
       },
     },
   ],
-};
-
+}
