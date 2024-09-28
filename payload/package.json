@@ -1,0 +1,51 @@
+{
+  "name": "payload-notime",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "ci": "payload migrate && pnpm build",
+    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "generate:types": "payload generate:types"
+  },
+  "dependencies": {
+    "@payloadcms/db-mongodb": "^1.7.2",
+    "@payloadcms/db-postgres": "3.0.0-beta.58",
+    "@payloadcms/next": "3.0.0-beta.58",
+    "@payloadcms/plugin-cloud-storage": "3.0.0-beta.58",
+    "@payloadcms/richtext-lexical": "3.0.0-beta.58",
+    "@payloadcms/storage-vercel-blob": "3.0.0-beta.58",
+    "@vercel/blob": "^0.22.3",
+    "cross-env": "^7.0.3",
+    "next": "15.0.0-rc.0",
+    "payload": "^2.29.0",
+    "react": "^19.0.0-rc-f994737d14-20240522",
+    "react-dom": "^19.0.0-rc-f994737d14-20240522",
+    "sharp": "0.32.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "npm:types-react@19.0.0-beta.2",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-beta.2",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.0-rc.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@19.0.0-beta.2",
+      "@types/react-dom": "npm:types-react-dom@19.0.0-beta.2"
+    }
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@19.0.0-beta.2",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-beta.2"
+  }
+}
