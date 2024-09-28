@@ -11,6 +11,7 @@ import CountsSection from "@/components/home/CountsSection";
 import DevelopersSection from "@/components/home/DevelopersSection";
 import Testimonial from "@/components/home/Testimonial";
 import TeachingFlow from "@/components/home/TeachingFlow";
+import H1 from "@/components/common/H1";
 
 const HomePage = () => {
   return (
@@ -81,12 +82,17 @@ const HomePage = () => {
 
       {/* more contents  */}
       <div className="relative ">
-
         {/* stop things  */}
         <div className="lg:sticky lg:top-[-270px] z-[10]">
           {/* counts  */}
           <div className="flex justify-center">
             <CountsSection />
+          </div>
+
+          <div className="flex justify-center">
+            <H1>
+              Our Course <GradientText>Journey</GradientText>
+            </H1>
           </div>
 
           {/* teaching flow  */}
@@ -98,22 +104,28 @@ const HomePage = () => {
             <TeachingFlow startIndex={5} number={10} />
           </div>
 
+          <div className="flex justify-center">
+            <H1>
+              Our Top <GradientText>Performer</GradientText>
+            </H1>
+          </div>
+
           {/* developers section */}
           <div className="flex justify-center py-10 z-[10]">
             <DevelopersSection />
           </div>
 
           {/* testimonial section */}
-        <div className="flex justify-center relative ">
-          <Testimonial />
-        </div>
+          <div className="flex justify-center relative ">
+            <Testimonial />
+          </div>
         </div>
 
         {/* required for animation  */}
         <div className="min-h-[200vh]"></div>
 
         {/* social links */}
-        <div className="flex justify-center lg:absolute top-10">
+        <div className="flex justify-center lg:absolute top-10 z-[999]">
           <SocialLinks />
         </div>
       </div>
