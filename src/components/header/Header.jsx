@@ -11,7 +11,7 @@ import GradientText from "../common/GradientText";
 
 const InterestedInFreelancingText = ({ className }) => {
   return (
-    <Link className={`${className} w-fit `} href={"/interested-in-freelancing"}>
+    <Link className={`${className} w-fit `} href={"https://airtable.com/appsRTpUCJdxOnM0X/pagYAEzHVUCm8iSyY/form"}>
       <GradientText className={`font-medium`}>
         Interested in freelancing?
       </GradientText>
