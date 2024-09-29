@@ -80,7 +80,7 @@ const LoginPage = () => {
           toast.success("Login success");
           SetCookies("auth_token", data?.token, data?.exp);
           SetCookies("user", data?.user, data?.exp);
-          router.push("/login");
+          router.push("/courses");
         }
         console.log(data);
       } catch (error) {

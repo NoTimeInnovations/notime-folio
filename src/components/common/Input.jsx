@@ -3,7 +3,7 @@ import React from 'react';
 const Input = ({ id, name, placeholder, value, onChange }) => {
   return (
     <input
-      type="text"
+      type={name == "password" ? 'password' : 'text'}
       id={id}
       name={name}
       placeholder={placeholder}
