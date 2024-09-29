@@ -33,5 +33,5 @@ export default buildConfig({
   plugins: [
     // storage-adapter-placeholder
   ],
-  cors : ['http://localhost:3000']
+  cors : ['http://localhost:3000' , '*']
 })
