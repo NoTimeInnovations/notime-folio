@@ -27,6 +27,7 @@
     "postcss": "^8.4.47",
     "react": "19.0.0-rc-5dcb0097-20240918",
     "react-dom": "19.0.0-rc-5dcb0097-20240918",
+    "react-server-dom-webpack": "^0.0.1",
     "sharp": "0.32.6"
   },
   "devDependencies": {
