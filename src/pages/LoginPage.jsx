@@ -1,21 +1,22 @@
 "use client";
 import H1 from "@/components/common/H1";
 import P from "@/components/common/P";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import Input from "@/components/common/Input";
 import Button from "@/components/home/Button";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import GradientText from "@/components/common/GradientText";
 import { SetCookies } from "@/app/actions/Cookie";
-
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const [form, setForm] = useState({
     email: "",
-    password: ""
+    password: "",
   });
   const [isLoading, setLoading] = useState(false);
+  const router = useRouter();
 
   const inputFields = [
     { id: "email", name: "email", placeholder: "Email", type: "email" },
@@ -76,9 +77,10 @@ const LoginPage = () => {
             toast.error(data?.errors[0]?.message);
           }
         } else {
-          toast.success("Login success"); 
-          SetCookies('auth_token' , data?.token , data?.exp);
-          SetCookies('user' , data?.user , data?.exp);
+          toast.success("Login success");
+          SetCookies("auth_token", data?.token, data?.exp);
+          SetCookies("user", data?.user, data?.exp);
+          router.push("/login");
         }
         console.log(data);
       } catch (error) {
@@ -125,7 +127,9 @@ const LoginPage = () => {
           <p>
             Don't have an account?{" "}
             <Link href={"/registration"}>
-              <GradientText className={'font-medium text-base'}>Register</GradientText>
+              <GradientText className={"font-medium text-base"}>
+                Register
+              </GradientText>
             </Link>
           </p>
         </div>
