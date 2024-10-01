@@ -50,12 +50,12 @@ const DeveloperCard = ({dev ,ImageSrc}) => {
         </div>
 
         {/* experience  */}
-        <div className="flex items-center mt-3 gap-3">
+        {/* <div className="flex items-center mt-3 gap-3"> */}
           {/* label  */}
-          <div className="font-semibold text-xs lg:text-sm">Skill</div>
+          {/* <div className="font-semibold text-xs lg:text-sm">Skill</div> */}
           {/* stars  */}
-          <div className="flex items-center">{renderStars(dev?.skill)}</div>
-        </div>
+          {/* <div className="flex items-center">{renderStars(dev?.skill)}</div> */}
+        {/* </div> */}
       </div>
     </motion.div>
   );
