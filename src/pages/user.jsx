@@ -39,7 +39,7 @@ const UserProfile = () => {  //props = auth , id
   return (
     <div className="min-h-screen bg-gray-900 text-white py-10 mt-20 px-5 md:px-10 lg:px-16 xl:px-[15%]">
        {/* Info */}
-      <Info auth={auth} userData={userData} setUserData={setUserData}></Info>
+      <Info auth={auth} userData={userData} setUserData={setUserData} />
 
       {/* Badges */}
       <Badges userData={userData}/>
