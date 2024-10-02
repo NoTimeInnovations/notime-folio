@@ -5,9 +5,11 @@ import GradientText from "../../common/GradientText";
 import NormalButton from "../../common/NormalButton";
 import SheduleTestForm from "./EnrollForm";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const FreeTestSection = () => {
   const [isOpen, setFormOpen] = useState(false);
+  const router = useRouter();
 
   const buttonVariants = {
     hidden: {
@@ -47,7 +49,7 @@ const FreeTestSection = () => {
         animate={isOpen ? "hidden" : "visible"}
       >
         <NormalButton
-          onClick={() => setFormOpen(true)}
+          onClick={() => router.push('/registration')}
           gradient={
             "bg-gradient-to-r from-sky-500 to-sky-600 white-shadow"
           }
