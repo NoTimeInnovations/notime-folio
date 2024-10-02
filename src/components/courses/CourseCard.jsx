@@ -1,9 +1,12 @@
+"use client";
 import React from "react";
 import GradientText from "../common/GradientText";
+import { useRouter } from "next/navigation";
 
 const CourseCard = ({ course }) => {
+  const router = useRouter();
   return (
-    <div className="cursor-pointer hover:scale-110 transition-all">
+    <div onClick={()=>router.push(`/courses/${course.id}`)} className="cursor-pointer hover:scale-110 transition-all">
       <div className="w-[20rem] sm:w-[30rem] md:w-[40rem] lg:w-[20rem] xl:w-[25rem] bg-[#0e1116] border-[#252d39] border rounded-lg shadow">
         <div>
           <img className="object-cover w-full h-full rounded-t-lg" src={course.image} alt="" />

@@ -4,7 +4,7 @@ import FileUpload from "@/components/UserRegistration/FileUpload";
 import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Button from "@/components/home/Button";
 import GradientText from "@/components/common/GradientText";
