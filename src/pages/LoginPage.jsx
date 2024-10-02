@@ -2,10 +2,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { SetCookies } from "@/app/actions/Cookie";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -45,7 +43,7 @@ export default function LoginPage() {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/login`,
           {
-            method: "post",
+            method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
@@ -65,8 +63,10 @@ export default function LoginPage() {
           }
         } else {
           toast.success("Login success");
-          SetCookies("auth_token", data?.token, data?.exp);
-          SetCookies("user", data?.user, data?.exp);
+          
+          localStorage.setItem("auth_token", data?.token);
+          localStorage.setItem("user", JSON.stringify(data?.user));
+          
           router.push("/courses");
         }
       } catch (error) {

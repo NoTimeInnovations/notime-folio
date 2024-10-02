@@ -2,7 +2,7 @@
 
 const { cookies } = require("next/headers");
 
-export const SetCookies = (name, value, exp) => {
+export const SetCookies = async(name, value, exp) => {
   const expires = exp * 1000;
   cookies().set(name, JSON.stringify(value), {
     path: "/",

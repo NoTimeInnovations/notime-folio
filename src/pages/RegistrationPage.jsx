@@ -103,7 +103,7 @@ export default function RegistrationPage() {
           }
         } else {
           toast.success("Registration complete");
-          router.push('/auth/login'); // Change path to match your routes
+          router.push('/auth/login');
         }
       } catch (error) {
         toast.dismiss();
