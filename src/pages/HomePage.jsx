@@ -122,10 +122,10 @@ const HomePage = () => {
         </div>
 
         {/* required for animation  */}
-        <div className="min-h-[200vh]"></div>
+        <div className=" lg:min-h-[200vh]"></div>
 
         {/* social links */}
-        <div className="flex justify-center lg:absolute top-10 z-[999]">
+        <div className="flex justify-center lg:absolute top-10 z-[999] mb-10">
           <SocialLinks />
         </div>
       </div>
