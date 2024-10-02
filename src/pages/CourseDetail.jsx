@@ -47,6 +47,57 @@ const CourseDetail = () => {
                     },
                 ],
             },
+            {
+                day: "Day 3",
+                topics: [
+                    {
+                        title: "Understanding MongoDB",
+                        video: "Video URL",
+                        content: "Basics of MongoDB",
+                        exercise: "MongoDB Exercise",
+                    },
+                    {
+                        title: "Building REST APIs",
+                        video: "Video URL",
+                        content: "How to create REST APIs",
+                        exercise: "API Exercise",
+                    },
+                ],
+            },
+            {
+                day: "Day 4",
+                topics: [
+                    {
+                        title: "Understanding MongoDB",
+                        video: "Video URL",
+                        content: "Basics of MongoDB",
+                        exercise: "MongoDB Exercise",
+                    },
+                    {
+                        title: "Building REST APIs",
+                        video: "Video URL",
+                        content: "How to create REST APIs",
+                        exercise: "API Exercise",
+                    },
+                ],
+            },
+            {
+                day: "Day 5",
+                topics: [
+                    {
+                        title: "Understanding MongoDB",
+                        video: "Video URL",
+                        content: "Basics of MongoDB",
+                        exercise: "MongoDB Exercise",
+                    },
+                    {
+                        title: "Building REST APIs",
+                        video: "Video URL",
+                        content: "How to create REST APIs",
+                        exercise: "API Exercise",
+                    },
+                ],
+            },
         ],
         learnings: [
             "Introduction to MERN Stack",
@@ -78,29 +129,34 @@ const CourseDetail = () => {
         ],
     };
 
-
-    const reviewSubmit=({rating,review})=>{
-        console.log("Review and Rating :",{rating,review});
-    }
-
-
-
-
+    const reviewSubmit = ({ rating, review }) => {
+        console.log("Review and Rating :", { rating, review });
+    };
 
     return (
         <div className="min-h-screen py-20 mt-10 px-5 md:px-10 lg:px-16 xl:px-[15%] bg-gray-900 text-gray-200">
-            {/* Course Detail Card */}
+            {/* Course Detail Grid Layout */}
             <DetailCard image={course.image} description={course.description} title={course.title} />
+            
 
-            {/* What We Will Learn Section */}
-            <CouresLearn learnings={course.learnings} />
-            {/* Previous Requirements */}
-            <CourseRequirements requirements={course.requirements} />
+            {/* Days, What You Will Learn, Prerequisites Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                {/* Days */}
+                <div className="md:col-span-2">
+                    <CourseRoadmap roadmap={course.roadmap}></CourseRoadmap>
+                </div>
 
-            {/* Roadmap Section */}
-            <CourseRoadmap roadmap={course.roadmap}></CourseRoadmap>
+                {/* Learnings and Prerequisites */}
+                <div className="space-y-4">
+                    <CouresLearn learnings={course.learnings} />
+                    <CourseRequirements requirements={course.requirements} />
+                </div>
+            </div>
+
             {/* Reviews Section */}
-            <CourseReview reviews={course.reviews} handleReviewSubmit={reviewSubmit}></CourseReview>
+            <div className="mt-10">
+                <CourseReview reviews={course.reviews} handleReviewSubmit={reviewSubmit}></CourseReview>
+            </div>
         </div>
     );
 };
