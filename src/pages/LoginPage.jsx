@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Button from "@/components/home/Button";
+import GradientText from "@/components/common/GradientText";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -138,25 +140,17 @@ export default function LoginPage() {
               htmlFor="terms"
               className="text-[12px] font-medium text-gray-900 dark:text-gray-300"
             >
-              New user{" "}
+             Dont have an account?{" "}
               <Link
                 href="/auth/registration"
                 className="text-blue-600 hover:underline dark:text-blue-500 text-[12px] font-medium"
               >
-                Register
+                <GradientText>Register</GradientText>
               </Link>
             </label>
           </div>
-          <motion.button
-            disabled={isLoading}
-            type="submit"
-            className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.4 }}
-          >
-            Login
-          </motion.button>
+          <Button text={'Login'} disabled={isLoading} gradient={'bg-gradient-to-r text-white from-green-500 to-yellow-500'} />
+
         </form>
       </motion.div>
     </div>

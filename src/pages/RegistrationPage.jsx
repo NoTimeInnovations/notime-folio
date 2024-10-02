@@ -6,6 +6,8 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter
 import toast from "react-hot-toast";
+import Button from "@/components/home/Button";
+import GradientText from "@/components/common/GradientText";
 
 export default function RegistrationPage() {
   const [form, setForm] = useState({
@@ -120,7 +122,7 @@ export default function RegistrationPage() {
   };
 
   return (
-    <div className="mt-32">
+    <div className="my-32">
       <div className="grid xs:grid-cols-1 xs:gap-10 lg:grid-cols-2 items-center justify-center w-3/4 mx-auto">
         <div>
           <FileUpload
@@ -242,22 +244,16 @@ export default function RegistrationPage() {
               />
             </div>
 
-            <button
-              type="submit"
-              className={`text-white w-full mb-5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800 ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              disabled={loading}
-            >
-              {loading ? "Loading..." : "Submit"}
-            </button>
-            <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+            <Button text={'Register'} disabled={loading} gradient={'bg-gradient-to-r text-white from-green-500 to-yellow-500'} />
+            <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2">
               Already have an account?{" "}
               <Link
                 href="/auth/login"
-                className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+                className="font-medium text-blue-600 hover:underline dark:text-blue-500 "
               >
+                <GradientText>
                 Login here
+                </GradientText>
               </Link>
             </p>
           </form>
