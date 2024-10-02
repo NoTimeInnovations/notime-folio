@@ -1,5 +1,4 @@
 "use client";
-import Alert from "@/components/common/Alert";
 import FileUpload from "@/components/UserRegistration/FileUpload";
 import axios from "axios";
 import Link from "next/link";
@@ -15,6 +14,7 @@ export default function RegistrationPage() {
     email: "",
     phone: "",
     password: "",
+    profession : "",
     role: "student",
   });
   const [text, setText] = useState("Upload Profile Image");
@@ -22,32 +22,88 @@ export default function RegistrationPage() {
   const [filePath, setFilePath] = useState(""); 
   const [alertMsg, setAlertMsg] = useState(null);
   const router = useRouter();
+  const [imageUploadId , setImageUploadId] = useState();
 
   const handleImageUpload = async (e) => {
     setText("Upload Profile Image");
     setAlertMsg(null);
     const file = e.target.files[0];
-    
+  
     if (!file) {
       toast.error("No file selected");
       return;
     }
+  
+    // Check file type (allowing jpeg, png)
+    const validTypes = ["image/jpeg", "image/png"];
+    if (!validTypes.includes(file.type)) {
+      toast.error("Please select a valid image file (jpeg/png)");
+      return;
+    }
+  
+    // Optional: Validate file size (e.g., max 5MB)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      toast.error("File size should be less than 5MB");
+      return;
+    }
+  
+    // Convert file to Base64
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      const base64String = reader.result;
+      setAlertMsg("File converted to Base64 successfully");
+  
+      setFilePath(base64String);
+    };
+  
+    reader.onerror = () => {
+      toast.error("An error occurred while converting the file");
+    };
 
-    const data = new FormData();
-    data.set("profileImage", file);
+    const formData = new FormData();
+    formData.append('file' , file);
+    formData.append('alt', 'Profile image');
+
+    console.log(formData);
+    
 
     try {
-      setLoading(true);
-      const response = await axios.post("/api/imagePath", data);
-      setText("Profile Image Loaded");
-      setFilePath(response.data.filePath);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/media`,
+        {
+          method: "post",
+          headers : {
+            'Content-Type': 'multipart/form-data'
+          },
+          body: formData
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+      
+      setImageUploadId(data?.id);
+      toast.dismiss();
       setLoading(false);
+
+      if (data?.errors) {
+        if (data?.errors[0]?.data?.errors[0]) {
+          toast.error(data?.errors[0]?.data?.errors[0]?.message);
+        } else {
+          toast.error(data?.errors[0]?.message);
+        }
+      } else {
+        toast.success("Profile Uploaded");
+      }
     } catch (error) {
-      setLoading(false);
-      setText("Failed To Load Image");
-      console.error("Some Error Occurred", error);
+      toast.error("Failed to upload image!")
+      console.error(error);
+      
     }
   };
+  
 
   const validateForm = () => {
     if (!form.name || !form.email || !form.phone || !form.password) {
@@ -89,7 +145,7 @@ export default function RegistrationPage() {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(form),
+            body: JSON.stringify({...form,image : imageUploadId}),
           }
         );
 
@@ -124,7 +180,7 @@ export default function RegistrationPage() {
   return (
     <div className="my-32">
       <div className="grid xs:grid-cols-1 xs:gap-10 lg:grid-cols-2 items-center justify-center w-3/4 mx-auto">
-        <div>
+        <div className="grid place-items-center">
           <FileUpload
             setText={setText}
             filePath={filePath}
@@ -216,7 +272,7 @@ export default function RegistrationPage() {
               </label>
               <select
                 id="profession"
-                name="role" // Update name to match state
+                name="profession" 
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 onChange={handleInputChange}
               >

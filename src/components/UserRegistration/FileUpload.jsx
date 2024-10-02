@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import LoadingSpinner from '../common/LoadingSpinner';
 import { RxCross1 } from "react-icons/rx";
+import Image from 'next/image';
 
 export default function FileUpload({ setText, loading, filePath, setFilePath, handelImageUpload, setAlertMsg }) {
 
@@ -14,9 +15,11 @@ export default function FileUpload({ setText, loading, filePath, setFilePath, ha
 
     return (
         <>
-            {filePath ? <div className="relative w-full h-full">
-                <img
-                    src={`http://localhost:3000/${filePath}`}
+            {filePath ? <div className="relative aspect-square max-w-[300px] justify-center flex">
+                <Image
+                    src={filePath}
+                    width={150}
+                    height={150}
                     alt="Profile"
                     className="w-full h-full object-cover"
                 />
