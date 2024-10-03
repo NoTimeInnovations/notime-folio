@@ -69,7 +69,7 @@ export default function LoginPage() {
           localStorage.setItem("auth_token", data?.token);
           localStorage.setItem("user", JSON.stringify(data?.user));
           
-          router.push("/courses");
+          router.push("/dashboard");
         }
       } catch (error) {
         toast.dismiss();

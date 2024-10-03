@@ -14,96 +14,89 @@ export default function RegistrationPage() {
     email: "",
     phone: "",
     password: "",
-    profession : "",
+    profession: "student",
     role: "student",
   });
   const [text, setText] = useState("Upload Profile Image");
   const [loading, setLoading] = useState(false);
-  const [filePath, setFilePath] = useState(""); 
+  const [filePath, setFilePath] = useState("");
   const [alertMsg, setAlertMsg] = useState(null);
   const router = useRouter();
-  const [imageUploadId , setImageUploadId] = useState();
+  const [file, setFile] = useState(null);
 
   const handleImageUpload = async (e) => {
     setText("Upload Profile Image");
     setAlertMsg(null);
     const file = e.target.files[0];
-  
+
     if (!file) {
       toast.error("No file selected");
       return;
     }
-  
+
     // Check file type (allowing jpeg, png)
     const validTypes = ["image/jpeg", "image/png"];
     if (!validTypes.includes(file.type)) {
       toast.error("Please select a valid image file (jpeg/png)");
       return;
     }
-  
+
     // Optional: Validate file size (e.g., max 5MB)
     const maxSize = 5 * 1024 * 1024;
     if (file.size > maxSize) {
       toast.error("File size should be less than 5MB");
       return;
     }
-  
+
     // Convert file to Base64
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       const base64String = reader.result;
       setAlertMsg("File converted to Base64 successfully");
-  
+
       setFilePath(base64String);
     };
-  
+
+    setFile(file);
+
     reader.onerror = () => {
       toast.error("An error occurred while converting the file");
     };
+  };
 
+  const handleImageUploadToServer = async () => {
     const formData = new FormData();
-    formData.append('file' , file);
-    formData.append('alt', 'Profile image');
-
-    console.log(formData);
-    
-
+    formData.append("file", file);
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/media`,
         {
           method: "post",
-          headers : {
-            'Content-Type': 'multipart/form-data'
-          },
-          body: formData
+          body: formData,
         }
       );
 
       const data = await response.json();
-      console.log(data);
-      
-      setImageUploadId(data?.id);
-      toast.dismiss();
-      setLoading(false);
 
       if (data?.errors) {
+        toast.dismiss();
         if (data?.errors[0]?.data?.errors[0]) {
           toast.error(data?.errors[0]?.data?.errors[0]?.message);
         } else {
           toast.error(data?.errors[0]?.message);
         }
       } else {
-        toast.success("Profile Uploaded");
+        console.log(data?.doc.id);
+        
+        return data?.doc.id;
       }
     } catch (error) {
-      toast.error("Failed to upload image!")
+      toast.dismiss();
+      toast.error("Failed to upload image!");
       console.error(error);
-      
     }
   };
-  
 
   const validateForm = () => {
     if (!form.name || !form.email || !form.phone || !form.password) {
@@ -133,11 +126,14 @@ export default function RegistrationPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
+    if (validateForm() && file) {
       setLoading(true);
       toast.loading("Loading.....");
 
       try {
+         
+       const imageId = await handleImageUploadToServer();
+
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users`,
           {
@@ -145,7 +141,7 @@ export default function RegistrationPage() {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({...form,image : imageUploadId}),
+            body: JSON.stringify({ ...form, image: imageId }),
           }
         );
 
@@ -161,7 +157,7 @@ export default function RegistrationPage() {
           }
         } else {
           toast.success("Registration complete");
-          router.push('/auth/login');
+          router.push("/auth/login");
         }
       } catch (error) {
         toast.dismiss();
@@ -174,7 +170,7 @@ export default function RegistrationPage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value })); 
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -272,12 +268,12 @@ export default function RegistrationPage() {
               </label>
               <select
                 id="profession"
-                name="profession" 
+                name="profession"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 onChange={handleInputChange}
               >
-                <option value="student">Students</option>
-                <option value="professional">Professionals</option>
+                <option value="student">Student</option>
+                <option value="professional">Professional</option>
                 <option value="freelancer">Freelancer</option>
               </select>
             </div>
@@ -300,16 +296,20 @@ export default function RegistrationPage() {
               />
             </div>
 
-            <Button text={'Register'} disabled={loading} gradient={'bg-gradient-to-r text-white from-green-500 to-yellow-500'} />
+            <Button
+              text={"Register"}
+              disabled={loading}
+              gradient={
+                "bg-gradient-to-r text-white from-green-500 to-yellow-500"
+              }
+            />
             <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2">
               Already have an account?{" "}
               <Link
                 href="/auth/login"
                 className="font-medium text-blue-600 hover:underline dark:text-blue-500 "
               >
-                <GradientText>
-                Login here
-                </GradientText>
+                <GradientText>Login here</GradientText>
               </Link>
             </p>
           </form>
