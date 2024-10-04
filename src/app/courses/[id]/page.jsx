@@ -1,12 +1,19 @@
-"use client";
 
-import CourseDetail from '@/pages/CourseDetail';
-import React from 'react'
+import CourseDetail from "@/pages/CourseDetail";
+import CourseDetailForRegistered from "@/pages/CourseDetailForRegistered";
+import Cookies from "js-cookie";
+import { cookies } from "next/headers";
+import React from "react";
 
 const page = () => {
-  return (
-    <CourseDetail/>
-  )
-}
+  
+  const authToken = cookies().get('auth_token');
 
-export default page
+  if (!authToken) {
+    return <CourseDetail />;
+  }
+
+  return <CourseDetailForRegistered />;
+};
+
+export default page;

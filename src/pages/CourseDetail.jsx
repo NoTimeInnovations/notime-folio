@@ -1,3 +1,4 @@
+"use client";
 import GradientText from "@/components/common/GradientText";
 import { CouresLearn } from "@/components/courses/CourseLearn";
 import { CourseRequirements } from "@/components/courses/CourseRequirements";
