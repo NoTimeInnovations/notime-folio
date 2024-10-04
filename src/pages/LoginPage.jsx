@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Button from "@/components/home/Button";
 import GradientText from "@/components/common/GradientText";
+import Cookies from "js-cookie";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -66,8 +67,12 @@ export default function LoginPage() {
         } else {
           toast.success("Login success");
           
-          localStorage.setItem("auth_token", data?.token);
-          localStorage.setItem("user", JSON.stringify(data?.user));
+
+          Cookies.set('auth_token' , data?.token , { expires : 30 });
+          Cookies.set('user' , JSON.stringify(data?.user) , { expires : 30 });
+          
+          // localStorage.setItem("auth_token", data?.token);
+          // localStorage.setItem("user", JSON.stringify(data?.user));
           
           router.push("/dashboard");
         }
