@@ -2,7 +2,11 @@
 import GradientText from "@/components/common/GradientText";
 import H1 from "@/components/common/H1";
 import P from "@/components/common/P";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/common/Tabs";
+import TaskSection from "@/components/CourseDetail/TaskSection";
 import VideoCard from "@/components/CourseDetail/VideoCard";
+import VideoSection from "@/components/CourseDetail/VideoSection";
+import Button from "@/components/home/Button";
 import React from "react";
 
 const courseDetail = [
@@ -51,25 +55,31 @@ const CourseDetailForRegistered = () => {
 
   return (
     <main className="grid gap-5 lg:grid-cols-[70%,1fr] min-h-screen py-[120px] px-[7%]">
-      {/* video section */}
+      {/* left section */}
       <section className="">
-        {/* video  */}
-        <div className=" aspect-video bg-black rounded-xl"></div>
-
-        {/* video details  */}
-        <div className="mt-5 max-w-[95%]">
-          {/* day num  */}
-          <div className="font-bold text-white text-2xl">
-            <GradientText>Day {selectedVideo?.day}</GradientText>
-          </div>
-
-          {/* title  */}
-          <H1 className="font-bold text-white lg:text-[2rem] leading-[2rem] lg:leading-[2.5rem] xl:leading-[2.5rem]">
-            {selectedVideo?.videoTitle}
-          </H1>
-          {/* description  */}
-          <P className={"text-white/70 mt-5"}>{selectedVideo?.videoDesc}</P>
-        </div>
+        {/* tabs  */}
+        <Tabs defaultValue="video" className="w-full">
+          <TabsList className="flex items-center gap-3 mb-5">
+            <TabsTrigger
+              value="video"
+              
+            >
+              Video
+            </TabsTrigger>
+            <TabsTrigger
+              value="tasks"
+              
+            >
+              Tasks
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="video">
+            <VideoSection selectedVideo={selectedVideo} />
+          </TabsContent>
+          <TabsContent value="tasks">
+            <TaskSection />
+          </TabsContent>
+        </Tabs>
       </section>
 
       {/* more videos  */}
