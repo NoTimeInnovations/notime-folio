@@ -10,18 +10,20 @@ const VideoSection = ({ selectedVideo }) => {
       <div className=" aspect-video bg-black rounded-xl"></div>
 
       {/* video details  */}
-      <div className="mt-5 max-w-[95%]">
-        {/* day num  */}
-        <div className="font-bold text-white text-2xl">
-          <GradientText>Day {selectedVideo?.day}</GradientText>
-        </div>
+      <div className="mt-5 max-w-[95%] hidden lg:block">
 
         {/* title  */}
-        <H1 className="font-bold text-white lg:text-[2rem] leading-[2rem] lg:leading-[2.5rem] xl:leading-[2.5rem]">
+        <H1 className="font-bold text-white text-[1.5rem] xl:text-[1.5rem] lg:text-[1.5rem] leading-[2rem] lg:leading-[2rem] xl:leading-[2rem]">
           {selectedVideo?.videoTitle}
         </H1>
         {/* description  */}
-        <P className={"text-white/70 mt-5"}>{selectedVideo?.videoDesc}</P>
+        <P
+          className={
+            "text-white/70 mt-2 text-[1rem] xl:text-[1rem] lg:text-[1rem]"
+          }
+        >
+          {selectedVideo?.videoDesc}
+        </P>
       </div>
     </>
   );
