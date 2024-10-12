@@ -1,13 +1,24 @@
 "use client";
 import { useState } from "react";
-import handlePayment from "../actions/payment";
+import { handlePayment } from "../actions/payment";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
 
 export default function Payment() {
+
   const [amount, setAmount] = useState(0);
   const [orderId, setOrderId] = useState("");
+  const router = useRouter();
 
   const handlePayNow = async () => {
-    await handlePayment(amount, orderId);
+    const redirectURL = await handlePayment(amount, orderId);
+    if (!redirectURL) {
+      toast.error("Payment initiation failed");
+      return;
+    }
+
+    router.push(redirectURL?.redirectUrl);
   };
 
   return (
