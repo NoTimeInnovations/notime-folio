@@ -21,7 +21,7 @@ export const CourseReview = ({ reviews }) => {
   useEffect(() => {
     reviewIntervalRef.current = setInterval(() => {
       setCurrentReviewIndex((prevIndex) =>
-        prevIndex === reviews.length - 1 ? 0 : prevIndex + 1
+        prevIndex === reviews?.length - 1 ? 0 : prevIndex + 1
       );
     }, 5000);
 
@@ -33,7 +33,7 @@ export const CourseReview = ({ reviews }) => {
         <h2 className="text-3xl font-bold mb-4 text-white text-center">
           Reviews
         </h2>
-        {reviews.length > 0 ? (
+        {reviews?.length > 0 ? (
           <div className="relative overflow-hidden">
             <div
               className="flex transition-transform duration-1000"
