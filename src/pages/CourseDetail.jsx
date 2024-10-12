@@ -154,11 +154,6 @@ const CourseDetail = async ({ id }) => {
     }
   };
 
-  const reviewSubmit = async ({ rating, review }) => {
-    "use server";
-    console.log("Review and Rating :", { rating, review });
-  };
-
   const course = await fetchCourse();
 
   console.log("Course Data: ", course);
@@ -183,7 +178,6 @@ const CourseDetail = async ({ id }) => {
           <div className="hidden lg:block">
             <CourseReview
               reviews={course?.reviews}
-              handleReviewSubmit={reviewSubmit}
             ></CourseReview>
           </div>
         </div>
@@ -198,7 +192,6 @@ const CourseDetail = async ({ id }) => {
       <div className="lg:hidden mt-5">
         <CourseReview
           reviews={course?.reviews}
-          handleReviewSubmit={reviewSubmit}
         ></CourseReview>
       </div>
     </div>
