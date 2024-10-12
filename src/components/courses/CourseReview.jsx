@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import Button from "../home/Button";
 
@@ -40,20 +41,20 @@ export const CourseReview = ({ reviews, handleReviewSubmit }) => {
                     className="flex transition-transform duration-1000"
                     style={{ transform: `translateX(-${currentReviewIndex * 100}%)` }}
                 >
-                    {reviews.map((review, index) => (
+                    {reviews?.map((review, index) => (
                         <div key={index} className="flex-none w-full px-4">
                             <div className="bg-gray-700 p-6 rounded-lg shadow-md mt-10 relative">
                                 <div className="absolute top-[-25px] left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full overflow-hidden">
                                     <img
                                         className="w-full h-full object-cover"
-                                        src={review.profilePic}
-                                        alt={review.name}
+                                        src={`${process.env.NEXT_PUBLIC_PAYLOAD_URL}${review.user.image.url}`}
+                                        alt={review.user.name}
                                     />
                                 </div>
                                 <div className="pt-10">
                                     <div className="flex items-center mb-2">
                                         <div className="text-yellow-400 flex items-center">
-                                            {[...Array(5)].map((_, i) => (
+                                            {[...Array(review.rating)].map((_, i) => (
                                                 <svg
                                                     key={i}
                                                     className={`w-5 h-5 ${i < review.rating ? "fill-current" : "text-gray-600"}`}
@@ -65,9 +66,9 @@ export const CourseReview = ({ reviews, handleReviewSubmit }) => {
                                                 </svg>
                                             ))}
                                         </div>
-                                        <span className="ml-3 text-gray-300">{review.name}</span>
+                                        <span className="ml-3 text-gray-300">{review.user.name}</span>
                                     </div>
-                                    <p className="text-gray-400">{review.comment}</p>
+                                    <p className="text-gray-400">{review.description}</p>
                                 </div>
                             </div>
                         </div>

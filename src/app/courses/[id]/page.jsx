@@ -1,11 +1,11 @@
-"use client";
 
 import CourseDetail from '@/pages/CourseDetail';
 import React from 'react'
 
-const page = () => {
+const page = ({ params }) => {
+
   return (
-    <CourseDetail/>
+    <CourseDetail id={params?.id} />
   )
 }
 

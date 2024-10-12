@@ -1,5 +1,5 @@
+"use client";
 import React from "react";
-
 
 export const CouresLearn = ({learnings}) => {
     return (<>
@@ -8,12 +8,12 @@ export const CouresLearn = ({learnings}) => {
                 What You Will Learn
             </h2>
             <ul className="space-y-3">
-                {learnings.map((learning, index) => (
-                    <li key={index} className="flex items-center">
-                        <span className="w-6 h-6 mr-3 flex items-center justify-center bg-green-500 text-white rounded-full">
+                {learnings?.map((learning) => (
+                    <li key={learning.id} className="grid grid-cols-[24px,1fr] gap-3">
+                        <div className="w-6 aspect-square  grid place-items-center bg-green-500 text-white rounded-full">
                             ✓
-                        </span>
-                        <span className="text-gray-300">{learning}</span>
+                        </div>
+                        <span className="text-gray-300">{learning.learning}</span>
                     </li>
                 ))}
             </ul>

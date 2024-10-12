@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 export const CourseRequirements = ({requirements}) => {
@@ -8,12 +9,12 @@ export const CourseRequirements = ({requirements}) => {
                 Previous Requirements
             </h2>
             <ul className="list-disc list-inside text-gray-300 space-y-2">
-                {requirements.map((req, index) => (
-                    <li key={index} className="flex items-center">
-                        <span className="w-6 h-6 mr-3 flex items-center justify-center bg-green-500 text-white rounded-full">
+                {requirements?.map((req) => (
+                    <li key={req.id} className="grid grid-cols-[24px,1fr] gap-3">
+                        <span className="w-6 h-6 flex items-center justify-center bg-green-500 text-white rounded-full">
                             ✓
                         </span>
-                        {req}
+                        {req.requirement}
                     </li>
                 ))}
             </ul>
