@@ -1,4 +1,4 @@
-"use client"
+
 import Banner from '@/components/common/Banner'
 import Courses from '@/pages/Courses'
 import Leaderboard from '@/pages/Leaderboard'

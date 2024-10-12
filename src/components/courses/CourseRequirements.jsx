@@ -3,7 +3,7 @@ import React from "react";
 export const CourseRequirements = ({requirements}) => {
 
     return (<>
-        <div className="mt-12 bg-gray-800 p-6 rounded-lg shadow-lg">
+        <div className=" bg-gray-800 p-6 rounded-lg shadow-lg">
             <h2 className="text-3xl font-bold mb-4 text-white text-center">
                 Previous Requirements
             </h2>

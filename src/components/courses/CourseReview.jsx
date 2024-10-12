@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Button from "../home/Button";
 
 
 export const CourseReview = ({ reviews, handleReviewSubmit }) => {
@@ -30,7 +31,7 @@ export const CourseReview = ({ reviews, handleReviewSubmit }) => {
         return () => clearInterval(reviewIntervalRef.current);
     }, []);
     return (<>
-        <div className="mt-12 bg-gray-800 p-6 rounded-lg shadow-lg relative">
+        <div className=" bg-gray-800 p-6 rounded-lg shadow-lg relative">
             <h2 className="text-3xl font-bold mb-4 text-white text-center">
                 Reviews
             </h2>
@@ -114,12 +115,12 @@ export const CourseReview = ({ reviews, handleReviewSubmit }) => {
                 onChange={handleReviewChange}
                 placeholder="Write your review here..."
             ></textarea>
-            <button
-                className="mt-4 w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            <Button
+                text={"Submit Review"}
+                gradient={`bg-gradient-to-r from-green-500 to-yellow-500 text-white mt-6`}
                 onClick={submitReview}
-            >
-                Submit Review
-            </button>
+                
+            />
         </div>
     </>)
 }
