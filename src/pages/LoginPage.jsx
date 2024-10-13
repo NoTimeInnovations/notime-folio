@@ -143,7 +143,7 @@ export default function LoginPage() {
           <div className="flex items-start mb-3">
             <label
               htmlFor="terms"
-              className="text-[12px] font-medium text-gray-900 dark:text-gray-300"
+              className="text-[12px] font-medium text-gray-300"
             >
              Dont have an account?{" "}
               <Link

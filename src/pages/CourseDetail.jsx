@@ -25,10 +25,12 @@ const CourseDetail = ({ id }) => {
           preRequirements: data?.pre_requirements,
           learnings: data?.learnings,
           description: data?.shortDesc,
-          image: process.env.NEXT_PUBLIC_PAYLOAD_URL + data?.image.url,
+          image: process.env.NEXT_PUBLIC_PAYLOAD_URL + data?.image?.url,
           roadmap: data?.Roadmap,
           reviews: data?.reviews || [],
         };
+
+        console.log("Course Data: ", formatedData);
 
         setCourse(formatedData);
       } catch (error) {
@@ -37,12 +39,13 @@ const CourseDetail = ({ id }) => {
     };
 
     fetchCourse();
-  },[]);
+  }, [id]);
 
   return (
     <div className="min-h-screen py-20 mt-10 px-5 md:px-10 lg:px-16 xl:px-[15%] bg-gray-900 text-gray-200">
       {/* Course Detail Grid Layout */}
       <DetailCard
+        id={id}
         price={course?.amount}
         discount={course?.discount}
         image={course?.image}

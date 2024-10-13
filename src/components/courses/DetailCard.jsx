@@ -1,13 +1,23 @@
 "use client";
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 import GradientText from "../common/GradientText";
 import Button from "../home/Button";
 import H1 from "../common/H1";
 import P from "../common/P";
 import Image from "next/image";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
-export const DetailCard = ({ image, title, description, price, discount }) => {
+export const DetailCard = ({
+  image,
+  title,
+  description,
+  price,
+  discount,
+  id,
+}) => {
   const [discountPrice, setDiscountPrice] = React.useState(0);
+  const router = useRouter();
 
   function calculateDiscountPrice(price, discountPercentage) {
     const discountAmount = (price * discountPercentage) / 100;
@@ -19,6 +29,11 @@ export const DetailCard = ({ image, title, description, price, discount }) => {
     const discountPrice = calculateDiscountPrice(price, discount);
     setDiscountPrice(discountPrice);
   }, [price, discount]);
+
+  const handleEnrollToCourse = () => {
+    Cookies.set("enrolled_course", id);
+    router.refresh();
+  };
 
   return (
     <>
@@ -60,6 +75,7 @@ export const DetailCard = ({ image, title, description, price, discount }) => {
                 )}
               </div>
               <Button
+                onClick={handleEnrollToCourse}
                 text={"Enroll Now"}
                 gradient={`bg-gradient-to-r from-green-500 to-yellow-500 text-white lg:max-w-[250px]`}
               />

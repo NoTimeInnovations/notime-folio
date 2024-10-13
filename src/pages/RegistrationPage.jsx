@@ -192,7 +192,7 @@ export default function RegistrationPage() {
                   ? "text-green-500"
                   : text === "Failed To Load Image"
                     ? "text-red-500"
-                    : "dark:text-white"
+                    : "text-white"
               }`}
             >
               {text}
@@ -201,14 +201,14 @@ export default function RegistrationPage() {
         </div>
 
         <div>
-          <h1 className="dark:text-white text-4xl text-center mb-6">
+          <h1 className="text-white text-4xl text-center mb-6">
             Join, Learn, Build, Succeed!
           </h1>
           <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
             <div className="mb-5">
               <label
                 htmlFor="name"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-white"
               >
                 Your name
               </label>
@@ -226,7 +226,7 @@ export default function RegistrationPage() {
             <div className="mb-5">
               <label
                 htmlFor="email"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-white"
               >
                 Your email
               </label>
@@ -244,7 +244,7 @@ export default function RegistrationPage() {
             <div className="mb-5">
               <label
                 htmlFor="phone"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-white"
               >
                 Your phone
               </label>
@@ -262,7 +262,7 @@ export default function RegistrationPage() {
             <div className="mb-5">
               <label
                 htmlFor="profession"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-white"
               >
                 Profession
               </label>
@@ -281,7 +281,7 @@ export default function RegistrationPage() {
             <div className="mb-5">
               <label
                 htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-white"
               >
                 Your password
               </label>
