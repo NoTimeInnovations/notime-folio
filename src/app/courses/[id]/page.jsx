@@ -1,12 +1,19 @@
 
-import CourseDetail from '@/pages/CourseDetail';
-import React from 'react'
+import CourseDetail from "@/pages/CourseDetail";
+import CourseDetailForRegistered from "@/pages/CourseDetailForRegistered";
+import Cookies from "js-cookie";
+import { cookies } from "next/headers";
+import React from "react";
 
-const page = ({ params }) => {
+const page = () => {
+  
+  const authToken = cookies().get('auth_token');
 
-  return (
-    <CourseDetail id={params?.id} />
-  )
-}
+  if (!authToken) {
+    return <CourseDetail />;
+  }
 
-export default page
+  return <CourseDetailForRegistered />;
+};
+
+export default page;
