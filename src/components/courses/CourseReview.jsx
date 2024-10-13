@@ -19,11 +19,13 @@ export const CourseReview = ({ reviews }) => {
   };
 
   useEffect(() => {
-    reviewIntervalRef.current = setInterval(() => {
-      setCurrentReviewIndex((prevIndex) =>
-        prevIndex === reviews?.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 5000);
+    if (reviews?.length > 0) {
+      reviewIntervalRef.current = setInterval(() => {
+        setCurrentReviewIndex((prevIndex) =>
+          prevIndex === reviews?.length - 1 ? 0 : prevIndex + 1
+        );
+      }, 5000);
+    }
 
     return () => clearInterval(reviewIntervalRef.current);
   }, []);
