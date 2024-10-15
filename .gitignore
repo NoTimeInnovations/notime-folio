@@ -78,3 +78,5 @@ next-env.d.ts
 /.idea/*
 !/.idea/runConfigurations
 !/.idea/payload.iml
+
+/ccavenue-payment-demo
