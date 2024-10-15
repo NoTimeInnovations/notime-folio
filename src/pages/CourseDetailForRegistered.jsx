@@ -11,8 +11,8 @@ import {
 import TaskSection from "@/components/CourseDetail/TaskSection";
 import VideoCard from "@/components/CourseDetail/VideoCard";
 import VideoSection from "@/components/CourseDetail/VideoSection";
-import Button from "@/components/home/Button";
-import React from "react";
+import { useParams } from "next/navigation";
+import React, { useEffect } from "react";
 
 const courseDetail = [
   {
@@ -157,6 +157,34 @@ const CourseDetailForRegistered = () => {
   const otherVideos = courseDetail.filter(
     (courseVideos) => courseVideos.day != selectedDay.day
   );
+  const params = useParams();
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/courses/${params?.id}?depth=3&day=1`
+        );
+        const data = await response.json();
+
+        console.log(data);
+
+        const formatedData = {
+          id: data?.id,
+          curentVideo: data?.Roadmap[0],
+        };
+
+        console.log("Course Data: ", formatedData);
+
+        setCourse(formatedData);
+      } catch (error) {
+        console.log("Error fetching course data: ", error);
+      }
+    };
+
+    fetchCourse();
+  }, []);
 
   return (
     <main className="grid gap-5 lg:grid-cols-[70%,1fr] min-h-screen py-[120px] px-[7%] ">

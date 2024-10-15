@@ -4,10 +4,12 @@ import { CourseRequirements } from "@/components/courses/CourseRequirements";
 import { CourseReview } from "@/components/courses/CourseReview";
 import { CourseRoadmap } from "@/components/courses/CourseRoadmap";
 import { DetailCard } from "@/components/courses/DetailCard";
+import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
 
-const CourseDetail = ({ id }) => {
+const CourseDetail = () => {
   const [course, setCourse] = React.useState(null);
+  const id = useParams().id;
 
   useEffect(() => {
     const fetchCourse = async () => {
