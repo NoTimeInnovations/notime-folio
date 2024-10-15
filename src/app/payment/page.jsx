@@ -11,7 +11,7 @@ export default function Payment() {
         let paymentData = {
             merchant_id: "3880026", // Merchant ID (Required)
             order_id: "ORD123", // Order ID - It can be generated from our project
-            amount: "50", // Payment Amount (Required)
+            amount: "1", // Payment Amount (Required)
             currency: "INR", // Payment Currency Type (Required)
             billing_email: "johndoe@gmail.com", // Billing Email (Optional)
             billing_name: "John Doe", // Billing Name (Optional)
@@ -32,7 +32,7 @@ export default function Payment() {
 
         let encReq = CCAvenue.getEncryptedOrder(paymentData);
         let accessCode = "AVVA25LJ12AU51AVUA";
-        let URL = `https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id=${paymentData.merchant_id}6&encRequest=${encReq}&access_code=${accessCode}`;
+        let URL = `https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id=${paymentData.merchant_id}6&encRequest=${encReq}&access_code=${accessCode}`;
         router.push(URL);
     }
 
