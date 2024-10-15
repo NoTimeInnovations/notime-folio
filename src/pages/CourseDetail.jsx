@@ -9,7 +9,7 @@ import React, { useEffect } from "react";
 
 const CourseDetail = () => {
   const [course, setCourse] = React.useState(null);
-  const id = useParams().id;
+  const id = useParams()?.id;
 
   useEffect(() => {
     const fetchCourse = async () => {
