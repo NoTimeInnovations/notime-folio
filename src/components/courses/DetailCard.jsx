@@ -5,18 +5,11 @@ import Button from "../home/Button";
 import H1 from "../common/H1";
 import P from "../common/P";
 import Image from "next/image";
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import paymentCCAvenue from "@/app/actions/handlePayment";
 import jsCookie from "js-cookie";
+import { paymentCCAvenue } from "@/app/actions/handlePayment";
 
-export const DetailCard = ({
-  image,
-  title,
-  description,
-  price,
-  discount,
-}) => {
+export const DetailCard = ({ image, title, description, price, discount }) => {
   const [finalPrice, setFinalPrice] = React.useState(0);
   const router = useRouter();
 
@@ -31,10 +24,17 @@ export const DetailCard = ({
     setFinalPrice(discountPrice);
   }, [price, discount]);
 
-  const handleEnrollToCourse = async() => {
+  const handleEnrollToCourse = async () => {
     const user = JSON.parse(jsCookie.get("user"));
     console.log(user);
-    await paymentCCAvenue(finalPrice, user?.name, user?.email);
+    const paymentURL = await paymentCCAvenue(
+      finalPrice,
+      user?.name,
+      user?.email
+    );
+    if (paymentURL) {
+      router.push(paymentURL);
+    }
   };
 
   return (

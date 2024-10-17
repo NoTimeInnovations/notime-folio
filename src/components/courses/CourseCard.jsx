@@ -6,10 +6,10 @@ import { useRouter } from "next/navigation";
 const CourseCard = ({ course }) => {
   const router = useRouter();
   return (
-    <div onClick={()=>router.push(`/courses/${course.id}`)} className="cursor-pointer hover:scale-110 transition-all">
+    <div onClick={()=>router.push(`/courses/${course?.id}`)} className="cursor-pointer hover:scale-110 transition-all">
       <div className="w-[20rem] sm:w-[30rem] md:w-[40rem] lg:w-[20rem] xl:w-[25rem] bg-[#0e1116] border-[#252d39] border rounded-lg shadow">
         <div>
-          <img className="object-cover w-full h-full rounded-t-lg" src={course.image} alt="" />
+          <img className="object-cover w-full h-full rounded-t-lg" src={course?.image} alt="" />
         </div>
         <div className="p-5">
           <a href="#">
@@ -17,7 +17,7 @@ const CourseCard = ({ course }) => {
               {course.title}
             </h5>
           </a>
-          <p className="mb-3 font-normal text-gray-400">{course.description}</p>
+          <p className="mb-3 font-normal text-gray-400">{course?.description}</p>
           <a
             href="#"
             className="inline-flex items-center py-2 text-sm font-medium text-center "

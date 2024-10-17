@@ -10,8 +10,6 @@ const fetchCourses = async () => {
     );
     const data = await response.json();
 
-    console.log(data);
-
     const formatedData = data?.docs.map((course) => ({
       id: course.id,
       title: course.title,

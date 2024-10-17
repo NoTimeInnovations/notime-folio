@@ -6,8 +6,6 @@ let initOptions = {};
 class Configure {
     constructor(options) {
         initOptions = options || {};
-        console.log(initOptions);
-        
     }
 
     validate(key) {
