@@ -8,7 +8,7 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail) => {
   const orderId = uuidv4();
 
   let paymentData = {
-    merchant_id: process.env.CCA_MERCHANT_ID, // Merchant ID (Required)
+    merchant_id: process.env.NEXT_PUBLIC_CCA_MERCHANT_ID, // Merchant ID (Required)
     order_id: orderId, // Order ID
     amount: amount, // Payment Amount (Required)
     currency: "INR", // Payment Currency Type (Required)
@@ -33,7 +33,7 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail) => {
   };
 
   let encReq = CCAvenue.getEncryptedOrder(paymentData);
-  let accessCode = process.env.CCA_ACCESS_CODE;
+  let accessCode = process.env.NEXT_PUBLIC_CCA_ACCESS_CODE;
   let URL = `https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id=${paymentData.merchant_id}6&encRequest=${encReq}&access_code=${accessCode}`;
   return URL;
 };
