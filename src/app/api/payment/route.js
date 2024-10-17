@@ -5,7 +5,7 @@ export async function POST(req, res) {
 
   const reqUrl = new URL(req.url);
   const courseId = reqUrl.searchParams.get("id");
-  const userId = JSON.parse(cookies().get("user")?.value)?.id;
+  const userId = JSON.parse(cookies().get("user")?.value || "")?.id;
   const authToken = cookies().get("auth_token")?.value;
 
   console.log({
@@ -20,7 +20,7 @@ export async function POST(req, res) {
   }
 
   try {
-    
+
     let data = CCAvenue.redirectResponseToJson(req.body.encResp);
 
     if (data.order_status === "Success") {
