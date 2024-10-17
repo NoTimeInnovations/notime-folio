@@ -7,8 +7,6 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail , cour
 
   const host = "http://www.notime.co.in";
   const orderId = uuidv4();
-  const user_id = JSON.parse(jsCookie.get('user'))?.id;
-  const auth_token = jsCookie.get('auth_token');
 
   let paymentData = {
     merchant_id: process.env.NEXT_PUBLIC_CCA_MERCHANT_ID, // Merchant ID (Required)
@@ -26,7 +24,7 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail , cour
     // billing_country: "India", // Billing COuntry (Optional)
     // billing_tel: "1234567890" // Billing Mobile Number (Optional)
 
-    redirect_url: `${host}/api/payment?id=${courseId}&auth_token=${auth_token}&user_id=${user_id}`, // Success URL (Required)
+    redirect_url: `${host}/api/payment?id=${courseId}`, // Success URL (Required)
     cancel_url: `${host}/api/payment`, // Failed/Cancel Payment URL (Required)
 
     // merchant_param1: "Extra Information", // Extra Information (Optional)

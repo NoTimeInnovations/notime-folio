@@ -4,6 +4,7 @@ import CourseDetailForRegistered from "@/pages/CourseDetailForRegistered";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 
 const fetchCourseDetail = async (id) => {
   try {
@@ -34,8 +35,23 @@ const fetchCourseDetail = async (id) => {
 const page = async({ params }) => {
   
   const authToken = cookies().get('auth_token')?.value;
-  const enrolled_course = cookies().get('enrolled_course')?.value;
   const courseDetails = await fetchCourseDetail(params?.id);
+  const enrolled_course = courseDetails?.courses?.find(course => course.id == params?.id)?.id;
+  const error = params?.error;
+  const success = params?.success;
+
+  if (error) {
+    toast.error("Payment failed. Please try again.");
+  }
+
+  if (success) {
+    toast.success("Payment successful. You are now enrolled in the course.");
+  }
+
+  console.log('enrolled_course', enrolled_course);
+  console.log('my course', courseDetails?.courses);
+  
+  
 
   if (authToken && enrolled_course == params?.id) {
     return <CourseDetailForRegistered />;
