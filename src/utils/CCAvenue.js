@@ -87,8 +87,8 @@ return initOptions && initOptions[key]? true : false;
 }
 
 const CCAvenue = new Configure({
-    working_key: "34594C2EA05E872DB1E07C2B80F84547", // Your Working Key from CCAvenue
-    merchant_id: "3880026" // Your Merchant ID from CCAvenue
+    working_key: process.env.NEXT_PUBLIC_CCA_WORKING_KEY,
+    merchant_id: process.env.NEXT_PUBLIC_CCA_MERCHANT_ID
 });
 
 export default CCAvenue;

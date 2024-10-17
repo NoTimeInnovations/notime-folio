@@ -7,6 +7,8 @@ import P from "../common/P";
 import Image from "next/image";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import paymentCCAvenue from "@/app/actions/handlePayment";
+import jsCookie from "js-cookie";
 
 export const DetailCard = ({
   image,
@@ -16,7 +18,7 @@ export const DetailCard = ({
   discount,
   id,
 }) => {
-  const [discountPrice, setDiscountPrice] = React.useState(0);
+  const [finalPrice, setFinalPrice] = React.useState(0);
   const router = useRouter();
 
   function calculateDiscountPrice(price, discountPercentage) {
@@ -26,13 +28,14 @@ export const DetailCard = ({
   }
 
   useEffect(() => {
-    const discountPrice = calculateDiscountPrice(price, discount);
-    setDiscountPrice(discountPrice);
+    const discountPrice = calculateDiscountPrice(price, discount || 0);
+    setFinalPrice(discountPrice);
   }, [price, discount]);
 
   const handleEnrollToCourse = () => {
-    Cookies.set("enrolled_course", id);
-    router.refresh();
+    const user = JSON.parse(jsCookie.get("user"));
+    console.log(user);
+    paymentCCAvenue(router, finalPrice, user?.name, user?.email);
   };
 
   return (
@@ -60,7 +63,7 @@ export const DetailCard = ({
                 {discount > 0 ? (
                   <>
                     <div className="text-3xl md:text-4xl font-bold">
-                      ₹{discountPrice}
+                      ₹{finalPrice}
                     </div>
                     <div className="text-xl md:text-2xl text-gray-400 line-through">
                       ₹{price}
@@ -69,7 +72,7 @@ export const DetailCard = ({
                 ) : (
                   <>
                     <div className="text-3xl md:text-4xl font-bold">
-                      ₹{price}
+                      ₹{finalPrice}
                     </div>
                   </>
                 )}
