@@ -1,12 +1,7 @@
-"use client";
-
-import Courses from '@/pages/Courses'
-import React from 'react'
+import { redirect } from "next/navigation";
 
 const page = () => {
-  return (
-    <Courses/>
-  )
-}
+  redirect("/dashboard");
+};
 
-export default page
+export default page;

@@ -8,11 +8,14 @@ import React from "react";
 
 const CourseDetail = ({ course }) => {
 
+  if (!course) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="min-h-screen py-20 mt-10 px-5 md:px-10 lg:px-16 xl:px-[15%] bg-gray-900 text-gray-200">
       {/* Course Detail Grid Layout */}
       <DetailCard
-        id={course?.id}
         price={course?.amount}
         discount={course?.discount}
         image={course?.image}

@@ -16,7 +16,6 @@ export const DetailCard = ({
   description,
   price,
   discount,
-  id,
 }) => {
   const [finalPrice, setFinalPrice] = React.useState(0);
   const router = useRouter();
@@ -32,10 +31,10 @@ export const DetailCard = ({
     setFinalPrice(discountPrice);
   }, [price, discount]);
 
-  const handleEnrollToCourse = () => {
+  const handleEnrollToCourse = async() => {
     const user = JSON.parse(jsCookie.get("user"));
     console.log(user);
-    paymentCCAvenue(router, finalPrice, user?.name, user?.email);
+    await paymentCCAvenue(finalPrice, user?.name, user?.email);
   };
 
   return (

@@ -10,7 +10,7 @@ const Courses = ({ courses }) => {
 
       {/* courses  */}
       <div className="grid gap-10 lg:grid-cols-2 lg:mt-20 place-items-center justify-center">
-        {courses.map((course, index) => (
+        {courses?.map((course, index) => (
           <CourseCard key={index} course={course} />
         ))}
       </div>

@@ -24,9 +24,6 @@ const fetchCourseDetail = async (id) => {
       roadmap: data?.Roadmap,
       reviews: data?.reviews || [],
     };
-
-    console.log("Course Data: ", formatedData);
-
     return formatedData;
   } catch (error) {
     console.log("Error fetching course data: ", error);

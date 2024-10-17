@@ -1,3 +1,4 @@
+
 import { createHash, createCipheriv, createDecipheriv } from 'crypto';
 
 let initOptions = {};
@@ -5,6 +6,8 @@ let initOptions = {};
 class Configure {
     constructor(options) {
         initOptions = options || {};
+        console.log(initOptions);
+        
     }
 
     validate(key) {
@@ -87,8 +90,8 @@ return initOptions && initOptions[key]? true : false;
 }
 
 const CCAvenue = new Configure({
-    working_key: process.env.NEXT_PUBLIC_CCA_WORKING_KEY,
-    merchant_id: process.env.NEXT_PUBLIC_CCA_MERCHANT_ID
+    working_key: process.env.CCA_WORKING_KEY,
+    merchant_id: process.env.CCA_MERCHANT_ID
 });
 
 export default CCAvenue;
