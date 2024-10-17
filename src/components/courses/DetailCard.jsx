@@ -9,7 +9,14 @@ import { useRouter } from "next/navigation";
 import jsCookie from "js-cookie";
 import { paymentCCAvenue } from "@/app/actions/handlePayment";
 
-export const DetailCard = ({ image, title, description, price, discount }) => {
+export const DetailCard = ({
+  image,
+  title,
+  description,
+  price,
+  discount,
+  id,
+}) => {
   const [finalPrice, setFinalPrice] = React.useState(0);
   const router = useRouter();
 
@@ -26,11 +33,11 @@ export const DetailCard = ({ image, title, description, price, discount }) => {
 
   const handleEnrollToCourse = async () => {
     const user = JSON.parse(jsCookie.get("user"));
-    console.log(user);
     const paymentURL = await paymentCCAvenue(
       finalPrice,
       user?.name,
-      user?.email
+      user?.email,
+      id
     );
     if (paymentURL) {
       router.push(paymentURL);
