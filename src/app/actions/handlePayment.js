@@ -8,6 +8,11 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail , cour
   const host = "http://www.notime.co.in";
   const orderId = uuidv4();
 
+  if(!courseId || !userId || !authToken){
+    toast.error("Invalid payment data");
+    return;
+  }
+
   const info = "cid=" + courseId + "&uid=" + userId + "&at=" + authToken;
 
   // const encryptedInfo = encodeURIComponent(CCAvenue.encrypt(info));
