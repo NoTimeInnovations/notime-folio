@@ -13,15 +13,29 @@ export async function POST(req) {
     // }
 
     // const decryptedInfo = CCAvenue.decrypt(encryptedInfo);
-    const info = reqUrl.searchParams.get("info");
-    if (!info) {
-      return Response.redirect(`${host}/dashboard?error=payment-cancelled`);
+    // const info = reqUrl.searchParams.get("info");
+    // if (!info) {
+    //   return Response.redirect(`${host}/dashboard?error=payment-cancelled`);
+    // }
+    // details = info.split("&").reduce((o, pair) => {
+    //   pair = pair.split("=");
+    //   return (o[pair[0]] = pair[1]), o;
+    // }, {});
+    // console.log("Details: ", details);
+
+    const cid = reqUrl.searchParams.get("cid");
+    const uid = reqUrl.searchParams.get("uid");
+    const at = reqUrl.searchParams.get("at");
+
+    if (!cid || !uid || !at) {
+      throw new Error("Invalid payment data");
     }
-    details = info.split("&").reduce((o, pair) => {
-      pair = pair.split("=");
-      return (o[pair[0]] = pair[1]), o;
-    }, {});
-    console.log("Details: ", details);
+
+    details = {
+      cid,
+      uid,
+      at,
+    };
     
   } catch (error) {
     console.error("Error decrypting info: ", error);
