@@ -31,12 +31,36 @@ const fetchCourseDetail = async (id) => {
   }
 };
 
+const fetchUserCourses = async () => {
+  try {
+
+    const authToken = cookies().get('auth_token')?.value;
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/me?depth=2`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        }
+      }
+    );
+
+    const data = await response.json();
+    return data?.user?.courses;
+    
+  } catch (error) {
+    console.error("Error fetching user courses: ", error);
+    
+  }
+}
+
 
 const page = async({ params }) => {
   
   const authToken = cookies().get('auth_token')?.value;
   const courseDetails = await fetchCourseDetail(params?.id);
-  const enrolled_course = courseDetails?.courses?.find(course => course.id == params?.id)?.id;
+  const userCoursesData = await fetchUserCourses();
+
+  const enrolled_course = userCoursesData?.find(course => course.id == params?.id)?.id;
   const error = params?.error;
   const success = params?.success;
 
@@ -49,9 +73,8 @@ const page = async({ params }) => {
   }
 
   console.log('enrolled_course', enrolled_course);
-  console.log('my course', courseDetails?.courses);
-  
-  
+  console.log('this_course', courseDetails?.id);
+
 
   if (authToken && enrolled_course == params?.id) {
     return <CourseDetailForRegistered />;
