@@ -5,12 +5,15 @@ export async function POST(req) {
   try {
     // Decrypt the Response Data from Request Body
     
-    const reqBody = await req.json();
+    const body = await req.text();
 
-    console.log('reqBody',reqBody);
-    console.log('reqBody.encResp',reqBody.encResp);
+    console.log(body);
     
-    
+    const params = new URLSearchParams(body);
+    const encResp = params.get('encResp');
+    if (!encResp) {
+      throw new Error('Encrypted response (encResp) not found');
+    }
     
     let data = CCAvenue.redirectResponseToJson(reqBody.encResp);
 
