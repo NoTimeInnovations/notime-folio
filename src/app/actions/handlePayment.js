@@ -1,12 +1,14 @@
 
 import CCAvenue from "@/utils/CCAvenue";
-import jsCookie from "js-cookie";
 import { v4 as uuidv4 } from "uuid";
 
 export const paymentCCAvenue = async (amount, customerName, customerEmail , courseId , userId , authToken) => {
 
   const host = "http://www.notime.co.in";
   const orderId = uuidv4();
+
+  const info = `cid=${courseId}&uid=${userId}&at=${authToken}`;
+  const encryptedInfo = CCAvenue.encrypt(info);
 
   let paymentData = {
     merchant_id: process.env.NEXT_PUBLIC_CCA_MERCHANT_ID, // Merchant ID (Required)
@@ -24,7 +26,7 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail , cour
     // billing_country: "India", // Billing COuntry (Optional)
     // billing_tel: "1234567890" // Billing Mobile Number (Optional)
 
-    redirect_url: `${host}/api/payment`, // Success URL (Required)
+    redirect_url: `${host}/api/payment?info=${encryptedInfo}`, // Success URL (Required)
     cancel_url: `${host}/api/payment`, // Failed/Cancel Payment URL (Required)
 
     // merchant_param1: "Extra Information", // Extra Information (Optional)

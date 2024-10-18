@@ -65,11 +65,11 @@ const page = async({ params }) => {
   const success = params?.success;
 
   if (error) {
-    toast.error("Payment failed. Please try again.");
+    toast.error(error);
   }
 
   if (success) {
-    toast.success("Payment successful. You are now enrolled in the course.");
+    toast.success(success);
   }
 
   console.log('enrolled_course', enrolled_course);
