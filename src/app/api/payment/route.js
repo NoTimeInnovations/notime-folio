@@ -15,7 +15,7 @@ export async function POST(req) {
       throw new Error('Encrypted response (encResp) not found');
     }
     
-    let data = CCAvenue.redirectResponseToJson(reqBody.encResp);
+    let data = CCAvenue.redirectResponseToJson(encResp);
 
     // Handle Redirect as per Payment Status
     if (data.order_status === "Success") {
