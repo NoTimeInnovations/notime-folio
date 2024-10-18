@@ -1,6 +1,6 @@
 import CCAvenue from "@/utils/CCAvenue";
 
-export async function POST(req, res) {
+export async function POST(req) {
   // const reqUrl = new URL(req.url);
   // const courseId = reqUrl.searchParams.get("cid");
   // const userId = reqUrl.searchParams.get("uid");
@@ -57,21 +57,23 @@ export async function POST(req, res) {
 
   try {
     // Decrypt the Response Data from Request Body
+    console.log("req.body ", req.body);
+    
     let data = CCAvenue.redirectResponseToJson(req.body.encResp);
 
     // Handle Redirect as per Payment Status
     if (data.order_status === "Success") {
       // Redirect to Payment Success Page
-      res.redirect(302, "/dashboard");
+      return Response.redirect(302, "/dashboard");
     } else {
       // Redirect to Payment Failed Page
-      res.redirect(302, "/");
+      return Response.redirect(302, "/");
     }
   } catch (error) {
     // Handling Errors if anything Issue/Problem while Payment
     console.error("Error processing CCAvenue request:", error);
 
     // Redirect to Payment Failed Page
-    res.redirect(302, "/");
+    return Response.redirect(302, "/");
   }
 }
