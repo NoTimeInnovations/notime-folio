@@ -13,7 +13,7 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail , cour
     return;
   }
 
-  const info = "cid=" + courseId + "&uid=" + userId + "&at=" + authToken;
+  // const info = "cid=" + courseId + "&uid=" + userId + "&at=" + authToken;
 
   // const encryptedInfo = encodeURIComponent(CCAvenue.encrypt(info));
   // const decryptedInfo = CCAvenue.decrypt(encryptedInfo);
@@ -47,12 +47,12 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail , cour
     // billing_country: "India", // Billing COuntry (Optional)
     // billing_tel: "1234567890" // Billing Mobile Number (Optional)
 
-    redirect_url: `${host}/api/payment?${info}`, // Success URL (Required)
-    cancel_url: `${host}/api/payment`, // Failed/Cancel Payment URL (Required)
+    redirect_url: `${host}/api/payment`, // Success URL (Required)
+    cancel_url: `${host}/dashboard`, // Failed/Cancel Payment URL (Required)
 
-    merchant_param1: courseId, // Extra Information (Optional)
-    // merchant_param2: "Extra Information", // Extra Information (Optional)
-    // merchant_param3: "Extra Information", // Extra Information (Optional)
+    cid: courseId, // Extra Information (Optional)
+    uid: userId, // Extra Information (Optional)
+    at: authToken, // Extra Information (Optional)
     // merchant_param4: "Extra Information", // Extra Information (Optional)
   };
 
