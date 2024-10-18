@@ -224,7 +224,7 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
             {currentTopic?.shortDesc}
           </P>
         </div>
-        {otherTopics.map((video) => (
+        {otherTopics?.map((video) => (
           <VideoCard
             video={{
               videoTitle: video.topic,
