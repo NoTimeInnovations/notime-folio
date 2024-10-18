@@ -7,9 +7,10 @@ import toast from "react-hot-toast";
 const Courses = ({ courses, error }) => {
   useEffect(() => {
     if (error) {
-      console.log(error);
-      
-      toast.error("hello");
+      console.error(error);
+      setTimeout(() => {
+        toast.error(error);
+      }, 1000);
     }
   }, [error]);
   return (

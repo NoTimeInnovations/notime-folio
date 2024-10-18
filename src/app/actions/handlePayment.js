@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export const paymentCCAvenue = async (amount, customerName, customerEmail , courseId , userId , authToken) => {
 
-  const host = "http://www.notime.co.in";
+  const host = "https://www.notime.co.in";
   const orderId = uuidv4();
 
   if(!courseId || !userId || !authToken){

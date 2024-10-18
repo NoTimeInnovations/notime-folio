@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 const fetchCourseDetail = async (id) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/courses/${id}?depth=3`
+      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/courses/${id}?depth=4`
     );
     const data = await response.json();
 
@@ -54,30 +54,32 @@ const fetchUserCourses = async () => {
 }
 
 
-const page = async({ params }) => {
+const page = async({ params , searchParams }) => {
   
   const authToken = cookies().get('auth_token')?.value;
   const courseDetails = await fetchCourseDetail(params?.id);
   const userCoursesData = await fetchUserCourses();
 
   const enrolled_course = userCoursesData?.find(course => course.id == params?.id)?.id;
-  const error = params?.error;
-  const success = params?.success;
-
-  if (error) {
-    toast.error(error);
-  }
-
-  if (success) {
-    toast.success(success);
-  }
+  const success = searchParams?.success;
 
   console.log('enrolled_course', enrolled_course);
   console.log('this_course', courseDetails?.id);
 
+  const lastWatchedDay = cookies().get('last_watched_day')?.value || courseDetails?.roadmap[0]?.id;
+  const lastWatchedTopic = cookies().get('last_watched_topic')?.value || courseDetails?.roadmap[0]?.Topics[0]?.id;
+  const videoTime = cookies().get('video_time')?.value || 0;
+
+  const lastWatched = {
+    day: lastWatchedDay,
+    topic: lastWatchedTopic,
+    time: videoTime
+  }
+
+  const currentDay = courseDetails?.roadmap.find( day => day.id == lastWatchedDay);
 
   if (authToken && enrolled_course == params?.id) {
-    return <CourseDetailForRegistered />;
+    return <CourseDetailForRegistered lastWatched={lastWatched} courseDetail={currentDay} />;
   }else if (authToken){
     return <CourseDetail course={courseDetails} />;
   }else{

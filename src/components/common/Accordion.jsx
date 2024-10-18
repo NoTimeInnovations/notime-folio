@@ -18,7 +18,7 @@ const AccordionTrigger = React.forwardRef(({ className, status , children, ...pr
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        `flex flex-1 items-center justify-between py-4  px-3 ${status == 'completed' ? 'text-green-300 data-[state=open]:text-white data-[state=open]:font-semibold data-[state=open]:bg-gradient-to-r from-green-900 to-yellow-900' : 'text-white data-[state=open]:font-semibold data-[state=open]:bg-gradient-to-r from-green-500 to-yellow-500'}  bg-white/10 rounded text-xl  [&[data-state=open]>svg]:rotate-180`,
+        `flex flex-1 items-center justify-between capitalize py-4  px-3 ${status == 'completed' ? 'text-green-300 data-[state=open]:text-white data-[state=open]:font-semibold data-[state=open]:bg-gradient-to-r from-green-900 to-yellow-900' : 'text-white data-[state=open]:font-semibold data-[state=open]:bg-gradient-to-r from-green-500 to-yellow-500'}  bg-white/10 rounded text-xl  [&[data-state=open]>svg]:rotate-180`,
         className
       )}
       {...props}>
