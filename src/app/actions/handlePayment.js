@@ -1,5 +1,6 @@
 
 import CCAvenue from "@/utils/CCAvenue";
+import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 
 export const paymentCCAvenue = async (amount, customerName, customerEmail , courseId , userId , authToken) => {
@@ -8,7 +9,17 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail , cour
   const orderId = uuidv4();
 
   const info = `cid=${courseId}&uid=${userId}&at=${authToken}`;
+
+  console.log("info", info);
+  
+
   const encryptedInfo = CCAvenue.encrypt(info);
+  const decryptedInfo = CCAvenue.decrypt(encryptedInfo);
+
+  if(info !== decryptedInfo){
+    toast.error("Error encrypting data");
+    return;
+  }
 
   let paymentData = {
     merchant_id: process.env.NEXT_PUBLIC_CCA_MERCHANT_ID, // Merchant ID (Required)
