@@ -15,22 +15,28 @@ export async function POST(req) {
   try {
     let data = CCAvenue.redirectResponseToJson(encResp);
 
-    if (!data?.cid && !data?.uid && !data?.at) {
+    console.log("res data",data);
+    
+    const courseId = data?.merchant_param1;
+    const userId = data?.merchant_param2;
+    const authToken = data?.merchant_param3;
+
+    if (!courseId && !userId && !authToken) {
       return Response.redirect(`${host}/dashboard?error=invalid-payment-data`);
     }
 
     if (data.order_status === "Success") {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/${data?.uid}`,
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/${userId}`,
           {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",
-              Authorization: "Bearer " + data?.at,
+              Authorization: "Bearer " + authToken,
             },
             body: JSON.stringify({
-              courses: data?.cid,
+              courses: courseId,
             }),
           }
         );
@@ -45,7 +51,7 @@ export async function POST(req) {
       }
 
       return Response.redirect(
-        `${host}/courses/${data?.cid}?success=payment-success`
+        `${host}/courses/${courseId}?success=payment-success`
       );
     } else {
       return Response.redirect(`${host}/dashboard?error=payment-failed`);
