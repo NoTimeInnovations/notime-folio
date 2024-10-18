@@ -7,19 +7,25 @@ export async function POST(req) {
   //extracting details from url
   try {
     const reqUrl = new URL(req.url);
-    const encryptedInfo = Buffer.from(reqUrl.searchParams.get("info"), "hex")
-    if(!encryptedInfo){
+    // const encryptedInfo = Buffer.from(reqUrl.searchParams.get("info"), "hex")
+    // if(!encryptedInfo){
+    //   return Response.redirect(`${host}/dashboard?error=payment-cancelled`);
+    // }
+
+    // const decryptedInfo = CCAvenue.decrypt(encryptedInfo);
+    const info = reqUrl.searchParams.get("info");
+    if (!info) {
       return Response.redirect(`${host}/dashboard?error=payment-cancelled`);
     }
-
-    const decryptedInfo = CCAvenue.decrypt(encryptedInfo);
-    details = decryptedInfo.split("&").reduce((o, pair) => {
+    details = info.split("&").reduce((o, pair) => {
       pair = pair.split("=");
       return (o[pair[0]] = pair[1]), o;
     }, {});
+    console.log("Details: ", details);
+    
   } catch (error) {
     console.error("Error decrypting info: ", error);
-    return Response.redirect(`${host}/dashboard?error=payment-error`);
+    return Response.redirect(`${host}/dashboard?error=decryption-error`);
   }
 
   //validating encrypted response

@@ -24,12 +24,10 @@ const fetchCourses = async () => {
   }
 };
 
-export default async function page({ params }) {
+export default async function page({ searchParams }) {
   const courses = await fetchCourses();
 
-  if (params?.error) {
-    toast.error(params?.error);
-  }
+  const error = searchParams?.error;
 
   return (
     <div className="mt-12 py-20 mx-20">
@@ -39,7 +37,7 @@ export default async function page({ params }) {
           <Leaderboard />
         </div>
         <div className="lg:col-span-2">
-          <Courses courses={courses} />
+          <Courses error={error} courses={courses} />
         </div>
       </div>
     </div>

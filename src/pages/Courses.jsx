@@ -1,9 +1,17 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import CourseCard from "../components/courses/CourseCard";
 import ScrollProgressIndicator from "../components/common/ScrollProgressIndicator";
+import toast from "react-hot-toast";
 
-const Courses = ({ courses }) => {
+const Courses = ({ courses, error }) => {
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+      
+      toast.error("hello");
+    }
+  }, [error]);
   return (
     <div>
       <ScrollProgressIndicator />
