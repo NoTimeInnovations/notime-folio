@@ -64,16 +64,16 @@ export async function POST(req) {
     // Handle Redirect as per Payment Status
     if (data.order_status === "Success") {
       // Redirect to Payment Success Page
-      return Response.redirect(302, "/dashboard");
+      return Response.redirect(302, "https://www.notime.co.in/dashboard");
     } else {
       // Redirect to Payment Failed Page
-      return Response.redirect(302, "/");
+      return Response.redirect(302, "https://www.notime.co.in");
     }
   } catch (error) {
     // Handling Errors if anything Issue/Problem while Payment
     console.error("Error processing CCAvenue request:", error);
 
     // Redirect to Payment Failed Page
-    return Response.redirect(302, "/");
+    return Response.redirect(302, "https://www.notime.co.in");
   }
 }
