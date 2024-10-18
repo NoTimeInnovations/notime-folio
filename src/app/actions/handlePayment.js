@@ -50,7 +50,7 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail , cour
     redirect_url: `${host}/api/payment?info=${info}`, // Success URL (Required)
     cancel_url: `${host}/api/payment`, // Failed/Cancel Payment URL (Required)
 
-    // merchant_param1: "Extra Information", // Extra Information (Optional)
+    merchant_param1: courseId, // Extra Information (Optional)
     // merchant_param2: "Extra Information", // Extra Information (Optional)
     // merchant_param3: "Extra Information", // Extra Information (Optional)
     // merchant_param4: "Extra Information", // Extra Information (Optional)

@@ -42,6 +42,8 @@ export async function POST(req) {
   try {
     let data = CCAvenue.redirectResponseToJson(encResp);
 
+    console.log( "res data : ",data);
+    
     if (data.order_status === "Success") {
       try {
         const response = await fetch(
