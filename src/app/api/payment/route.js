@@ -1,12 +1,11 @@
 import CCAvenue from "@/utils/CCAvenue";
-import { cookies } from "next/headers";
 
 export async function POST(req, res) {
 
   const reqUrl = new URL(req.url);
-  const courseId = reqUrl.searchParams.get("id");
-  const userId = JSON.parse(cookies().get("user")?.value || "")?.id;
-  const authToken = cookies().get("auth_token")?.value;
+  const courseId = reqUrl.searchParams.get("cid");
+  const userId = reqUrl.searchParams.get("uid");
+  const authToken = reqUrl.searchParams.get("at");
 
   console.log({
     courseId,
@@ -16,7 +15,7 @@ export async function POST(req, res) {
   });
 
   if (!courseId || !authToken || !userId) {
-    res.redirect(`/courses/${courseId}?error=payment-failed`);
+    return res.redirect(`/courses/${courseId}?error=payment-cancelled`);
   }
 
   try {
@@ -45,15 +44,15 @@ export async function POST(req, res) {
         }
       } catch (error) {
         console.error("Error enrolling student to course:", error);
-        res.redirect(`/courses/${courseId}?error=payment-failed`);
+        return res.redirect(`/courses/${courseId}?error=enrolling-failed`);
       }
 
-      res.redirect(`/courses/${courseId}?success=payment-success`);
+      return res.redirect(`/courses/${courseId}?success=payment-success`);
     } else {
-      res.redirect(`/courses/${courseId}?error=payment-failed`);
+      return res.redirect(`/courses/${courseId}?error=payment-failed`);
     }
   } catch (error) {
     console.error("Error processing CCAvenue request:", error);
-    res.redirect(`/courses/${courseId}?error=payment-failed`);
+    return res.redirect(`/courses/${courseId}?error=payment-response-error`);
   }
 }

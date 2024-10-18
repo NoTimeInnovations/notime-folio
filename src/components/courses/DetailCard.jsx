@@ -33,11 +33,14 @@ export const DetailCard = ({
 
   const handleEnrollToCourse = async () => {
     const user = JSON.parse(jsCookie.get("user"));
+    const authToken = jsCookie.get("auth_token");
     const paymentURL = await paymentCCAvenue(
       finalPrice,
       user?.name,
       user?.email,
-      id
+      id,
+      user?.id,
+      authToken
     );
     if (paymentURL) {
       router.push(paymentURL);
