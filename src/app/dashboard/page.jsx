@@ -2,6 +2,7 @@ import Banner from "@/components/common/Banner";
 import Courses from "@/pages/Courses";
 import Leaderboard from "@/pages/Leaderboard";
 import React from "react";
+import toast from "react-hot-toast";
 
 const fetchCourses = async () => {
   try {
@@ -23,8 +24,13 @@ const fetchCourses = async () => {
   }
 };
 
-export default async function page() {
+export default async function page({ params }) {
   const courses = await fetchCourses();
+
+  if (params?.error) {
+    toast.error(params?.error);
+  }
+
   return (
     <div className="mt-12 py-20 mx-20">
       <Banner text="Courses" />

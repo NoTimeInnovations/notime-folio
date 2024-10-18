@@ -8,14 +8,19 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail , cour
   const host = "http://www.notime.co.in";
   const orderId = uuidv4();
 
-  const info = `cid=${courseId}&uid=${userId}&at=${authToken}`;
+  const info = "cid=" + courseId + "&uid=" + userId + "&at=" + authToken;
 
-  console.log("info", info);
-  
-
-  const encryptedInfo = CCAvenue.encrypt(info);
+  const encryptedInfo = encodeURIComponent(CCAvenue.encrypt(info));
   const decryptedInfo = CCAvenue.decrypt(encryptedInfo);
 
+  console.log({
+    info,
+    encryptedInfo,
+    decryptedInfo,
+  });
+
+  localStorage.setItem("info", encryptedInfo);
+  
   if(info !== decryptedInfo){
     toast.error("Error encrypting data");
     return;

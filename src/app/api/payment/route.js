@@ -1,32 +1,38 @@
 import CCAvenue from "@/utils/CCAvenue";
 
 export async function POST(req) {
-
   const host = "https://www.notime.co.in";
+  let details;
 
+  //extracting details from url
+  try {
+    const reqUrl = new URL(req.url);
+    const encryptedInfo = Buffer.from(reqUrl.searchParams.get("info"), "hex")
+    if(!encryptedInfo){
+      return Response.redirect(`${host}/dashboard?error=payment-cancelled`);
+    }
 
-  const reqUrl = new URL(req.url);
-  const encryptedInfo = reqUrl.searchParams.get("info");
-  const decryptedInfo = CCAvenue.decrypt(encryptedInfo);
-  const details = decryptedInfo.split("&").reduce((o, pair) => {
-    pair = pair.split("=");
-    return (o[pair[0]] = pair[1]), o;
-  }, {});
+    const decryptedInfo = CCAvenue.decrypt(encryptedInfo);
+    details = decryptedInfo.split("&").reduce((o, pair) => {
+      pair = pair.split("=");
+      return (o[pair[0]] = pair[1]), o;
+    }, {});
+  } catch (error) {
+    console.error("Error decrypting info: ", error);
+    return Response.redirect(`${host}/dashboard?error=payment-error`);
+  }
 
-
+  //validating encrypted response
   const body = await req.text();
   const params = new URLSearchParams(body);
-  const encResp = params.get('encResp');
-
-
-  if(!encResp){
-    return Response.redirect(`${host}${host}/courses/${details?.cid}?error=payment-response-error`);
+  const encResp = params.get("encResp");
+  if (!encResp) {
+    return Response.redirect(
+      `${host}/dashboard?error=payment-response-error`
+    );
   }
 
-  if (!details?.cid || !details?.at || !details?.uid) {
-    return Response.redirect(`${host}/courses/${details?.cid}?error=payment-cancelled`);
-  }
-
+  //processing response
   try {
     let data = CCAvenue.redirectResponseToJson(encResp);
 
@@ -48,20 +54,28 @@ export async function POST(req) {
         const user = await response.json();
 
         if (user?.errors?.length > 0) {
-          throw new Error("Error enrolling student to course");
+          throw new Error(user?.errors[0].message);
         }
       } catch (error) {
-        console.error("Error enrolling student to course:", error);
-        return Response.redirect(`${host}/courses/${details?.cid}?error=enrolling-failed`);
+        console.error("Error enrolling student : ", error);
+        return Response.redirect(
+          `${host}/dashboard?error=enrolling-failed`
+        );
       }
 
-      return Response.redirect(`${host}/courses/${details?.cid}?success=payment-success`);
+      return Response.redirect(
+        `${host}/courses/${details?.cid}?success=payment-success`
+      );
     } else {
-      return Response.redirect(`${host}/courses/${details?.cid}?error=payment-failed`);
+      return Response.redirect(
+        `${host}/dashboard?error=payment-failed`
+      );
     }
   } catch (error) {
     console.error("Error processing CCAvenue request:", error);
-    return Response.redirect(`${host}/courses/${details?.cid}?error=payment-response-error`);
+    return Response.redirect(
+      `${host}/dashboard?error=payment-response-error`
+    );
   }
 
   // try {
