@@ -20,8 +20,9 @@ TabsList.displayName = TabsPrimitive.List.displayName
 const TabsTrigger = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.Trigger
     ref={ref}
+    disabled={props.disabled}
     className={cn(
-      "w-full bg-white/10 text-white font-semibold py-3 rounded hover:bg-white/20 transition-all data-[state=active]:bg-gradient-to-r from-green-500 to-yellow-500",
+      `w-full bg-white/10 text-white font-semibold py-3 rounded hover:bg-white/20 transition-all data-[state=active]:bg-gradient-to-r from-green-500 to-yellow-500 ${props.disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`,
       className
     )}
     {...props} />
