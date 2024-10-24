@@ -16,6 +16,7 @@
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.43.0",
     "@vercel/analytics": "^1.3.1",
+    "@webiny/react-rich-text-lexical-renderer": "^5.41.0",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "cloudinary": "^2.4.0",

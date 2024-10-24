@@ -14,6 +14,9 @@ import Button from "../home/Button";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
+import { RichTextLexicalRenderer } from "@webiny/react-rich-text-lexical-renderer";
+
+
 
 const TaskSection = ({ task }) => {
   const [problemSubmissions, setProblemSubmissions] = useState();
@@ -138,7 +141,7 @@ const TaskSection = ({ task }) => {
             const isSubmitted =
               problemSubmissions?.find((p) => p.problem_id === prob.id) ||
               false;
-            console.log(isSubmitted);
+            console.log(prob);
 
             return (
               <AccordionItem
@@ -151,7 +154,9 @@ const TaskSection = ({ task }) => {
                 </AccordionTrigger>
                 <AccordionContent className="text-white px-1 py-10">
                   <H1 className={"capitalize"}>{prob.title}</H1>
-                  <P className={"mb-5"}>sdfsdf</P>
+                  <P className={"mb-5"}>
+                    <RichTextLexicalRenderer value={prob.question} />
+                  </P>
 
                   {prob?.image && (
                     <GradientText className={"font-semibold lg:text-xl"}>
