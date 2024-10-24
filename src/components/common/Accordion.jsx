@@ -22,7 +22,7 @@ const AccordionTrigger = React.forwardRef(
     let statusStyle = "";
     if (status == "submitted") {
       statusStyle =
-        "text-sky-300 data-[state=open]:text-white data-[state=open]:font-semibold data-[state=open]:bg-gradient-to-r from-sky-900";
+        "text-yellow-300 data-[state=open]:text-white data-[state=open]:font-semibold data-[state=open]:bg-gradient-to-r from-yellow-900";
     } else if (status == "approved") {
       statusStyle =
         "text-green-300 data-[state=open]:text-white data-[state=open]:font-semibold data-[state=open]:bg-gradient-to-r from-green-900";
