@@ -14,7 +14,7 @@ import Button from "../home/Button";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
-import { RichTextLexicalRenderer } from "@webiny/react-rich-text-lexical-renderer";
+// import { RichTextLexicalRenderer } from "@webiny/react-rich-text-lexical-renderer";
 
 
 
@@ -155,7 +155,7 @@ const TaskSection = ({ task }) => {
                 <AccordionContent className="text-white px-1 py-10">
                   <H1 className={"capitalize"}>{prob.title}</H1>
                   <P className={"mb-5"}>
-                    <RichTextLexicalRenderer value={prob.question} />
+                    {/* <RichTextLexicalRenderer value={prob.question} /> */}
                   </P>
 
                   {prob?.image && (
