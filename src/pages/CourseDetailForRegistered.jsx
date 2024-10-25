@@ -19,13 +19,14 @@ import React, { useEffect, useState } from "react";
 const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
   const [mcqCompleted, setMCQCompleted] = useState(false);
   const [currentTopic, setCurentTopic] = useState(null);
-  const { id: courseId } = useParams();
+  const courseId = useParams()?.id;
+
 
   const fetchMCQSubmission = async () => {
     try {
       const user = JSON.parse(Cookies.get("user"));
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?task_id=${currentTopic?.task?.id}?student_id=${user.id}`
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?task_id=${currentTopic?.task?.id}?student_id=${user?.id}`
       );
       const data = await response.json();
 
@@ -43,11 +44,15 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
     console.log("Course Detail: ", courseDetail);
     
 
-    const currTopic = courseDetail?.Topics.find(
-      (topic) => topic.id == lastWatched.topic
+    const currTopic = courseDetail?.Topics?.find(
+      (topic) => topic?.id == lastWatched?.topic
     );
     setCurentTopic(currTopic);
   }, [courseDetail, lastWatched]);
+
+  if (!courseId) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <main className="grid gap-5 lg:grid-cols-[70%,1fr] min-h-screen py-[120px] px-[7%] ">
@@ -124,8 +129,8 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
             <VideoCard
               index={index}
               currentVideoTitle={currentTopic?.topic}
-              videoTitle={video.topic}
-              key={video.topic}
+              videoTitle={video?.topic}
+              key={video?.topic}
             />
           ))}
         </div>
