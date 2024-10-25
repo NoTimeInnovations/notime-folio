@@ -25,6 +25,8 @@ export async function POST(req) {
       return Response.redirect(`${host}/dashboard?error=invalid-payment-data`);
     }
 
+    const courseDetails = await getCourseDetails(courseId);
+
     if (data.order_status === "Success") {
       try {
         const response = await fetch(
@@ -37,6 +39,11 @@ export async function POST(req) {
             },
             body: JSON.stringify({
               courses: courseId,
+              courses_unlocked: {
+                course_id: courseId,
+                roadmap_id: courseDetails?.Roadmap[0]?.id,
+                topic_id: courseDetails?.Roadmap[0]?.Topics[0]?.id,
+              }
             }),
           }
         );
@@ -61,4 +68,18 @@ export async function POST(req) {
     return Response.redirect(`${host}/dashboard?error=payment-response-error`);
   }
 
+}
+
+
+async function getCourseDetails(courseId) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/courses/${courseId}`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching course details: ", error);
+  }
+  
 }

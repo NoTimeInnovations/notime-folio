@@ -16,9 +16,7 @@ import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 // import { RichTextLexicalRenderer } from "@webiny/react-rich-text-lexical-renderer";
 
-
-
-const TaskSection = ({ task }) => {
+const TaskSection = ({ task, courseInfo }) => {
   const [problemSubmissions, setProblemSubmissions] = useState();
   const [isBtnLoading, setIsBtnLoading] = useState();
   const [form, setForm] = useState({
@@ -38,11 +36,46 @@ const TaskSection = ({ task }) => {
         console.error(result?.errors[0]?.message);
       } else {
         console.log("Problem submissions: ", result?.docs);
-        
+
         setProblemSubmissions(result?.docs);
       }
     } catch (error) {
       console.error("Error fetching problem submissions: ", error);
+    }
+  };
+
+  const handleNextTopicUnlock = async () => {
+    const user = JSON.parse(Cookies.get("user"));
+    const authToken = Cookies.get("auth_token");
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/${user.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: JSON.stringify({
+            courses_unlocked: {
+              course_id: courseInfo?.courseId,
+              roadmap_id: courseInfo?.roadmapId,
+              topic_id: courseInfo?.topicId,
+            },
+          }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (result?.errors?.length > 0) {
+        console.error(result?.errors[0]?.message);
+      } else {
+        console.log("Next topic unlocked successfully");
+      }
+    } catch (error) {
+      console.error("Error unlocking next topic: ", error);
     }
   };
 
@@ -66,9 +99,6 @@ const TaskSection = ({ task }) => {
       method = "PATCH";
       ApiUrl = ApiUrl + `/${isSubmitted?.id}`;
     }
-
-    console.log("postUrl: ", ApiUrl);
-    
 
     try {
       const response = await fetch(ApiUrl, {
@@ -97,6 +127,7 @@ const TaskSection = ({ task }) => {
       } else {
         toast.success("Solution submitted successfully");
         fetchProblemSubmission();
+        handleNextTopicUnlock();
       }
     } catch (error) {
       toast.dismiss();
@@ -141,7 +172,11 @@ const TaskSection = ({ task }) => {
             const isSubmitted =
               problemSubmissions?.find((p) => p.problem_id === prob.id) ||
               false;
-            console.log(prob);
+
+            console.log(isSubmitted);
+
+            const isEditable =
+              !isSubmitted || isSubmitted.status === "rejected";
 
             return (
               <AccordionItem
@@ -153,14 +188,14 @@ const TaskSection = ({ task }) => {
                   {prob.title}
                 </AccordionTrigger>
                 <AccordionContent className="text-white px-1 py-10">
-                  <H1 className={"capitalize"}>{prob.title}</H1>
-                  <P className={"mb-5"}>
+                  <H1 className="capitalize">{prob.title}</H1>
+                  <P className="mb-5">
                     {/* <RichTextLexicalRenderer value={prob.question} /> */}
                   </P>
 
                   {prob?.image && (
-                    <GradientText className={"font-semibold lg:text-xl"}>
-                      Demo :
+                    <GradientText className="font-semibold lg:text-xl">
+                      Demo:
                       <Image
                         src={
                           process.env.NEXT_PUBLIC_PAYLOAD_URL + prob?.image?.url
@@ -174,51 +209,33 @@ const TaskSection = ({ task }) => {
 
                   <div className="lg:max-w-[50%] mt-5 grid gap-5">
                     <Input
-                      onChange={
-                        isSubmitted?.status !== "rejected"
-                          ? () => {}
-                          : handleInputChange
-                      }
-                      readOnly={
-                        isSubmitted?.status !== "rejected" ? true : false
-                      }
+                      onChange={isEditable ? handleInputChange : () => {}}
+                      readOnly={!isEditable}
                       value={
-                        isSubmitted?.status !== "rejected"
-                          ? isSubmitted?.github_link
-                          : form.githubRepo
+                        isEditable ? form.githubRepo : isSubmitted?.github_link
                       }
-                      id={"github"}
-                      name={"githubRepo"}
-                      placeholder={"Enter github repo link"}
+                      id="github"
+                      name="githubRepo"
+                      placeholder="Enter GitHub repo link"
                     />
                     <Input
-                      onChange={
-                        isSubmitted?.status !== "rejected"
-                          ? () => {}
-                          : handleInputChange
-                      }
-                      readOnly={
-                        isSubmitted?.status !== "rejected" ? true : false
-                      }
+                      onChange={isEditable ? handleInputChange : () => {}}
+                      readOnly={!isEditable}
                       value={
-                        isSubmitted?.status !== "rejected"
-                          ? isSubmitted?.live_link
-                          : form.hostedUrl
+                        isEditable ? form.hostedUrl : isSubmitted?.live_link
                       }
-                      id={"hosted"}
-                      name={"hostedUrl"}
-                      placeholder={"Enter hosted url"}
+                      id="hosted"
+                      name="hostedUrl"
+                      placeholder="Enter hosted URL"
                     />
-                    {(isSubmitted?.status === "rejected" || !isSubmitted) && (
+                    {isEditable && (
                       <Button
                         disabled={isBtnLoading ? isBtnLoading[prob.id] : false}
                         onClick={() =>
                           handleProblemSubmission(prob.id, isSubmitted)
                         }
-                        text={"Submit"}
-                        gradient={
-                          "bg-gradient-to-r from-green-500 to-yellow-500 max-w-[200px]"
-                        }
+                        text="Submit"
+                        gradient="bg-gradient-to-r from-green-500 to-yellow-500 max-w-[200px]"
                       />
                     )}
                   </div>

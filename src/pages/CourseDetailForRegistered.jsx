@@ -19,6 +19,7 @@ import React, { useEffect, useState } from "react";
 const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
   const [mcqCompleted, setMCQCompleted] = useState(false);
   const [currentTopic, setCurentTopic] = useState(null);
+  const { id: courseId } = useParams();
 
   const fetchMCQSubmission = async () => {
     try {
@@ -38,6 +39,9 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
 
   useEffect(() => {
     fetchMCQSubmission();
+
+    console.log("Course Detail: ", courseDetail);
+    
 
     const currTopic = courseDetail?.Topics.find(
       (topic) => topic.id == lastWatched.topic
@@ -82,6 +86,11 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
                 taskDesc: currentTopic?.task?.description,
                 problems: currentTopic?.task?.problems,
                 id : currentTopic?.task?.id
+              }}
+              courseInfo={{
+                courseId: courseId,
+                roadmapId: courseDetail?.id,
+                topicId: currentTopic?.id,
               }}
             />
           </TabsContent>
