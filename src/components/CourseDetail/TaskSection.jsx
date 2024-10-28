@@ -61,7 +61,7 @@ const TaskSection = ({ task, courseInfo }) => {
             courses_unlocked: {
               course_id: courseInfo?.courseId,
               roadmap_id: courseInfo?.roadmapId,
-              topic_id: courseInfo?.topicId,
+              topic_id: courseInfo?.nextTopicId,
             },
           }),
         }

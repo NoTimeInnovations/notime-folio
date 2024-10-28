@@ -19,8 +19,8 @@ import React, { useEffect, useState } from "react";
 const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
   const [mcqCompleted, setMCQCompleted] = useState(false);
   const [currentTopic, setCurentTopic] = useState(null);
+  const [nextTopic, setNextTopic] = useState(null);
   const courseId = useParams()?.id;
-
 
   const fetchMCQSubmission = async () => {
     try {
@@ -42,12 +42,21 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
     fetchMCQSubmission();
 
     console.log("Course Detail: ", courseDetail);
-    
 
     const currTopic = courseDetail?.Topics?.find(
       (topic) => topic?.id == lastWatched?.topic
     );
     setCurentTopic(currTopic);
+
+    const currTopicIndex = courseDetail?.Topics?.findIndex(
+      (topic) => topic?.id == lastWatched?.topic
+    );
+
+    const nextTopic = courseDetail?.Topics[currTopicIndex + 1];
+
+    if (nextTopic) {
+      setNextTopic(nextTopic);
+    }
   }, [courseDetail, lastWatched]);
 
   if (!courseId) {
@@ -90,12 +99,13 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
                 taskTitle: currentTopic?.task?.title,
                 taskDesc: currentTopic?.task?.description,
                 problems: currentTopic?.task?.problems,
-                id : currentTopic?.task?.id
+                id: currentTopic?.task?.id,
               }}
               courseInfo={{
                 courseId: courseId,
                 roadmapId: courseDetail?.id,
                 topicId: currentTopic?.id,
+                nextTopicId: nextTopic?.id,
               }}
             />
           </TabsContent>
