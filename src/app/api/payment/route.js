@@ -38,9 +38,8 @@ export async function POST(req) {
               Authorization: "Bearer " + authToken,
             },
             body: JSON.stringify({
-              courses: courseId,
-              courses_unlocked: {
-                course_id: courseId,
+              courses: {
+                course: courseId,
                 roadmap_id: courseDetails?.Roadmap[0]?.id,
                 topic_id: courseDetails?.Roadmap[0]?.Topics[0]?.id,
               }
