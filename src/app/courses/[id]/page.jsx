@@ -60,7 +60,7 @@ const page = async({ params , searchParams }) => {
   const courseDetails = await fetchCourseDetail(params?.id);
   const userCoursesData = await fetchUserCourses();
 
-  const enrolled_course = userCoursesData?.find(course => course.id == params?.id)?.id;
+  const enrolled_course = userCoursesData?.find(c => c?.course.id == params?.id)?.course?.id;
   const success = searchParams?.success;
 
   console.log('enrolled_course', enrolled_course);
