@@ -1,23 +1,20 @@
 "use client";
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { useParams } from "next/navigation";
+import toast from "react-hot-toast";
 import GradientText from "@/components/common/GradientText";
 import H1 from "@/components/common/H1";
 import P from "@/components/common/P";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/common/Tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/common/Tabs";
 import McqSection from "@/components/CourseDetail/McqSection";
 import TaskSection from "@/components/CourseDetail/TaskSection";
 import VideoCard from "@/components/CourseDetail/VideoCard";
 import VideoSection from "@/components/CourseDetail/VideoSection";
-import Cookies from "js-cookie";
-import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
 const CourseDetailForRegistered = ({ courseData }) => {
+  const [tabValue, setTabValue] = useState("video");
+
   const courseId = useParams()?.id;
   const [courseDetail, setCourseDetail] = useState(courseData);
   const [mcqCompleted, setMCQCompleted] = useState(false);
@@ -37,7 +34,6 @@ const CourseDetailForRegistered = ({ courseData }) => {
   const fetchMCQSubmission = async () => {
     try {
       const user = JSON.parse(Cookies.get("user"));
-      console.log(selectedTopic?.task?.id);
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?where[student_id][equals]=${user.id}&where[task_id][equals]=${selectedTopic?.task?.id}&depth=0`
@@ -70,18 +66,16 @@ const CourseDetailForRegistered = ({ courseData }) => {
       (topic) => topic?.id === courseDetail?.topic_id
     );
 
-    // Set unlocked roadmap/topic and their indexes
     setUnlockedRoadmap(unlRoadmap);
     setUnlockedRoadmapIndex(unlRoadmapIndex);
     setUnlockedTopic(unlTopic);
     setUnlockedTopicIndex(unlTopicIndex);
 
-    // Initialize selected roadmap/topic to unlocked values on page load
     setSelectedRoadmap(unlRoadmap);
     setSelectedRoadmapIndex(unlRoadmapIndex);
     setSelectedTopic(unlTopic);
     setSelectedTopicIndex(unlTopicIndex);
-  }, [courseDetail , courseData]);
+  }, [courseDetail, courseData]);
 
   useEffect(() => {
     if (selectedTopic) {
@@ -105,12 +99,14 @@ const CourseDetailForRegistered = ({ courseData }) => {
     setNextTopic(nextTopic);
   }, [selectedTopic, selectedRoadmap]);
 
+  useEffect(() => {
+    setTabValue("video");
+  }, [selectedTopic, selectedRoadmap]);
+
   return (
     <main className="grid gap-5 lg:grid-cols-[70%,1fr] min-h-screen py-[120px] px-[7%] ">
-      {/* left section */}
-      <section className="">
-        {/* tabs  */}
-        <Tabs defaultValue="video" className="w-full">
+      <section>
+        <Tabs defaultValue="video" value={tabValue} onValueChange={(value) => setTabValue(value)} className="w-full">
           <TabsList className="flex items-center gap-3 mb-5">
             <TabsTrigger value="video">Video</TabsTrigger>
             <TabsTrigger value="mcqs">MCQ's</TabsTrigger>
@@ -160,9 +156,7 @@ const CourseDetailForRegistered = ({ courseData }) => {
         </Tabs>
       </section>
 
-      {/* more videos */}
       <section>
-        {/* video details */}
         <div className="mt-5 max-w-[95%] mb-5">
           <div className="font-bold text-white text-2xl">
             <GradientText>Day {selectedRoadmap?.day}</GradientText>
