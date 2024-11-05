@@ -13,7 +13,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
-import { EventDetails } from "@/pages/EventsPage";
+import { EventDetails } from "@/mainPages/EventsPage";
 import Image from "next/image";
 import { motion } from "framer-motion";
 

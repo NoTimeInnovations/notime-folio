@@ -1,6 +1,6 @@
 "use client";
 
-import YoutubeVideos from '@/pages/YoutubeVideos'
+import YoutubeVideos from '@/mainPages/YoutubeVideos'
 import React from 'react'
 
 const page = () => {

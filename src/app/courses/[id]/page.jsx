@@ -1,7 +1,7 @@
 "use server";
 
-import CourseDetail from "@/pages/CourseDetail";
-import CourseDetailForRegistered from "@/pages/CourseDetailForRegistered";
+import CourseDetail from "@/mainPages/CourseDetail";
+import CourseDetailForRegistered from "@/mainPages/CourseDetailForRegistered";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";

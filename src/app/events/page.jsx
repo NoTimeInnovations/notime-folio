@@ -1,5 +1,5 @@
 import React from "react";
-import EventsPage from "@/pages/EventsPage";
+import EventsPage from "@/mainPages/EventsPage";
 
 const page = () => {
   return <EventsPage/>

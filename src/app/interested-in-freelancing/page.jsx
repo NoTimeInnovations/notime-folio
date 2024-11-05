@@ -1,4 +1,4 @@
-import InterestedInFreelancing from "@/pages/InterestedInFreelancing";
+import InterestedInFreelancing from "@/mainPages/InterestedInFreelancing";
 import React from "react";
 
 const page = () => {

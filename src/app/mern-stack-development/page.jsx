@@ -1,6 +1,6 @@
 "use client";
 
-import MernStack from '@/pages/MernStack'
+import MernStack from '@/mainPages/MernStack'
 import React from 'react'
 
 const page = () => {

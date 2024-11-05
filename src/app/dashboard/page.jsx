@@ -1,6 +1,6 @@
 import Banner from "@/components/common/Banner";
-import Courses from "@/pages/Courses";
-import Leaderboard from "@/pages/Leaderboard";
+import Courses from "@/mainPages/Courses";
+import Leaderboard from "@/mainPages/Leaderboard";
 import React from "react";
 import toast from "react-hot-toast";
 

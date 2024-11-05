@@ -2,7 +2,7 @@
 import React from "react";
 import H1 from "../common/H1";
 import GradientText from "../common/GradientText";
-import { EventDetails } from "@/pages/EventsPage";
+import { EventDetails } from "@/mainPages/EventsPage";
 import EventsCard from "./EventsCard";
 
 const AllEvents = () => {

@@ -1,4 +1,4 @@
-import RegistrationPage from "@/pages/RegistrationPage";
+import RegistrationPage from "@/mainPages/RegistrationPage";
 import React from "react";
 
 const page = () => {

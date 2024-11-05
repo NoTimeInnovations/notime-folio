@@ -1,6 +1,6 @@
 "use client";
 
-import ContactUs from '@/pages/ContactUs'
+import ContactUs from '@/mainPages/ContactUs'
 import React from 'react'
 
 const page = () => {

@@ -1,4 +1,4 @@
-import LoginPage from '@/pages/LoginPage'
+import LoginPage from '@/mainPages/LoginPage'
 import React from 'react'
 
 export default function page() {

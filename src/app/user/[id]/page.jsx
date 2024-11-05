@@ -1,6 +1,6 @@
 'use client'; // Mark this as a client component
 
-import UserPage from '@/pages/user';
+import UserPage from '@/mainPages/user';
 import { useParams } from 'next/navigation'; // Use useParams from next/navigation for app router
 
 const page = () => {

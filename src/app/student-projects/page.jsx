@@ -1,6 +1,6 @@
 "use client";
 
-import StudentProjects from '@/pages/StudentProjects'
+import StudentProjects from '@/mainPages/StudentProjects'
 import React from 'react'
 
 const page = () => {
