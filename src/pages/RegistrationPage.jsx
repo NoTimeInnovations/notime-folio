@@ -99,7 +99,13 @@ export default function RegistrationPage() {
   };
 
   const validateForm = () => {
-    if (!form.name || !form.email || !form.phone || !form.password) {
+
+    if(!filePath){
+      toast.error("Please upload an image");
+      return false;
+    }
+
+    if (!form.name || !form.email || !form.phone || !form.password || !filePath) {
       toast.error("All fields are required");
       return false;
     }

@@ -15,18 +15,28 @@ import VideoSection from "@/components/CourseDetail/VideoSection";
 import Cookies from "js-cookie";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
-  const [mcqCompleted, setMCQCompleted] = useState(false);
-  const [currentTopic, setCurentTopic] = useState(null);
-  const [nextTopic, setNextTopic] = useState(null);
   const courseId = useParams()?.id;
+  const [mcqCompleted, setMCQCompleted] = useState(false);
+  const [nextTopic, setNextTopic] = useState(null);
+
+  const [unlockedTopic, setUnlockedTopic] = useState(null);
+  const [unlockedTopicIndex, setUnlockedTopicIndex] = useState(null);
+  const [selectedTopic, setSelectedTopic] = useState(null);
+  const [selectedTopicIndex, setSelectedTopicIndex] = useState(null);
+
+  const [unlockedRoadmap, setUnlockedRoadmap] = useState(null);
+  const [unlockedRoadmapIndex, setUnlockedRoadmapIndex] = useState(null);
+  const [selectedRoadmap, setSelectedRoadmap] = useState(null);
+  const [selectedRoadmapIndex, setSelectedRoadmapIndex] = useState(null);
 
   const fetchMCQSubmission = async () => {
     try {
       const user = JSON.parse(Cookies.get("user"));
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?task_id=${currentTopic?.task?.id}?student_id=${user?.id}`
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?task_id=${selectedTopic?.task?.id}?student_id=${user?.id}`
       );
       const data = await response.json();
 
@@ -39,29 +49,41 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
   };
 
   useEffect(() => {
+    const unlRoadmap = courseDetail?.roadmap.find(
+      (rm) => rm.id == lastWatched?.day?.trim()
+    );
+    const unlRoadmapIndex = courseDetail?.roadmap.findIndex(
+      (rm) => rm.id == lastWatched?.day?.trim()
+    );
+
+    const unlTopic = unlRoadmap?.Topics?.find(
+      (topic) => topic?.id === lastWatched?.topic.trim()
+    );
+    const unlTopicIndex = unlRoadmap?.Topics?.findIndex(
+      (topic) => topic?.id === lastWatched?.topic.trim()
+    );
+
+    // Set unlocked roadmap/topic and their indexes
+    setUnlockedRoadmap(unlRoadmap);
+    setUnlockedRoadmapIndex(unlRoadmapIndex);
+    setUnlockedTopic(unlTopic);
+    setUnlockedTopicIndex(unlTopicIndex);
+
+    // Initialize selected roadmap/topic to unlocked values on page load
+    setSelectedRoadmap(unlRoadmap);
+    setSelectedRoadmapIndex(unlRoadmapIndex);
+    setSelectedTopic(unlTopic);
+    setSelectedTopicIndex(unlTopicIndex);
+  }, [courseDetail, lastWatched]);
+
+  useEffect(() => {
     fetchMCQSubmission();
 
-    console.log("Course Detail: ", courseDetail);
-
-    const currTopic = courseDetail?.Topics?.find(
-      (topic) => topic?.id == lastWatched?.topic
-    );
-    setCurentTopic(currTopic);
-
-    const currTopicIndex = courseDetail?.Topics?.findIndex(
-      (topic) => topic?.id == lastWatched?.topic
-    );
-
-    const nextTopic = courseDetail?.Topics[currTopicIndex + 1];
-
+    const nextTopic = selectedRoadmap?.Topics[selectedTopicIndex + 1];
     if (nextTopic) {
       setNextTopic(nextTopic);
     }
-  }, [courseDetail, lastWatched]);
-
-  if (!courseId) {
-    return <div>Loading...</div>;
-  }
+  }, [selectedTopic]);
 
   return (
     <main className="grid gap-5 lg:grid-cols-[70%,1fr] min-h-screen py-[120px] px-[7%] ">
@@ -72,16 +94,16 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
           <TabsList className="flex items-center gap-3 mb-5">
             <TabsTrigger value="video">Video</TabsTrigger>
             <TabsTrigger value="mcqs">MCQ's</TabsTrigger>
-            <TabsTrigger disabled={mcqCompleted ? false : true} value="tasks">
+            <TabsTrigger disabled={!mcqCompleted} value="tasks">
               Tasks
             </TabsTrigger>
           </TabsList>
           <TabsContent value="video">
             <VideoSection
               selectedVideo={{
-                videoLink: currentTopic?.video,
-                videoTitle: currentTopic?.topic,
-                videoDesc: currentTopic?.shortDesc,
+                videoLink: selectedTopic?.video,
+                videoTitle: selectedTopic?.topic,
+                videoDesc: selectedTopic?.shortDesc,
               }}
             />
           </TabsContent>
@@ -89,22 +111,22 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
             <McqSection
               setMCQCompleted={setMCQCompleted}
               completedMCQ={mcqCompleted}
-              mcqs={currentTopic?.task?.mcqs}
-              taskId={currentTopic?.task?.id}
+              mcqs={selectedTopic?.task?.mcqs}
+              taskId={selectedTopic?.task?.id}
             />
           </TabsContent>
           <TabsContent value="tasks">
             <TaskSection
               task={{
-                taskTitle: currentTopic?.task?.title,
-                taskDesc: currentTopic?.task?.description,
-                problems: currentTopic?.task?.problems,
-                id: currentTopic?.task?.id,
+                taskTitle: selectedTopic?.task?.title,
+                taskDesc: selectedTopic?.task?.description,
+                problems: selectedTopic?.task?.problems,
+                id: selectedTopic?.task?.id,
               }}
               courseInfo={{
                 courseId: courseId,
                 roadmapId: courseDetail?.id,
-                topicId: currentTopic?.id,
+                topicId: selectedTopic?.id,
                 nextTopicId: nextTopic?.id,
               }}
             />
@@ -112,37 +134,46 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
         </Tabs>
       </section>
 
-      {/* more videos  */}
+      {/* more videos */}
       <section>
-        {/* video details  */}
+        {/* video details */}
         <div className="mt-5 max-w-[95%] mb-5">
-          {/* day num  */}
           <div className="font-bold text-white text-2xl">
             <GradientText>Day {courseDetail?.day}</GradientText>
           </div>
-
-          {/* title  */}
-          <H1 className="font-bold text-white text-[1.5rem] xl:text-[1.5rem] lg:text-[1.5rem] leading-[2rem] lg:leading-[2rem] xl:leading-[2rem]">
-            {currentTopic?.topic}
+          <H1 className="font-bold text-white text-[1.5rem]">
+            {selectedTopic?.topic}
           </H1>
-          {/* description  */}
-          <P
-            className={
-              "text-white/70 mt-2 text-[1rem] xl:text-[1rem] lg:text-[1rem]"
-            }
-          >
-            {currentTopic?.shortDesc}
+          <P className="text-white/70 mt-2 text-[1rem]">
+            {selectedTopic?.shortDesc}
           </P>
         </div>
         <div className="grid h-fit gap-3">
-          {courseDetail?.Topics?.map((video, index) => (
-            <VideoCard
-              index={index}
-              currentVideoTitle={currentTopic?.topic}
-              videoTitle={video?.topic}
-              key={video?.topic}
-            />
-          ))}
+          {unlockedRoadmap?.Topics?.map((video, index) => {
+            const isUnlocked =
+              selectedRoadmapIndex <= unlockedRoadmapIndex &&
+              index <= unlockedTopicIndex;
+
+            return (
+              <VideoCard
+                isUnlocked={isUnlocked}
+                onClick={() => {
+                  if (!isUnlocked) {
+                    toast.error(
+                      "Please complete previous topics to unlock this topic"
+                    );
+                  } else {
+                    setSelectedTopic(video);
+                    setSelectedTopicIndex(index);
+                  }
+                }}
+                index={index}
+                currentVideoTitle={selectedTopic?.topic}
+                videoTitle={video?.topic}
+                key={video?.id}
+              />
+            );
+          })}
         </div>
       </section>
     </main>

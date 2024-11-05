@@ -1,10 +1,12 @@
 import React from "react";
 import GradientText from "../common/GradientText";
+import toast from "react-hot-toast";
 
-const VideoCard = ({ index, currentVideoTitle, videoTitle }) => {
+const VideoCard = ({ index, currentVideoTitle, videoTitle, onClick , isUnlocked }) => {
   return (
     <div
-      className={`grid grid-cols-2 gap-3 cursor-pointer hover:bg-gradient-to-r hover:from-white/20 hover:to-transparent transition-all duration-500 rounded-xl ${videoTitle == currentVideoTitle ? "bg-gradient-to-r from-green-500/20 hover:from-green-500/40  to-transparent" : ""}`}
+      onClick={onClick}
+      className={`${!isUnlocked ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} grid grid-cols-2 gap-3 hover:bg-gradient-to-r hover:from-white/20 hover:to-transparent transition-all duration-500 rounded-xl ${videoTitle == currentVideoTitle ? "bg-gradient-to-r from-green-500/20 hover:from-green-500/40  to-transparent" : ""}`}
     >
       <div className="bg-black aspect-video rounded-xl relative">
         {/* duration  */}

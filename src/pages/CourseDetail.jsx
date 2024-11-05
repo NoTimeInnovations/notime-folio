@@ -30,6 +30,8 @@ const CourseDetail = ({ course }) => {
         <div className="md:col-span-2 space-y-5">
           <CourseRoadmap roadmap={course?.roadmap}></CourseRoadmap>
           {/* Reviews Section */}
+          
+          <CourseRequirements requirements={course?.preRequirements} />
           <div className="hidden lg:block">
             <CourseReview reviews={course?.reviews}></CourseReview>
           </div>
@@ -38,7 +40,6 @@ const CourseDetail = ({ course }) => {
         {/* Learnings and Prerequisites */}
         <div className="space-y-5">
           <CouresLearn learnings={course?.learnings} />
-          <CourseRequirements requirements={course?.preRequirements} />
         </div>
       </div>
 

@@ -60,14 +60,15 @@ const page = async({ params , searchParams }) => {
   const courseDetails = await fetchCourseDetail(params?.id);
   const userCoursesData = await fetchUserCourses();
 
-  const enrolled_course = userCoursesData?.find(c => c?.course.id == params?.id)?.course?.id;
+  const enrolledCourse = userCoursesData?.find(c => c?.course.id == params?.id);
+  const enrolledCourseId = enrolledCourse?.course?.id;
   const success = searchParams?.success;
 
-  console.log('enrolled_course', enrolled_course);
+  console.log('enrolled_course_id', enrolledCourseId);
   console.log('this_course', courseDetails?.id);
 
-  const lastWatchedDay = cookies().get('last_watched_day')?.value || courseDetails?.roadmap[0]?.id;
-  const lastWatchedTopic = cookies().get('last_watched_topic')?.value || courseDetails?.roadmap[0]?.Topics[0]?.id;
+  const lastWatchedDay = enrolledCourse?. roadmap_id;
+  const lastWatchedTopic = enrolledCourse?.topic_id;
   const videoTime = cookies().get('video_time')?.value || 0;
 
   const lastWatched = {
@@ -76,10 +77,9 @@ const page = async({ params , searchParams }) => {
     time: videoTime
   }
 
-  const currentDay = courseDetails?.roadmap.find( day => day.id == lastWatchedDay);
 
-  if (authToken && enrolled_course == params?.id) {
-    return <CourseDetailForRegistered lastWatched={lastWatched} courseDetail={currentDay} />;
+  if (authToken && enrolledCourseId == params?.id) {
+    return <CourseDetailForRegistered lastWatched={lastWatched} courseDetail={courseDetails} />;
   }else if (authToken){
     return <CourseDetail course={courseDetails} />;
   }else{

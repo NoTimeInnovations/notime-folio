@@ -102,7 +102,7 @@ export const CourseReview = ({ reviews }) => {
         ) : (
           <div>No reviews yet</div>
         )}
-        <div className="flex items-center mb-2 mt-7">
+        {/* <div className="flex items-center mb-2 mt-7">
           {[...Array(5)].map((_, i) => (
             <svg
               key={i}
@@ -127,7 +127,7 @@ export const CourseReview = ({ reviews }) => {
           text={"Submit Review"}
           gradient={`bg-gradient-to-r from-green-500 to-yellow-500 text-white mt-6`}
           onClick={submitReview}
-        />
+        /> */}
       </div>
     </>
   );
