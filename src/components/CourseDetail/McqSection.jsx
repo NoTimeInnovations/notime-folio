@@ -115,8 +115,11 @@ const McqSection = ({ mcqs, taskId, completedMCQ, setMCQCompleted }) => {
       setIsSelected(userOptions);
       const correctAnswers = mcqs.map((mcq) => mcq.answer);
       setCorrectOptions(correctAnswers);
+    }else{
+      setIsSelected({});
+      setCorrectOptions([]);
     }
-  }, [completedMCQ]);
+  }, [completedMCQ , taskId]);
 
   return (
     <section className="mt-10">

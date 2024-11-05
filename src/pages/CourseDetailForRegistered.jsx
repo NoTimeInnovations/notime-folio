@@ -35,13 +35,17 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
   const fetchMCQSubmission = async () => {
     try {
       const user = JSON.parse(Cookies.get("user"));
+      console.log(selectedTopic?.task?.id);
+      
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?task_id=${selectedTopic?.task?.id}?student_id=${user?.id}`
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?where[student_id][equals]=${user.id}&where[task_id][equals]=${selectedTopic?.task?.id}&depth=0`
       );
       const data = await response.json();
 
       if (data?.docs?.length > 0) {
         setMCQCompleted(data?.docs[0]);
+      }else{
+        setMCQCompleted(false);
       }
     } catch (error) {
       console.error("Error fetching MCQ submission: ", error);
@@ -52,6 +56,7 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
     const unlRoadmap = courseDetail?.roadmap.find(
       (rm) => rm.id == lastWatched?.day?.trim()
     );
+
     const unlRoadmapIndex = courseDetail?.roadmap.findIndex(
       (rm) => rm.id == lastWatched?.day?.trim()
     );
@@ -77,7 +82,9 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
   }, [courseDetail, lastWatched]);
 
   useEffect(() => {
-    fetchMCQSubmission();
+    if (selectedTopic) {
+      fetchMCQSubmission();
+    }
 
     const nextTopic = selectedRoadmap?.Topics[selectedTopicIndex + 1];
     if (nextTopic) {
@@ -139,7 +146,7 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
         {/* video details */}
         <div className="mt-5 max-w-[95%] mb-5">
           <div className="font-bold text-white text-2xl">
-            <GradientText>Day {courseDetail?.day}</GradientText>
+            <GradientText>Day {selectedRoadmap?.day}</GradientText>
           </div>
           <H1 className="font-bold text-white text-[1.5rem]">
             {selectedTopic?.topic}

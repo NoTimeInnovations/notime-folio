@@ -29,7 +29,7 @@ const TaskSection = ({ task, courseInfo }) => {
     try {
       const user = JSON.parse(Cookies.get("user"));
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/problem-submissions?task_id=${task.id}&user_id=${user.id}&depth=1`
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/problem-submissions?where[task_id][equals]=${task.id}&depth=1`
       );
       const result = await response.json();
       if (result?.errors?.length > 0) {
@@ -58,7 +58,7 @@ const TaskSection = ({ task, courseInfo }) => {
             Authorization: `Bearer ${authToken}`,
           },
           body: JSON.stringify({
-            courses_unlocked: {
+            courses: {
               course_id: courseInfo?.courseId,
               roadmap_id: courseInfo?.roadmapId,
               topic_id: courseInfo?.nextTopicId,
@@ -72,6 +72,7 @@ const TaskSection = ({ task, courseInfo }) => {
       if (result?.errors?.length > 0) {
         console.error(result?.errors[0]?.message);
       } else {
+        toast.success("Next topic unlocked successfully");
         console.log("Next topic unlocked successfully");
       }
     } catch (error) {
@@ -80,17 +81,36 @@ const TaskSection = ({ task, courseInfo }) => {
   };
 
   const handleProblemSubmission = async (probId, isSubmitted) => {
+    //validate github url and hosted url
+    const githubUrl = form.githubRepo;
+    const hostedUrl = form.hostedUrl;
+
+    if (!githubUrl) {
+      toast.error("Please enter github repo link");
+      return;
+    }
+
+    const githubUrlRegex = new RegExp(
+      "^(https?://)?(www.)?(github.com/)([a-zA-Z0-9-]+)(/[a-zA-Z0-9-]+)*$"
+    );
+    const hostedUrlRegex = new RegExp(
+      "^(https?://)?(www.)?([a-zA-Z0-9-]+)(.[a-zA-Z0-9-]+)*$"
+    );
+
+    if (!githubUrlRegex.test(githubUrl)) {
+      toast.error("Invalid github repo link");
+      return;
+    }
+
+    if (hostedUrl && !hostedUrlRegex.test(hostedUrl)) {
+      toast.error("Invalid hosted url");
+      return;
+    }
+
     setIsBtnLoading((prev) => ({ ...prev, [probId]: true }));
     toast.loading("Submitting your solution");
     const user = JSON.parse(Cookies.get("user"));
     const authToken = Cookies.get("auth_token");
-
-    if (form.githubRepo === "") {
-      toast.dismiss();
-      toast.error("github rep link is required");
-      setIsBtnLoading((prev) => ({ ...prev, [probId]: false }));
-      return;
-    }
 
     let method = "POST";
     let ApiUrl = `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/problem-submissions`;
@@ -209,6 +229,7 @@ const TaskSection = ({ task, courseInfo }) => {
 
                   <div className="lg:max-w-[50%] mt-5 grid gap-5">
                     <Input
+                      label={"GitHub Repo Link"}
                       onChange={isEditable ? handleInputChange : () => {}}
                       readOnly={!isEditable}
                       value={
@@ -218,7 +239,9 @@ const TaskSection = ({ task, courseInfo }) => {
                       name="githubRepo"
                       placeholder="Enter GitHub repo link"
                     />
+
                     <Input
+                      label={"Hosted URL"}
                       onChange={isEditable ? handleInputChange : () => {}}
                       readOnly={!isEditable}
                       value={
@@ -228,6 +251,7 @@ const TaskSection = ({ task, courseInfo }) => {
                       name="hostedUrl"
                       placeholder="Enter hosted URL"
                     />
+
                     {isEditable && (
                       <Button
                         disabled={isBtnLoading ? isBtnLoading[prob.id] : false}
