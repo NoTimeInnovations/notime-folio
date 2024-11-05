@@ -56,6 +56,9 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail , cour
     // merchant_param4: "Extra Information", // Extra Information (Optional)
   };
 
+  console.log("Payment Data: ", paymentData);
+  
+
   let encReq = CCAvenue.getEncryptedOrder(paymentData);
   let accessCode = process.env.NEXT_PUBLIC_CCA_ACCESS_CODE;
   let URL = `https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&merchant_id=${paymentData.merchant_id}6&encRequest=${encReq}&access_code=${accessCode}`;

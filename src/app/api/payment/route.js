@@ -21,6 +21,7 @@ export async function POST(req) {
     const authToken = data?.merchant_param3;
 
     if (!courseId || !userId || !authToken) {
+      console.log("Invalid payment data");
       return Response.redirect(`${host}/payment`);
     }
 
@@ -30,7 +31,7 @@ export async function POST(req) {
       try {
         // Fetch current user data to get existing courses
         const currentUserResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/${userId}`,
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/${userId}&depth=2`,
           {
             headers: {
               Authorization: `Bearer ${authToken}`,
@@ -40,7 +41,7 @@ export async function POST(req) {
         const currentUserData = await currentUserResponse.json();
 
         // Get existing courses array or initialize it if undefined
-        const existingCourses = currentUserData.courses || [];
+        const existingCourses = currentUserData?.courses || [];
 
         // Add the new course to the existing courses array
         const updatedCourses = [
@@ -51,6 +52,9 @@ export async function POST(req) {
             topic_id: courseDetails?.Roadmap[0]?.Topics[0]?.id,
           },
         ];
+
+        console.log("Updated courses", updatedCourses);
+        
 
         // Send the updated courses array back to the server
         const response = await fetch(
@@ -70,13 +74,14 @@ export async function POST(req) {
         if (user?.errors?.length > 0) {
           throw new Error(user.errors[0].message);
         }
-
+        console.log("User enrolled successfully");
         return Response.redirect(`${host}/payment?type=success`);
       } catch (error) {
         console.error("Error enrolling student:", error);
         return Response.redirect(`${host}/payment`);
       }
     } else {
+      console.log("Order status is not success");
       return Response.redirect(`${host}/payment`);
     }
   } catch (error) {
