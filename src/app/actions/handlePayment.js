@@ -48,7 +48,7 @@ export const paymentCCAvenue = async (amount, customerName, customerEmail , cour
     // billing_tel: "1234567890" // Billing Mobile Number (Optional)
 
     redirect_url: `${host}/api/payment`, // Success URL (Required)
-    cancel_url: `${host}/dashboard`, // Failed/Cancel Payment URL (Required)
+    cancel_url: `${host}/payment`, // Failed/Cancel Payment URL (Required)
 
     merchant_param1: courseId, // Extra Information (Optional)
     merchant_param2: userId, // Extra Information (Optional)

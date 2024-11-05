@@ -82,8 +82,8 @@ const page = async ({ params, searchParams }) => {
 
   const courseData = {
     ...courseDetails,
-    roadmap_id: enrolledCourse.roadmap_id,
-    topic_id: enrolledCourse.topic_id,
+    roadmap_id: enrolledCourse?.roadmap_id,
+    topic_id: enrolledCourse?.topic_id,
   };
 
   if (authToken && enrolledCourseId == params?.id) {

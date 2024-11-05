@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import jsCookie from "js-cookie";
 import { paymentCCAvenue } from "@/app/actions/handlePayment";
+import Cookies from "js-cookie";
 
 export const DetailCard = ({
   image,
@@ -43,6 +44,7 @@ export const DetailCard = ({
       authToken
     );
     if (paymentURL) {
+      Cookies.set('paymentURL', paymentURL , { expires:  0.00023148 }); // 20 sec
       router.push(paymentURL);
     }
   };
