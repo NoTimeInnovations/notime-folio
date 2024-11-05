@@ -177,7 +177,7 @@ const TeachingFlow = ({ startIndex, number }) => {
         <div className=" w-full grid gap-44 py-40 lg:hidden">
           {
             flows.map((flow,index) => (
-              <PossibilitieCard heading={flow.title} arrange={'justify-center'}>
+              <PossibilitieCard key={'possibility_' + index} heading={flow.title} arrange={'justify-center'}>
                 {flow.desc}
               </PossibilitieCard>
             ))
