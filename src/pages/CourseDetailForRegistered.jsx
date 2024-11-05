@@ -17,10 +17,12 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
+const CourseDetailForRegistered = ({ courseData }) => {
   const courseId = useParams()?.id;
+  const [courseDetail, setCourseDetail] = useState(courseData);
   const [mcqCompleted, setMCQCompleted] = useState(false);
   const [nextTopic, setNextTopic] = useState(null);
+  const [nextRoadmap, setNextRoadmap] = useState(null);
 
   const [unlockedTopic, setUnlockedTopic] = useState(null);
   const [unlockedTopicIndex, setUnlockedTopicIndex] = useState(null);
@@ -36,7 +38,7 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
     try {
       const user = JSON.parse(Cookies.get("user"));
       console.log(selectedTopic?.task?.id);
-      
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?where[student_id][equals]=${user.id}&where[task_id][equals]=${selectedTopic?.task?.id}&depth=0`
       );
@@ -44,7 +46,7 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
 
       if (data?.docs?.length > 0) {
         setMCQCompleted(data?.docs[0]);
-      }else{
+      } else {
         setMCQCompleted(false);
       }
     } catch (error) {
@@ -54,18 +56,18 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
 
   useEffect(() => {
     const unlRoadmap = courseDetail?.roadmap.find(
-      (rm) => rm.id == lastWatched?.day?.trim()
+      (rm) => rm.id == courseDetail?.roadmap_id
     );
 
     const unlRoadmapIndex = courseDetail?.roadmap.findIndex(
-      (rm) => rm.id == lastWatched?.day?.trim()
+      (rm) => rm.id == courseDetail?.roadmap_id
     );
 
     const unlTopic = unlRoadmap?.Topics?.find(
-      (topic) => topic?.id === lastWatched?.topic.trim()
+      (topic) => topic?.id === courseDetail?.topic_id
     );
     const unlTopicIndex = unlRoadmap?.Topics?.findIndex(
-      (topic) => topic?.id === lastWatched?.topic.trim()
+      (topic) => topic?.id === courseDetail?.topic_id
     );
 
     // Set unlocked roadmap/topic and their indexes
@@ -79,18 +81,29 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
     setSelectedRoadmapIndex(unlRoadmapIndex);
     setSelectedTopic(unlTopic);
     setSelectedTopicIndex(unlTopicIndex);
-  }, [courseDetail, lastWatched]);
+  }, [courseDetail , courseData]);
 
   useEffect(() => {
     if (selectedTopic) {
       fetchMCQSubmission();
     }
 
-    const nextTopic = selectedRoadmap?.Topics[selectedTopicIndex + 1];
-    if (nextTopic) {
-      setNextTopic(nextTopic);
+    const nxtRoadmap = courseDetail?.roadmap[selectedRoadmapIndex + 1];
+    if (nxtRoadmap) {
+      setNextRoadmap(nxtRoadmap);
     }
-  }, [selectedTopic]);
+
+    let nextTopic = selectedRoadmap?.Topics[selectedTopicIndex + 1];
+
+    if (
+      !nextTopic &&
+      selectedRoadmapIndex < selectedRoadmap?.Topics.length - 1
+    ) {
+      nextTopic = nextRoadmap?.Topics[0];
+    }
+
+    setNextTopic(nextTopic);
+  }, [selectedTopic, selectedRoadmap]);
 
   return (
     <main className="grid gap-5 lg:grid-cols-[70%,1fr] min-h-screen py-[120px] px-[7%] ">
@@ -132,9 +145,15 @@ const CourseDetailForRegistered = ({ courseDetail, lastWatched }) => {
               }}
               courseInfo={{
                 courseId: courseId,
-                roadmapId: courseDetail?.id,
+                roadmapId: selectedRoadmap?.id,
                 topicId: selectedTopic?.id,
                 nextTopicId: nextTopic?.id,
+                nextRoadmapId: nextRoadmap?.id,
+                isLastTopic:
+                  selectedTopicIndex === selectedRoadmap?.Topics?.length - 1,
+              }}
+              actions={{
+                setCourseDetail,
               }}
             />
           </TabsContent>

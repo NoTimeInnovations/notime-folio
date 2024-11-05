@@ -14,9 +14,12 @@ import Button from "../home/Button";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
+import { fetchCourseDetail, updateCourseData } from "@/app/courses/[id]/page";
+import { useParams } from "next/navigation";
 // import { RichTextLexicalRenderer } from "@webiny/react-rich-text-lexical-renderer";
 
-const TaskSection = ({ task, courseInfo }) => {
+const TaskSection = ({ task, courseInfo, actions }) => {
+  const courseId = useParams()?.id;
   const [problemSubmissions, setProblemSubmissions] = useState();
   const [isBtnLoading, setIsBtnLoading] = useState();
   const [form, setForm] = useState({
@@ -44,12 +47,44 @@ const TaskSection = ({ task, courseInfo }) => {
     }
   };
 
+  console.log(courseInfo);
+
   const handleNextTopicUnlock = async () => {
     const user = JSON.parse(Cookies.get("user"));
     const authToken = Cookies.get("auth_token");
 
+    const isLastTopic = courseInfo?.isLastTopic;
+
     try {
-      const response = await fetch(
+      // Fetch the current user data first
+      const currentUserResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/${user.id}?depth=0`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      const currentUser = await currentUserResponse.json();
+
+
+      const updatedCourses = currentUser?.courses?.map((course) => {
+        if (course.course === courseInfo?.courseId) {
+          return {
+            ...course,
+            ...(isLastTopic
+              ? {
+                  roadmap_id: courseInfo?.nextRoadmapId,
+                  topic_id: courseInfo?.nextTopicId,
+                }
+              : { topic_id: courseInfo?.nextTopicId }),
+          };
+        }
+        return course;
+      });
+
+      // Send the updated user data back to the server
+      const updateResponse = await fetch(
         `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/${user.id}`,
         {
           method: "PATCH",
@@ -57,26 +92,34 @@ const TaskSection = ({ task, courseInfo }) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${authToken}`,
           },
-          body: JSON.stringify({
-            courses: {
-              course_id: courseInfo?.courseId,
-              roadmap_id: courseInfo?.roadmapId,
-              topic_id: courseInfo?.nextTopicId,
-            },
-          }),
+          body: JSON.stringify({ courses: updatedCourses }),
         }
       );
 
-      const result = await response.json();
+      if (!updateResponse.ok) {
+        const errorDetails = await updateResponse.json();
+        console.error("Response error:", errorDetails);
+        throw new Error(
+          `Failed to update: ${errorDetails.message || "Unknown error"}`
+        );
+      }
+
+      const result = await updateResponse.json();
+      console.log("Update Result:", result);
 
       if (result?.errors?.length > 0) {
         console.error(result?.errors[0]?.message);
       } else {
         toast.success("Next topic unlocked successfully");
         console.log("Next topic unlocked successfully");
+
+        const courseData = await updateCourseData(courseId);
+        if (courseData) {
+          actions.setCourseDetail(courseData);
+        }
       }
     } catch (error) {
-      console.error("Error unlocking next topic: ", error);
+      console.error("Error unlocking next topic:", error.message);
     }
   };
 
@@ -94,16 +137,21 @@ const TaskSection = ({ task, courseInfo }) => {
       "^(https?://)?(www.)?(github.com/)([a-zA-Z0-9-]+)(/[a-zA-Z0-9-]+)*$"
     );
     const hostedUrlRegex = new RegExp(
-      "^(https?://)?(www.)?([a-zA-Z0-9-]+)(.[a-zA-Z0-9-]+)*$"
+      "^(https?://)?(www\\.)?[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)+(/[\\w.-]*)*$"
     );
 
-    if (!githubUrlRegex.test(githubUrl)) {
-      toast.error("Invalid github repo link");
+    if (!hostedUrlRegex.test(hostedUrl)) {
+      toast.error("Invalid hosted url");
       return;
     }
 
-    if (hostedUrl && !hostedUrlRegex.test(hostedUrl)) {
+    if (!hostedUrlRegex.test(hostedUrl)) {
       toast.error("Invalid hosted url");
+      return;
+    }
+
+    if (!githubUrlRegex.test(githubUrl)) {
+      toast.error("Invalid github repo link");
       return;
     }
 
@@ -147,7 +195,10 @@ const TaskSection = ({ task, courseInfo }) => {
       } else {
         toast.success("Solution submitted successfully");
         fetchProblemSubmission();
-        handleNextTopicUnlock();
+
+        if (isSubmitted?.status !== "rejected") {
+          handleNextTopicUnlock();
+        }
       }
     } catch (error) {
       toast.dismiss();
@@ -192,8 +243,6 @@ const TaskSection = ({ task, courseInfo }) => {
             const isSubmitted =
               problemSubmissions?.find((p) => p.problem_id === prob.id) ||
               false;
-
-            console.log(isSubmitted);
 
             const isEditable =
               !isSubmitted || isSubmitted.status === "rejected";
