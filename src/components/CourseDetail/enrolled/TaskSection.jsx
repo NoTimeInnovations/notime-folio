@@ -54,6 +54,7 @@ const TaskSection = ({ task, courseInfo, actions }) => {
     const authToken = Cookies.get("auth_token");
 
     const isLastTopic = courseInfo?.isLastTopic;
+    toast.loading("Unlocking next topic..");
 
     try {
       // Fetch the current user data first
@@ -97,8 +98,10 @@ const TaskSection = ({ task, courseInfo, actions }) => {
       );
 
       if (!updateResponse.ok) {
+        toast.dismiss();
         const errorDetails = await updateResponse.json();
         console.error("Response error:", errorDetails);
+
         throw new Error(
           `Failed to update: ${errorDetails.message || "Unknown error"}`
         );
@@ -106,6 +109,7 @@ const TaskSection = ({ task, courseInfo, actions }) => {
 
       const result = await updateResponse.json();
       console.log("Update Result:", result);
+      toast.dismiss();
 
       if (result?.errors?.length > 0) {
         console.error(result?.errors[0]?.message);
@@ -119,6 +123,7 @@ const TaskSection = ({ task, courseInfo, actions }) => {
         }
       }
     } catch (error) {
+      toast.dismiss();
       console.error("Error unlocking next topic:", error.message);
     }
   };

@@ -90,6 +90,8 @@ const CourseDetailForRegistered = ({ courseData }) => {
     const nxtRoadmap = courseDetail?.roadmap[selectedRoadmapIndex + 1];
     if (nxtRoadmap) {
       setNextRoadmap(nxtRoadmap);
+    }else{
+      setNextRoadmap(null);
     }
 
     let nextTopic = selectedRoadmap?.Topics[selectedTopicIndex + 1];
@@ -111,20 +113,34 @@ const CourseDetailForRegistered = ({ courseData }) => {
   return (
     <main className="grid gap-5 lg:grid-cols-[.8fr,50%,1fr] min-h-screen py-[120px] px-[2%] ">
       {/* roadmaps  */}
-      <section className="bg-[#080b0f] h-[80vh] rounded ">
+      <section className="bg-[#080b0f] rounded order-[99] lg:order-[0] mt-5 lg:mt-0">
         {/* heading  */}
         <div className="text-white/70 bg-black p-5 font-bold ">Roadmap</div>
 
         {/* roadmpas  */}
-        <div>
+        <div className="max-h-[80vh] overflow-y-auto">
           {courseDetail?.roadmap?.map((roadmap, index) => {
             const isSelected = selectedRoadmap?.id == roadmap?.id;
             const isEven = index % 2 == 0;
+            const isUnlocked = unlockedRoadmapIndex >= index; 
             return (
               <>
                 <div
+                  onClick={() => {
+                    if (!isUnlocked) {
+                      toast.error(
+                        "Please complete previous roadmaps to unlock this roadmap"
+                      );
+                    } else {
+                      setSelectedRoadmap(roadmap);
+                      setSelectedRoadmapIndex(index);
+                      setSelectedTopic(roadmap?.Topics[0]);
+                      setSelectedTopicIndex(0); 
+                      setUnlockedTopicIndex(roadmap?.Topics.length - 1);  
+                    }
+                  }}
                   key={roadmap.id}
-                  className={`${isSelected ? "text-green-500 border-l-4 border-green-500 bg-green-950/50" : "text-white/70 "} font-medium p-3 ${isEven ? "bg-[#0e141b]" : "bg-[#05080b]"}`}
+                  className={`${!isUnlocked ? "opacity-50 cursor-not-allowed " : ' cursor-pointer'} ${isSelected ? "text-green-500 border-l-4 border-green-500 bg-green-950/50" : "text-white/70 "} hover:brightness-125 font-medium p-3 ${isEven ? "bg-[#0e141b]" : "bg-[#05080b]"}`}
                 >
                   <span>Day {roadmap?.day}</span>
                 </div>
@@ -205,7 +221,12 @@ const CourseDetailForRegistered = ({ courseData }) => {
           </P>
         </div>
         <div className="grid h-fit gap-3">
-          {unlockedRoadmap?.Topics?.map((video, index) => {
+          {selectedRoadmap?.Topics?.map((video, index) => {
+            console.log("selectedRoadmapIndex", selectedRoadmapIndex);
+            console.log("unlockedRoadmapIndex", unlockedRoadmapIndex);
+            console.log("index", index);
+            console.log("unlockedTopicIndex", unlockedTopicIndex);
+            
             const isUnlocked =
               selectedRoadmapIndex <= unlockedRoadmapIndex &&
               index <= unlockedTopicIndex;
