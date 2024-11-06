@@ -61,7 +61,7 @@ const CourseDetail = ({ course }) => {
                     <AccordionContent className="grid gap-5 py-5">
                       {roadmap?.Topics?.map((topic) => {
                         return (
-                          <div className="bg-gradient-to-r from-slate-950 rounded-md grid grid-cols-[250px,1fr] cursor-pointer hover:from-green-900 transition-all">
+                          <div className="bg-gradient-to-r from-slate-950 rounded-md grid md:grid-cols-[250px,1fr] cursor-pointer hover:from-green-900 transition-all">
                             {/* topic thumbnail  */}
                             <div className="bg-black aspect-video h-full rounded-md"></div>
 
@@ -85,7 +85,7 @@ const CourseDetail = ({ course }) => {
           </div>
 
           <CourseRequirements requirements={course?.preRequirements} />
-          <div className="hidden lg:block">
+          <div className="hidden md:block">
             <CourseReview reviews={course?.reviews}></CourseReview>
           </div>
         </div>
@@ -96,7 +96,7 @@ const CourseDetail = ({ course }) => {
         </div>
       </div>
 
-      <div className="lg:hidden mt-5">
+      <div className="md:hidden mt-5">
         <CourseReview reviews={course?.reviews}></CourseReview>
       </div>
     </div>

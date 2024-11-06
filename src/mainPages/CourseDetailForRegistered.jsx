@@ -6,7 +6,12 @@ import toast from "react-hot-toast";
 import GradientText from "@/components/common/GradientText";
 import H1 from "@/components/common/H1";
 import P from "@/components/common/P";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/CourseDetail/enrolled/Tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/CourseDetail/enrolled/Tabs";
 import McqSection from "@/components/CourseDetail/enrolled/McqSection";
 import TaskSection from "@/components/CourseDetail/enrolled/TaskSection";
 import VideoCard from "@/components/CourseDetail/enrolled/VideoCard";
@@ -104,9 +109,39 @@ const CourseDetailForRegistered = ({ courseData }) => {
   }, [selectedTopic, selectedRoadmap]);
 
   return (
-    <main className="grid gap-5 lg:grid-cols-[70%,1fr] min-h-screen py-[120px] px-[7%] ">
+    <main className="grid gap-5 lg:grid-cols-[.8fr,50%,1fr] min-h-screen py-[120px] px-[2%] ">
+      {/* roadmaps  */}
+      <section className="bg-[#080b0f] h-[80vh] rounded ">
+        {/* heading  */}
+        <div className="text-white/70 bg-black p-5 font-bold ">Roadmap</div>
+
+        {/* roadmpas  */}
+        <div>
+          {courseDetail?.roadmap?.map((roadmap, index) => {
+            const isSelected = selectedRoadmap?.id == roadmap?.id;
+            const isEven = index % 2 == 0;
+            return (
+              <>
+                <div
+                  key={roadmap.id}
+                  className={`${isSelected ? "text-green-500 border-l-4 border-green-500 bg-green-950/50" : "text-white/70 "} font-medium p-3 ${isEven ? "bg-[#0e141b]" : "bg-[#05080b]"}`}
+                >
+                  <span>Day {roadmap?.day}</span>
+                </div>
+              </>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* video, mcq, tasks tabs  */}
       <section>
-        <Tabs defaultValue="video" value={tabValue} onValueChange={(value) => setTabValue(value)} className="w-full">
+        <Tabs
+          defaultValue="video"
+          value={tabValue}
+          onValueChange={(value) => setTabValue(value)}
+          className="w-full"
+        >
           <TabsList className="flex items-center gap-3 mb-5">
             <TabsTrigger value="video">Video</TabsTrigger>
             <TabsTrigger value="mcqs">MCQ's</TabsTrigger>
@@ -156,6 +191,7 @@ const CourseDetailForRegistered = ({ courseData }) => {
         </Tabs>
       </section>
 
+      {/* topic videos  */}
       <section>
         <div className="mt-5 max-w-[95%] mb-5">
           <div className="font-bold text-white text-2xl">
