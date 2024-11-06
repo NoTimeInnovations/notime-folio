@@ -16,7 +16,9 @@ import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import { fetchCourseDetail, updateCourseData } from "@/app/courses/[id]/page";
 import { useParams } from "next/navigation";
-// import { RichTextLexicalRenderer } from "@webiny/react-rich-text-lexical-renderer";
+import { RichTextLexicalRenderer } from "@webiny/react-rich-text-lexical-renderer";
+
+
 
 const TaskSection = ({ task, courseInfo, actions }) => {
   const courseId = useParams()?.id;
@@ -263,8 +265,8 @@ const TaskSection = ({ task, courseInfo, actions }) => {
                 </AccordionTrigger>
                 <AccordionContent className="text-white px-1 py-10">
                   <H1 className="capitalize">{prob.title}</H1>
-                  <P className="mb-5">
-                    {/* <RichTextLexicalRenderer value={prob.question} /> */}
+                  <P className="mb-5 mt-3 text-base">
+                    <RichTextLexicalRenderer value={prob.question} />
                   </P>
 
                   {prob?.image && (
