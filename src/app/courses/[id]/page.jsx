@@ -2,14 +2,22 @@
 
 import CourseDetail from "@/mainPages/CourseDetail";
 import CourseDetailForRegistered from "@/mainPages/CourseDetailForRegistered";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
 
 const fetchCourseDetail = async (id) => {
+  const authToken = cookies().get("auth_token")?.value;
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/courses/${id}?depth=4`
+      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/courses/${id}?depth=4`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
     );
     const data = await response.json();
 
@@ -51,8 +59,10 @@ const fetchUserCourses = async () => {
 };
 
 export const updateCourseData = async (courseId) => {
-  const courseDetails   = await fetchCourseDetail(courseId);
+  const courseDetails = await fetchCourseDetail(courseId);
   const userCoursesData = await fetchUserCourses();
+
+  console.log("courseDetails", courseDetails);
 
   const enrolledCourse = userCoursesData?.find(
     (c) => c?.course?.id == courseId
@@ -65,7 +75,7 @@ export const updateCourseData = async (courseId) => {
   };
 
   return courseData;
-}
+};
 
 const page = async ({ params, searchParams }) => {
   const authToken = cookies().get("auth_token")?.value;
@@ -86,9 +96,9 @@ const page = async ({ params, searchParams }) => {
     topic_id: enrolledCourse?.topic_id,
   };
 
-  if (authToken && enrolledCourseId == params?.id) {
+  if (authToken && enrolledCourseId == params?.id && courseDetails) {
     return <CourseDetailForRegistered courseData={courseData} />;
-  } else if (authToken) {
+  } else if (authToken && courseDetails) {
     return <CourseDetail course={courseDetails} />;
   } else {
     redirect("/login");

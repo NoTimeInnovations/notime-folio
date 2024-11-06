@@ -57,11 +57,11 @@ const CourseDetailForRegistered = ({ courseData }) => {
   };
 
   useEffect(() => {
-    const unlRoadmap = courseDetail?.roadmap.find(
+    const unlRoadmap = courseDetail?.roadmap?.find(
       (rm) => rm.id == courseDetail?.roadmap_id
     );
 
-    const unlRoadmapIndex = courseDetail?.roadmap.findIndex(
+    const unlRoadmapIndex = courseDetail?.roadmap?.findIndex(
       (rm) => rm.id == courseDetail?.roadmap_id
     );
 
