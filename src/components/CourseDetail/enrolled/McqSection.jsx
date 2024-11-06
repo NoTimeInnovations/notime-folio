@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import H1 from "../common/H1";
-import GradientText from "../common/GradientText";
-import P from "../common/P";
-import Button from "../home/Button";
+import H1 from "@/components/common/H1";
+import GradientText from "@/components/common/GradientText";
+import P from "@/components/common/P";
+import Button from "@/components/home/Button";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 

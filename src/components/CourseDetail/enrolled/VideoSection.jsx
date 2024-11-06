@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import GradientText from "../common/GradientText";
-import H1 from "../common/H1";
-import P from "../common/P";
+import GradientText from "@/components/common/GradientText";
+import H1 from "@/components/common/H1";
+import P from "@/components/common/P";
 
 const VideoSection = ({ selectedVideo }) => {
   return (

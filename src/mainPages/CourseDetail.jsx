@@ -4,10 +4,19 @@ import { CourseRequirements } from "@/components/courses/CourseRequirements";
 import { CourseReview } from "@/components/courses/CourseReview";
 import { CourseRoadmap } from "@/components/courses/CourseRoadmap";
 import { DetailCard } from "@/components/courses/DetailCard";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/CourseDetail/not-enrolled/Accordion";
 import React from "react";
+import { AccordionHeader } from "@radix-ui/react-accordion";
+import H1 from "@/components/common/H1";
+import GradientText from "@/components/common/GradientText";
+import P from "@/components/common/P";
 
 const CourseDetail = ({ course }) => {
-
   if (!course) {
     return <div>Loading...</div>;
   }
@@ -28,9 +37,53 @@ const CourseDetail = ({ course }) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5">
         {/* Days */}
         <div className="md:col-span-2 space-y-5">
-          <CourseRoadmap roadmap={course?.roadmap}></CourseRoadmap>
-          {/* Reviews Section */}
-          
+          {/* <CourseRoadmap roadmap={course?.roadmap}></CourseRoadmap> */}
+
+          {/* roadmap  */}
+          <div className="bg-[#1F2937] rounded-lg p-5 grid gap-4">
+            <H1 className={"text-center lg:text-[2.6rem]"}>Roadmap</H1>
+
+            <Accordion type="single" collapsible>
+              {course?.roadmap?.map((roadmap) => {
+                return (
+                  <AccordionItem
+                    value={`day-${roadmap.day}`}
+                    className="mt-3"
+                    key={roadmap.id}
+                  >
+                    <AccordionTrigger
+                      className={
+                        "bg-gradient-to-r hover:from-green-500 hover:to-yellow-500 transition-all duration-1000 font-bold"
+                      }
+                    >
+                      Day {roadmap.day}
+                    </AccordionTrigger>
+                    <AccordionContent className="grid gap-5 py-5">
+                      {roadmap?.Topics?.map((topic) => {
+                        return (
+                          <div className="bg-gradient-to-r from-slate-950 rounded-md grid grid-cols-[250px,1fr] cursor-pointer hover:from-green-900 transition-all">
+                            {/* topic thumbnail  */}
+                            <div className="bg-black aspect-video h-full rounded-md"></div>
+
+                            {/* topic details  */}
+                            <div className="grid content-center gap-1 p-5">
+                              {/* topic title  */}
+                              <div className="font-bold text-2xl">
+                                <GradientText>{topic.topic}</GradientText>
+                              </div>
+                              {/* desc  */}
+                              <P className='md:text-base lg:text-base'>{topic.shortDesc}</P>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </AccordionContent>
+                  </AccordionItem>
+                );
+              })}
+            </Accordion>
+          </div>
+
           <CourseRequirements requirements={course?.preRequirements} />
           <div className="hidden lg:block">
             <CourseReview reviews={course?.reviews}></CourseReview>

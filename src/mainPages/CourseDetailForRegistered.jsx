@@ -6,11 +6,11 @@ import toast from "react-hot-toast";
 import GradientText from "@/components/common/GradientText";
 import H1 from "@/components/common/H1";
 import P from "@/components/common/P";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/common/Tabs";
-import McqSection from "@/components/CourseDetail/McqSection";
-import TaskSection from "@/components/CourseDetail/TaskSection";
-import VideoCard from "@/components/CourseDetail/VideoCard";
-import VideoSection from "@/components/CourseDetail/VideoSection";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/CourseDetail/enrolled/Tabs";
+import McqSection from "@/components/CourseDetail/enrolled/McqSection";
+import TaskSection from "@/components/CourseDetail/enrolled/TaskSection";
+import VideoCard from "@/components/CourseDetail/enrolled/VideoCard";
+import VideoSection from "@/components/CourseDetail/enrolled/VideoSection";
 
 const CourseDetailForRegistered = ({ courseData }) => {
   const [tabValue, setTabValue] = useState("video");

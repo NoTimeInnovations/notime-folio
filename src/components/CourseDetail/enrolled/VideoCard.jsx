@@ -1,5 +1,5 @@
 import React from "react";
-import GradientText from "../common/GradientText";
+import GradientText from "@/components/common/GradientText";
 import toast from "react-hot-toast";
 
 const VideoCard = ({ index, currentVideoTitle, videoTitle, onClick , isUnlocked }) => {
