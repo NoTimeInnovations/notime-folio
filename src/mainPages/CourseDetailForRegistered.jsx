@@ -16,6 +16,7 @@ import McqSection from "@/components/CourseDetail/enrolled/McqSection";
 import TaskSection from "@/components/CourseDetail/enrolled/TaskSection";
 import VideoCard from "@/components/CourseDetail/enrolled/VideoCard";
 import VideoSection from "@/components/CourseDetail/enrolled/VideoSection";
+import Image from "next/image";
 
 const CourseDetailForRegistered = ({ courseData }) => {
   const [tabValue, setTabValue] = useState("video");
@@ -90,7 +91,7 @@ const CourseDetailForRegistered = ({ courseData }) => {
     const nxtRoadmap = courseDetail?.roadmap[selectedRoadmapIndex + 1];
     if (nxtRoadmap) {
       setNextRoadmap(nxtRoadmap);
-    }else{
+    } else {
       setNextRoadmap(null);
     }
 
@@ -113,16 +114,16 @@ const CourseDetailForRegistered = ({ courseData }) => {
   return (
     <main className="grid gap-5 lg:grid-cols-[.8fr,50%,1fr] min-h-screen py-[120px] px-[2%] ">
       {/* roadmaps  */}
-      <section className="bg-[#080b0f] rounded order-[99] lg:order-[0] mt-5 lg:mt-0">
+      <section className="bg-[#080b0f] h-fit rounded order-[99] lg:order-[0] mt-5 lg:mt-0">
         {/* heading  */}
         <div className="text-white/70 bg-black p-5 font-bold ">Roadmap</div>
 
         {/* roadmpas  */}
-        <div className="max-h-[80vh] overflow-y-auto">
+        <div className="h-[80vh] overflow-y-auto">
           {courseDetail?.roadmap?.map((roadmap, index) => {
             const isSelected = selectedRoadmap?.id == roadmap?.id;
             const isEven = index % 2 == 0;
-            const isUnlocked = unlockedRoadmapIndex >= index; 
+            const isUnlocked = unlockedRoadmapIndex >= index;
             return (
               <>
                 <div
@@ -135,12 +136,12 @@ const CourseDetailForRegistered = ({ courseData }) => {
                       setSelectedRoadmap(roadmap);
                       setSelectedRoadmapIndex(index);
                       setSelectedTopic(roadmap?.Topics[0]);
-                      setSelectedTopicIndex(0); 
-                      setUnlockedTopicIndex(roadmap?.Topics.length - 1);  
+                      setSelectedTopicIndex(0);
+                      setUnlockedTopicIndex(roadmap?.Topics.length - 1);
                     }
                   }}
                   key={roadmap.id}
-                  className={`${!isUnlocked ? "opacity-50 cursor-not-allowed " : ' cursor-pointer'} ${isSelected ? "text-green-500 border-l-4 border-green-500 bg-green-950/50" : "text-white/70 "} hover:brightness-125 font-medium p-3 ${isEven ? "bg-[#0e141b]" : "bg-[#05080b]"}`}
+                  className={`${!isUnlocked ? "opacity-50 cursor-not-allowed " : " cursor-pointer"} ${isSelected ? "text-green-500 border-l-4 border-green-500 bg-green-950/50" : "text-white/70 "} hover:brightness-125 font-medium p-3 ${isEven ? "bg-[#0e141b]" : "bg-[#05080b]"}`}
                 >
                   <span>Day {roadmap?.day}</span>
                 </div>
@@ -205,6 +206,37 @@ const CourseDetailForRegistered = ({ courseData }) => {
             />
           </TabsContent>
         </Tabs>
+
+        {/* next button  */}
+        {tabValue !== "tasks" && (
+          <div className="flex justify-center mt-10">
+            <div
+              onClick={() => {
+                const tabValues = ["video", "mcqs", "tasks"];
+                const currentTabIndex = tabValues.indexOf(tabValue);
+                const nextTabIndex = (currentTabIndex + 1) % tabValues.length;
+
+                if (tabValue === "mcqs" && !mcqCompleted) {
+                  toast.error("Please complete MCQ's to proceed");
+                  return;
+                }
+
+                setTabValue(tabValues[nextTabIndex]);
+              }}
+              className={`${tabValue === "mcqs" && !mcqCompleted ? "opacity-50" : "hover:brightness-125"} text-white select-none cursor-pointer flex items-center gap-2 bg-gradient-to-r from-green-500 to-green-900 w-fit font-medium px-3 py-2 rounded `}
+            >
+              Next
+              <span>
+                <Image
+                  src={"/arrow-right.svg"}
+                  alt="arrow-right"
+                  width={20}
+                  height={20}
+                />
+              </span>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* topic videos  */}
@@ -222,11 +254,6 @@ const CourseDetailForRegistered = ({ courseData }) => {
         </div>
         <div className="grid h-fit gap-3">
           {selectedRoadmap?.Topics?.map((video, index) => {
-            console.log("selectedRoadmapIndex", selectedRoadmapIndex);
-            console.log("unlockedRoadmapIndex", unlockedRoadmapIndex);
-            console.log("index", index);
-            console.log("unlockedTopicIndex", unlockedTopicIndex);
-            
             const isUnlocked =
               selectedRoadmapIndex <= unlockedRoadmapIndex &&
               index <= unlockedTopicIndex;
