@@ -32,6 +32,7 @@ const fetchCourseDetail = async (id) => {
       image: process.env.NEXT_PUBLIC_PAYLOAD_URL + data?.image?.url,
       roadmap: data?.Roadmap,
       reviews: data?.reviews || [],
+      courseLevel: data?.courseLevel,
     };
     return formatedData;
   } catch (error) {
@@ -61,8 +62,6 @@ const fetchUserCourses = async () => {
 export const updateCourseData = async (courseId) => {
   const courseDetails = await fetchCourseDetail(courseId);
   const userCoursesData = await fetchUserCourses();
-
-  console.log("courseDetails", courseDetails);
 
   const enrolledCourse = userCoursesData?.find(
     (c) => c?.course?.id == courseId

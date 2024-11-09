@@ -1,17 +1,30 @@
 "use client";
-import React from "react";
-import GradientText from "@/components/common/GradientText";
+import React, { useEffect } from "react";
 import H1 from "@/components/common/H1";
 import P from "@/components/common/P";
 
 const VideoSection = ({ selectedVideo }) => {
+  useEffect(() => {
+    console.log(selectedVideo);
+  }, [selectedVideo]);
   return (
     <>
-      <div className=" aspect-video bg-black rounded-xl"></div>
+      <div className=" aspect-video  rounded-xl">
+        <video
+          className="w-full aspect-video rounded"
+          controls
+          controlsList="nodownload" 
+          poster={process.env.NEXT_PUBLIC_PAYLOAD_URL + selectedVideo?.videoThumbnail?.url}
+          src={
+            process.env.NEXT_PUBLIC_CLOUDFRONT_URL +
+            "/" +
+            selectedVideo?.videoLink
+          }
+        />
+      </div>
 
       {/* video details  */}
       <div className="mt-5 max-w-[95%] hidden lg:block">
-
         {/* title  */}
         <H1 className="font-bold text-white text-[1.5rem] xl:text-[1.5rem] lg:text-[1.5rem] leading-[2rem] lg:leading-[2rem] xl:leading-[2rem]">
           {selectedVideo?.videoTitle}

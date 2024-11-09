@@ -13,8 +13,8 @@ const CourseCard = ({ course }) => {
         </div>
         <div className="p-5">
           <a href="#">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">
-              {course.title}
+            <h5 className="mb-2 text-2xl font-bold tracking-tight flex items-center gap-2 text-white">
+              {course.title} <span className="text-base font-light"> - Level {course.courseLevel}</span>
             </h5>
           </a>
           <p className="mb-3 font-normal text-gray-400">{course?.description}</p>
@@ -22,7 +22,7 @@ const CourseCard = ({ course }) => {
             href="#"
             className="inline-flex items-center py-2 text-sm font-medium text-center "
           >
-            <GradientText>Read more</GradientText>
+            <GradientText>Read more to explore</GradientText>
             <svg
               className="rtl:rotate-180 w-3.5 h-3.5 ms-2 text-white"
               aria-hidden="true"

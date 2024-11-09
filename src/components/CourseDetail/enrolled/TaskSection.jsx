@@ -110,7 +110,6 @@ const TaskSection = ({ task, courseInfo, actions }) => {
       }
 
       const result = await updateResponse.json();
-      console.log("Update Result:", result);
       toast.dismiss();
 
       if (result?.errors?.length > 0) {
@@ -274,7 +273,7 @@ const TaskSection = ({ task, courseInfo, actions }) => {
                       Demo:
                       <Image
                         src={
-                          process.env.NEXT_PUBLIC_PAYLOAD_URL + prob?.image?.url
+                          process.env.NEXT_PUBLIC_PAYLOAD_URL +"/" + prob?.image?.url
                         }
                         alt={prob.title}
                         width={300}

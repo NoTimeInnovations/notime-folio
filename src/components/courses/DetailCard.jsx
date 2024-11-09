@@ -17,6 +17,7 @@ export const DetailCard = ({
   price,
   discount,
   id,
+  courseLevel,
 }) => {
   const [finalPrice, setFinalPrice] = React.useState(0);
   const router = useRouter();
@@ -44,7 +45,7 @@ export const DetailCard = ({
       authToken
     );
     if (paymentURL) {
-      Cookies.set('paymentURL', paymentURL , { expires:  0.00023148 }); // 20 sec
+      Cookies.set("paymentURL", paymentURL, { expires: 0.00023148 }); // 20 sec
       router.push(paymentURL);
     }
   };
@@ -65,8 +66,11 @@ export const DetailCard = ({
 
           {/* Course Details */}
           <div className="md:col-span-2 my-auto">
-            <H1 className={"text-center lg:text-start lg:text-[2.5rem]"}>
+            <H1 className={"text-center lg:text-start lg:text-[2.5rem] flex items-center gap-2"}>
               <GradientText>{title}</GradientText>
+              <div className="font-semibold text-green-500 text-lg">
+                - Level {courseLevel}
+              </div>
             </H1>
             <P className={"text-center lg:text-start"}>{description}</P>
             <div className="md:col-span-2 space-y-4 mt-5 text-center lg:text-start">

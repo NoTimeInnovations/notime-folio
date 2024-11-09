@@ -141,9 +141,20 @@ const CourseDetailForRegistered = ({ courseData }) => {
                     }
                   }}
                   key={roadmap.id}
-                  className={`${!isUnlocked ? "opacity-50 cursor-not-allowed " : " cursor-pointer"} ${isSelected ? "text-green-500 border-l-4 border-green-500 bg-green-950/50" : "text-white/70 "} hover:brightness-125 font-medium p-3 ${isEven ? "bg-[#0e141b]" : "bg-[#05080b]"}`}
+                  className={`${!isUnlocked ? "opacity-50 cursor-not-allowed " : " cursor-pointer"} ${isSelected ? "text-green-500 border-l-4 border-green-500 bg-green-950/50" : "text-white/70 "} hover:brightness-125 flex items-center justify-between font-medium p-3 ${isEven ? "bg-[#0e141b]" : "bg-[#05080b]"}`}
                 >
                   <span>Day {roadmap?.day}</span>
+                  {
+                    !isUnlocked && (
+                      <Image
+                        src={'/lock.svg'}
+                        alt="lock"
+                        width={20}
+                        height={20}
+                        className="invert"
+                      />
+                    )
+                  }
                 </div>
               </>
             );
@@ -172,6 +183,7 @@ const CourseDetailForRegistered = ({ courseData }) => {
                 videoLink: selectedTopic?.video,
                 videoTitle: selectedTopic?.topic,
                 videoDesc: selectedTopic?.shortDesc,
+                videoThumbnail: selectedTopic?.videoThumbnail, 
               }}
             />
           </TabsContent>
@@ -261,6 +273,8 @@ const CourseDetailForRegistered = ({ courseData }) => {
             return (
               <VideoCard
                 isUnlocked={isUnlocked}
+                videoThumbnail={process.env.NEXT_PUBLIC_PAYLOAD_URL + video?.videoThumbnail?.url}
+                videoUrl={process.env.NEXT_PUBLIC_CLOUDFRONT_URL + "/" + video?.video}
                 onClick={() => {
                   if (!isUnlocked) {
                     toast.error(
