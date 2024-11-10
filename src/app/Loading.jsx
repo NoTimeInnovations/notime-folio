@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-const loading = () => {
+const Loading = () => {
   return (
     <div className="min-h-screen w-full grid place-items-center">
       <div className="loader">
@@ -15,4 +15,4 @@ const loading = () => {
   );
 };
 
-export default loading;
+export default Loading;
