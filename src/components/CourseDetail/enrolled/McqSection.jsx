@@ -82,6 +82,7 @@ const McqSection = ({ mcqs, taskId, completedMCQ, setMCQCompleted }) => {
             student_id: user.id,
             task_id: taskId,
             option_selected: selectedOptionsData,
+            pointsScored: points,
           }),
         }
       );

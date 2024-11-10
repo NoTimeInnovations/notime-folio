@@ -110,15 +110,18 @@ const TaskSection = ({ task, courseInfo, actions }) => {
       }
 
       const result = await updateResponse.json();
-      toast.dismiss();
+      
 
       if (result?.errors?.length > 0) {
+        toast.dismiss();
+        toast.error("Failed to unlock next topic");
         console.error(result?.errors[0]?.message);
       } else {
-        toast.success("Next topic unlocked successfully");
         console.log("Next topic unlocked successfully");
-
         const courseData = await updateCourseData(courseId);
+        toast.dismiss();
+        toast.success("Next topic unlocked successfully");
+
         if (courseData) {
           actions.setCourseDetail(courseData);
         }
