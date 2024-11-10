@@ -1,28 +1,11 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ListItems from "./ListItems";
+import Cookies from "js-cookie";
 
 const NavMenu = ({ isOpen, setIsOpen }) => {
-  const menuVariants = {
-    open: {
-      clipPath: "circle(150% at 78% 0)",
-      transition: {
-        type: "spring",
-        stiffness: 200,
-        damping: 15,
-      },
-    },
-    closed: {
-      clipPath: "circle(0% at 78% 0)",
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40,
-      },
-    },
-  };
-
-  const menuLinks = [
+  const [menuLinks, setMenuLinks] = useState([
     {
       name: "MERN Stack Development",
       url: "/mern-stack-development",
@@ -43,7 +26,36 @@ const NavMenu = ({ isOpen, setIsOpen }) => {
       url: "/contact-us",
       icon: "/contact-icon.svg",
     },
-  ];
+    {
+      name: "Login",
+      url: "/login",
+      icon: "/login-icon.svg",
+    },
+    {
+      name: "Register",
+      url: "/register",
+      icon: "/register-icon.svg",
+    },
+  ]);
+
+  const menuVariants = {
+    open: {
+      clipPath: "circle(150% at 78% 0)",
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 15,
+      },
+    },
+    closed: {
+      clipPath: "circle(0% at 78% 0)",
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 40,
+      },
+    },
+  };
 
   const variants = {
     open: {
@@ -53,6 +65,44 @@ const NavMenu = ({ isOpen, setIsOpen }) => {
       transition: { staggerChildren: 0.05, staggerDirection: -1 },
     },
   };
+
+  useEffect(() => {
+    const user = Cookies.get("user");
+
+    if (user) {
+      const newMenuLinks = menuLinks.slice(0, 4);
+      setMenuLinks(
+        newMenuLinks.concat([
+          {
+            name: "Dashboard",
+            url: "/dashboard",
+            icon: "/dashboard-icon.svg",
+          },
+          {
+            name: "Logout",
+            url: "/logout",
+            icon: "/logout-icon.svg",
+          },
+        ])
+      );
+    } else if (!user) {
+      const newMenuLinks = menuLinks.slice(0, 4);
+      setMenuLinks(
+        newMenuLinks.concat([
+          {
+            name: "Login",
+            url: "/login",
+            icon: "/login-icon.svg",
+          },
+          {
+            name: "Register",
+            url: "/register",
+            icon: "/register-icon.svg",
+          },
+        ])
+      );
+    }
+  }, [isOpen]);
 
   return (
     <motion.div

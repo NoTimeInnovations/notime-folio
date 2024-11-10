@@ -2,8 +2,8 @@ import Banner from "@/components/common/Banner";
 import Courses from "@/mainPages/Courses";
 import Leaderboard from "@/mainPages/Leaderboard";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import React from "react";
-import toast from "react-hot-toast";
 
 const fetchCourses = async () => {
   try {
@@ -36,17 +36,10 @@ const fetchCourses = async () => {
 
 export default async function page({ searchParams }) {
   if (cookies().get("auth_token") === undefined) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
+    return redirect("/login");
   }
 
   const courses = await fetchCourses();
-  console.log(courses);
-
   const error = searchParams?.error;
 
   return (

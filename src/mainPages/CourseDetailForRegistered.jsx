@@ -221,7 +221,7 @@ const CourseDetailForRegistered = ({ courseData }) => {
 
         {/* next button  */}
         {tabValue !== "tasks" && (
-          <div className="flex justify-center mt-10">
+          <div className="flex justify-end mt-10">
             <div
               onClick={() => {
                 const tabValues = ["video", "mcqs", "tasks"];

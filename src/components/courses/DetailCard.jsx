@@ -52,12 +52,13 @@ export const DetailCard = ({
 
   return (
     <>
-      <div className="flex flex-col items-center bg-gray-800 shadow-lg rounded-lg p-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid sm:grid-cols-[40%,1fr] place-items-center gap-5 bg-gray-800 shadow-lg rounded-lg p-8">
+
+
           {/* Image and Heading */}
-          <div className="md:col-span-1 relative w-[300px] aspect-video my-auto">
+          <div className=" relative w-full aspect-video rounded overflow-hidden">
             <Image
-              className="w-full object-cover rounded-lg transition-transform transform hover:scale-105"
+              className="w-full h-full"
               src={image}
               alt={title}
               fill
@@ -65,15 +66,15 @@ export const DetailCard = ({
           </div>
 
           {/* Course Details */}
-          <div className="md:col-span-2 my-auto">
-            <H1 className={"text-center lg:text-start lg:text-[2.5rem] flex items-center gap-2"}>
+          <div>
+            <H1 className={"flex justify-center sm:justify-start lg:text-[2.5rem]  items-center gap-2"}>
               <GradientText>{title}</GradientText>
               <div className="font-semibold text-green-500 text-lg">
                 - Level {courseLevel}
               </div>
             </H1>
-            <P className={"text-center lg:text-start"}>{description}</P>
-            <div className="md:col-span-2 space-y-4 mt-5 text-center lg:text-start">
+            <P className={"text-center sm:text-start"}>{description}</P>
+            <div className="sm:col-span-2 space-y-4 mt-5 text-center sm:text-start">
               <div>
                 {discount > 0 ? (
                   <>
@@ -99,7 +100,9 @@ export const DetailCard = ({
               />
             </div>
           </div>
-        </div>
+
+
+
       </div>
     </>
   );

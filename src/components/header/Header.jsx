@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HamburgerIcon from "./HamburgerIcon";
 import NavMenu from "./NavMenu";
 import { motion } from "framer-motion";
@@ -8,10 +8,16 @@ import Link from "next/link";
 import { useCycle } from "framer-motion";
 import { usePathname } from "next/navigation";
 import GradientText from "../common/GradientText";
+import Cookies from "js-cookie";
+import Image from "next/image";
+import Avatar from "../common/Avatar";
 
 const InterestedInFreelancingText = ({ className }) => {
   return (
-    <Link className={`${className} w-fit `} href={"https://airtable.com/appsRTpUCJdxOnM0X/pagYAEzHVUCm8iSyY/form"}>
+    <Link
+      className={`${className} w-fit `}
+      href={"https://airtable.com/appsRTpUCJdxOnM0X/pagYAEzHVUCm8iSyY/form"}
+    >
       <GradientText className={`font-medium`}>
         Interested in freelancing?
       </GradientText>
@@ -23,6 +29,13 @@ const Header = () => {
   const [isOpen, toggleOpen] = useCycle(false, true);
   const pathname = usePathname();
   const isStuduio = pathname.includes("/studio");
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const user = Cookies.get("user");
+
+    setUser(user ? JSON.parse(user) : null);
+  }, [isOpen , pathname]);
 
   return (
     <nav className={`${isStuduio && "hidden"}`}>
@@ -34,7 +47,9 @@ const Header = () => {
       ></div>
 
       {/* freelancing link  */}
-      <div className={`lg:hidden fixed bottom-0 left-0 w-screen py-3 z-[51] flex justify-center bg-[#0000006e] backdrop-blur-md border-t-[.5px] border-[#ffffff2d] ${ pathname === '/interested-in-freelancing' && 'hidden' }`}>
+      <div
+        className={`lg:hidden fixed bottom-0 left-0 w-screen py-3 z-[51] flex justify-center bg-[#0000006e] backdrop-blur-md border-t-[.5px] border-[#ffffff2d] ${pathname === "/interested-in-freelancing" && "hidden"}`}
+      >
         <InterestedInFreelancingText />
       </div>
 
@@ -65,8 +80,29 @@ const Header = () => {
         {/* hamburger icon  */}
 
         <div className="flex items-center gap-5 xl:gap-10">
-          <InterestedInFreelancingText className={`hidden ${ pathname !== '/interested-in-freelancing' && 'lg:block' }`} />
-          <HamburgerIcon isOpen={isOpen} toggleOpen={toggleOpen} />
+          <InterestedInFreelancingText
+            className={`hidden ${pathname !== "/interested-in-freelancing" && "lg:block"}`}
+          />
+
+          {/* user  */}
+          {user ? (
+            <div onClick={()=>toggleOpen()} className={`flex items-center gap-1 cursor-pointer `}>
+              <Avatar
+                image={`${process.env.NEXT_PUBLIC_PAYLOAD_URL}${user?.image?.url}`}
+                username={user?.name}
+                classname={`${isOpen ? 'bg-white/10 p-1 ' : ''}  transition-all duration-200`}
+              />
+              <Image
+                src={'/chevron-down.svg'}
+                alt="arrow-down"
+                width={20}
+                height={20}
+                className={`invert transition-all duration-200 ${isOpen && "rotate-180"}`}
+              />
+            </div>
+          ) : (
+            <HamburgerIcon isOpen={isOpen} toggleOpen={toggleOpen} />
+          )}
         </div>
 
         {/* links  */}
