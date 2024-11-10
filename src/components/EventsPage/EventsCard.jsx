@@ -13,9 +13,9 @@ const EventsCard = ({ event }) => {
         viewport={{ once : true }}
         className="w-full bg-[#0e1116] border-[#252d39] border rounded-lg shadow overflow-hidden"
       >
-        <div className="relative h-[100px] sm:h-[200px] w-full overflow-hidden">
+        <div className="relative h-[100px] sm:h-[200px] w-full aspect-[4/5] overflow-hidden">
           <Image
-            src={event?.image}
+            src={process.env.NEXT_PUBLIC_PAYLOAD_URL + event?.image?.url}
             alt={event?.title}
             fill
             className="object-cover w-full h-full"

@@ -17,8 +17,8 @@ import { EventDetails } from "@/mainPages/EventsPage";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export default function HeroCarousel() {
-  const TreandingEvents = EventDetails?.filter(
+export default function HeroCarousel({eventData}) {
+  const TreandingEvents = eventData?.filter(
     (events) => events.trending === true
   );
 
@@ -66,7 +66,7 @@ export default function HeroCarousel() {
             {/* carousel image  */}
             <div className="relative w-full h-[300px] sm:h-[500px] rounded-md overflow-hidden">
               <Image
-                src={event?.image}
+                src={process.env.NEXT_PUBLIC_PAYLOAD_URL + event?.image?.url}
                 alt={event?.title}
                 fill
                 className="object-cover w-full h-full brightness-75 group-hover:brightness-95"

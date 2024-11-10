@@ -5,8 +5,8 @@ import H1 from "../common/H1";
 import { EventDetails } from "@/mainPages/EventsPage";
 import EventsCard from "./EventsCard";
 
-const UpcomingEvents = () => {
-  const upcomingEvents = EventDetails?.filter(
+const UpcomingEvents = ({eventData}) => {
+  const upcomingEvents = eventData?.filter(
     (event) => event?.status === "upcoming"
   );
 

@@ -51,12 +51,20 @@ export const EventDetails = [
   },
 ];
 
-const EventsPage = () => {
+const EventsPage = ({eventsData}) => {
   return (
     <main className="px-[5%] sm:px-[8%]  py-[120px] ">
-      <HeroCarousel />
-      <UpcomingEvents />
-      <AllEvents />
+      {
+        eventsData ? (
+          <>
+            <HeroCarousel eventData={eventsData} />
+            <UpcomingEvents eventData={eventsData} />
+            <AllEvents eventData={eventsData} />
+          </>
+        ) : (
+          <p className="text-white">No Events yet!...</p>
+        )
+      }
     </main>
   );
 };
