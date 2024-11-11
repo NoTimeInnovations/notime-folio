@@ -35,40 +35,19 @@ const Header = () => {
     const userCookie = JSON.parse(Cookies.get("user"));
     const authToken = Cookies.get("auth_token");
 
-    const query = `query GetMcqSubmission($student_id: McqSubmission_student_id_operator!) { McqSubmissions(where: { student_id: $student_id }) { docs { pointsScored } } }`;
-
-    const variables = {
-      student_id: { 
-        equals: userCookie.id
-      }
-    }
-
-    const stringifiedBody = JSON.stringify({
-      query : query,
-      variables : variables
-    });
-
-
-
-    console.log(stringifiedBody );
-
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/graphql`,
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?where[userId]=${userCookie.id}`,
         {
-          method: "POST",
+          method: "GET",
           headers: {
             "Authorization": `Bearer ${authToken}`,
             "Content-Type": "application/json",
-          },
-          body: stringifiedBody,
-          mode: "cors",
+          }
         }
       );
-      console.log(res);
-      
       const data = await res?.json();
-      console.log(data);
+      console.log(data?.docs);
     } catch (err) {
       console.error("Error fetching user points:", err);
     }
@@ -136,7 +115,7 @@ const Header = () => {
               className={`flex items-center gap-1 cursor-pointer `}
             >
               <Avatar
-                image={`${process.env.NEXT_PUBLIC_PAYLOAD_URL}${user?.image?.url}`}
+                image={`${user?.image?.url}`}
                 username={user?.name}
                 classname={`${isOpen ? "bg-white/10 p-1 " : ""}  transition-all duration-200`}
               />

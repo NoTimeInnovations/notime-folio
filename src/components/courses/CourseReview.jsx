@@ -48,7 +48,7 @@ export const CourseReview = ({ reviews }) => {
                       <div className="absolute top-[-25px] left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full overflow-hidden">
                         <img
                           className="w-full h-full object-cover"
-                          src={`${process.env.NEXT_PUBLIC_PAYLOAD_URL}${review.user.image.url}`}
+                          src={`${review.user.image.url}`}
                           alt={review.user.name}
                         />
                       </div>

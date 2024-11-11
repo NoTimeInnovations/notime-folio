@@ -24,7 +24,7 @@ const fetchCourses = async () => {
       id: course.id,
       title: course.title,
       description: course.shortDesc,
-      image: process.env.NEXT_PUBLIC_PAYLOAD_URL + course.image.url,
+      image: course.image.url,
       courseLevel: course.courseLevel,
     }));
 

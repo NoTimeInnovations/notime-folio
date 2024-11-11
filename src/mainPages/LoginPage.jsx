@@ -66,15 +66,20 @@ export default function LoginPage() {
           }
         } else {
           toast.success("Login success");
-          
+          const user = JSON.stringify({
+            id: data?.user?.id,
+            name: data?.user?.name,
+            email: data?.user?.email,
+            type: data?.user?.type,
+            image : data?.user?.image
+          });
 
           Cookies.set('auth_token' , data?.token , { expires : 30 });
-          Cookies.set('user' , JSON.stringify(data?.user) , { expires : 30 });
+          Cookies.set('user' , user , { expires : 30 });
           
-          // localStorage.setItem("auth_token", data?.token);
-          // localStorage.setItem("user", JSON.stringify(data?.user));
-          
-          router.push("/");
+          setTimeout(() => {
+            router.push("/");
+          }, 1000);
         }
       } catch (error) {
         toast.dismiss();

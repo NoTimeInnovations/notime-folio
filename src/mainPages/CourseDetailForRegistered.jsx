@@ -42,7 +42,12 @@ const CourseDetailForRegistered = ({ courseData }) => {
       const user = JSON.parse(Cookies.get("user"));
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?where[student_id][equals]=${user.id}&where[task_id][equals]=${selectedTopic?.task?.id}&depth=0`
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?where[student_id][equals]=${user.id}&where[task_id][equals]=${selectedTopic?.task?.id}&depth=0`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("auth_token")}`,
+          }
+        }
       );
       const data = await response.json();
 
@@ -273,7 +278,7 @@ const CourseDetailForRegistered = ({ courseData }) => {
             return (
               <VideoCard
                 isUnlocked={isUnlocked}
-                videoThumbnail={process.env.NEXT_PUBLIC_PAYLOAD_URL + video?.videoThumbnail?.url}
+                videoThumbnail={video?.videoThumbnail?.url}
                 videoUrl={process.env.NEXT_PUBLIC_CLOUDFRONT_URL + "/" + video?.video}
                 onClick={() => {
                   if (!isUnlocked) {

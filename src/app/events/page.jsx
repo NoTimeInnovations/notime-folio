@@ -13,8 +13,6 @@ const fetchEvents = async () => {
 
 const page = async() => {
   const eventsData = await fetchEvents();
-  console.log(eventsData);
-  
   return <EventsPage eventsData={eventsData}/>
 };
 

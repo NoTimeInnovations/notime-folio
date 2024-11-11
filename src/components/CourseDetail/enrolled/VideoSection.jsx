@@ -14,7 +14,7 @@ const VideoSection = ({ selectedVideo }) => {
           className="w-full aspect-video rounded"
           controls
           controlsList="nodownload" 
-          poster={process.env.NEXT_PUBLIC_PAYLOAD_URL + selectedVideo?.videoThumbnail?.url}
+          poster={selectedVideo?.videoThumbnail?.url}
           src={
             process.env.NEXT_PUBLIC_CLOUDFRONT_URL +
             "/" +

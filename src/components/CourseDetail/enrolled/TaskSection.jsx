@@ -34,7 +34,12 @@ const TaskSection = ({ task, courseInfo, actions }) => {
     try {
       const user = JSON.parse(Cookies.get("user"));
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/problem-submissions?where[task_id][equals]=${task.id}&depth=1`
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/problem-submissions?where[task_id][equals]=${task.id}&depth=2`,
+        {
+          headers : {
+            Authorization: `Bearer ${Cookies.get("auth_token")}`
+          }
+        }
       );
       const result = await response.json();
       if (result?.errors?.length > 0) {
@@ -48,8 +53,6 @@ const TaskSection = ({ task, courseInfo, actions }) => {
       console.error("Error fetching problem submissions: ", error);
     }
   };
-
-  console.log(courseInfo);
 
   const handleNextTopicUnlock = async () => {
     const user = JSON.parse(Cookies.get("user"));
@@ -256,6 +259,9 @@ const TaskSection = ({ task, courseInfo, actions }) => {
             const isEditable =
               !isSubmitted || isSubmitted.status === "rejected";
 
+              console.log(prob);
+              
+
             return (
               <AccordionItem
                 key={prob.title}
@@ -275,9 +281,7 @@ const TaskSection = ({ task, courseInfo, actions }) => {
                     <GradientText className="font-semibold lg:text-xl">
                       Demo:
                       <Image
-                        src={
-                          process.env.NEXT_PUBLIC_PAYLOAD_URL +"/" + prob?.image?.url
-                        }
+                        src={prob?.image?.url}
                         alt={prob.title}
                         width={300}
                         height={300}

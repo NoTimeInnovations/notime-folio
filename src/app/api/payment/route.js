@@ -65,7 +65,7 @@ export async function POST(req) {
               "Content-Type": "application/json",
               Authorization: `Bearer ${authToken}`,
             },
-            body: JSON.stringify({ courses: updatedCourses }),
+            body: JSON.stringify({ courses: updatedCourses , isEnrolled : true }),
           }
         );
 

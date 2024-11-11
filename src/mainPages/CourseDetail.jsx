@@ -96,7 +96,7 @@ const CourseDetail = ({ course }) => {
                                   if (isUnlocked) {
                                     setSelectedVideo({
                                       video: topic?.video,
-                                      thumbnail: topic?.videoThumbnail,
+                                      thumbnail: topic?.videoThumbnail?.url,
                                       topic: topic?.topic,
                                       shortDesc: topic?.shortDesc,
                                     });
@@ -107,7 +107,7 @@ const CourseDetail = ({ course }) => {
                                 }}
                                 className="bg-black aspect-video h-full rounded-md hover:brightness-90 grid place-items-center group"
                                 style={{
-                                  backgroundImage: `url(${process.env.NEXT_PUBLIC_PAYLOAD_URL}${topic?.videoThumbnail?.url})`,
+                                  backgroundImage: `url(${topic?.videoThumbnail?.url})`,
                                   backgroundSize: "cover",
                                   backgroundPosition: "center",
                                 }}
