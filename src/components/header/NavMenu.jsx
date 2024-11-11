@@ -22,6 +22,11 @@ const NavMenu = ({ isOpen, setIsOpen }) => {
       icon: "/videos-icon.svg",
     },
     {
+      name: "Events",
+      url: "/events",
+      icon: "/events.svg",
+    },
+    {
       name: "Contact Us",
       url: "/contact-us",
       icon: "/contact-icon.svg",
@@ -70,7 +75,7 @@ const NavMenu = ({ isOpen, setIsOpen }) => {
     const user = Cookies.get("user");
 
     if (user) {
-      const newMenuLinks = menuLinks.slice(0, 4);
+      const newMenuLinks = menuLinks.slice(0, 5);
       setMenuLinks(
         newMenuLinks.concat([
           {
@@ -85,8 +90,8 @@ const NavMenu = ({ isOpen, setIsOpen }) => {
           },
         ])
       );
-    } else if (!user) {
-      const newMenuLinks = menuLinks.slice(0, 4);
+    } else {
+      const newMenuLinks = menuLinks.slice(0, 5);
       setMenuLinks(
         newMenuLinks.concat([
           {

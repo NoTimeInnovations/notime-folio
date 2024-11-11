@@ -25,9 +25,9 @@ const ListItems = ({ name, url, icon, setIsOpen }) => {
     <Link href={url} onClick={()=>setIsOpen(false)}>
       <motion.div
         variants={variants}
-        className="p-8 flex gap-3 items-center text-white cursor-pointer hover:bg-[#ffffff30] "
+        className="p-5 flex gap-3 items-center text-white cursor-pointer hover:bg-[#ffffff30] "
       >
-        <img src={icon} alt={name} className="w-8" />
+        <img src={icon} alt={name} className="w-5" />
         <p className="text-xl font-medium text-nowrap">{name}</p>
       </motion.div>
     </Link>

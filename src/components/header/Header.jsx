@@ -31,11 +31,56 @@ const Header = () => {
   const isStuduio = pathname.includes("/studio");
   const [user, setUser] = useState(null);
 
+  const fetchUserPoints = async () => {
+    const userCookie = JSON.parse(Cookies.get("user"));
+    const authToken = Cookies.get("auth_token");
+
+    const query = `query GetMcqSubmission($student_id: McqSubmission_student_id_operator!) { McqSubmissions(where: { student_id: $student_id }) { docs { pointsScored } } }`;
+
+    const variables = {
+      student_id: { 
+        equals: userCookie.id
+      }
+    }
+
+    const stringifiedBody = JSON.stringify({
+      query : query,
+      variables : variables
+    });
+
+
+
+    console.log(stringifiedBody );
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/graphql`,
+        {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+          body: stringifiedBody,
+          mode: "cors",
+        }
+      );
+      console.log(res);
+      
+      const data = await res?.json();
+      console.log(data);
+    } catch (err) {
+      console.error("Error fetching user points:", err);
+    }
+  };
+
   useEffect(() => {
     const user = Cookies.get("user");
-
+    if (user) {
+      fetchUserPoints();
+    }
     setUser(user ? JSON.parse(user) : null);
-  }, [isOpen , pathname]);
+  }, [isOpen, pathname]);
 
   return (
     <nav className={`${isStuduio && "hidden"}`}>
@@ -86,14 +131,17 @@ const Header = () => {
 
           {/* user  */}
           {user ? (
-            <div onClick={()=>toggleOpen()} className={`flex items-center gap-1 cursor-pointer `}>
+            <div
+              onClick={() => toggleOpen()}
+              className={`flex items-center gap-1 cursor-pointer `}
+            >
               <Avatar
                 image={`${process.env.NEXT_PUBLIC_PAYLOAD_URL}${user?.image?.url}`}
                 username={user?.name}
-                classname={`${isOpen ? 'bg-white/10 p-1 ' : ''}  transition-all duration-200`}
+                classname={`${isOpen ? "bg-white/10 p-1 " : ""}  transition-all duration-200`}
               />
               <Image
-                src={'/chevron-down.svg'}
+                src={"/chevron-down.svg"}
                 alt="arrow-down"
                 width={20}
                 height={20}
