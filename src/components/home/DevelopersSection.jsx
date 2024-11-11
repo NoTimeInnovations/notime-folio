@@ -18,8 +18,6 @@ const DevelopersSection = () => {
     }`;
 
     client.fetch(query).then((res) => {
-      console.log(res);
-      
       setDevelopers(res);
     });
   }, []);

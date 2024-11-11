@@ -30,24 +30,66 @@ const Header = () => {
   const pathname = usePathname();
   const isStuduio = pathname.includes("/studio");
   const [user, setUser] = useState(null);
+  const [mcqPoints, setMcqPoints] = useState(0);
+  const [problemPoints, setProblemPoints] = useState(0);
 
-  const fetchUserPoints = async () => {
+  const fetchUserMCQPoints = async () => {
     const userCookie = JSON.parse(Cookies.get("user"));
     const authToken = Cookies.get("auth_token");
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?where[userId]=${userCookie.id}`,
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?where[student_id][equals]=${userCookie.id}&depth=0`,
         {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${authToken}`,
+            Authorization: `Bearer ${authToken}`,
             "Content-Type": "application/json",
-          }
+          },
         }
       );
       const data = await res?.json();
-      console.log(data?.docs);
+      const points = data?.docs?.reduce(
+        (acc, curr) => acc + curr.pointsScored,
+        0
+      );
+      setMcqPoints(points);
+      console.log("mcq points", points);
+      
+    } catch (err) {
+      console.error("Error fetching user points:", err);
+    }
+  };
+
+  const fetchUserProblemPoints = async () => {
+    const userCookie = JSON.parse(Cookies.get("user"));
+    const authToken = Cookies.get("auth_token");
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/problem-submissions?where[status][equals]=approved&where[user_id][equals]=${userCookie?.id}&depth=1`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await res?.json();
+
+      let points = 0;
+
+      data?.docs?.map((probSubm) => {
+        const problem = probSubm?.task_id?.problems?.find(
+          (problem) => problem.id === probSubm.problem_id
+        );
+        points += problem?.point || 0;
+      });
+
+      setProblemPoints(points);
+      console.log("problem points", points);
+      
     } catch (err) {
       console.error("Error fetching user points:", err);
     }
@@ -56,7 +98,8 @@ const Header = () => {
   useEffect(() => {
     const user = Cookies.get("user");
     if (user) {
-      fetchUserPoints();
+      fetchUserMCQPoints();
+      fetchUserProblemPoints();
     }
     setUser(user ? JSON.parse(user) : null);
   }, [isOpen, pathname]);
@@ -94,7 +137,7 @@ const Header = () => {
           }}
         >
           <div className="inline-flex items-center gap-4">
-            <img src="/notime-logo.svg" alt="logo" className="w-20 lg:w-24" />
+            <img src="/notime-logo.svg" alt="logo" className="w-10 sm:w-24" />
             <h1 className="text-white font-semibold text-xl lg:text-2xl">
               Notime
             </h1>
@@ -110,23 +153,37 @@ const Header = () => {
 
           {/* user  */}
           {user ? (
-            <div
-              onClick={() => toggleOpen()}
-              className={`flex items-center gap-1 cursor-pointer `}
-            >
-              <Avatar
-                image={`${user?.image?.url}`}
-                username={user?.name}
-                classname={`${isOpen ? "bg-white/10 p-1 " : ""}  transition-all duration-200`}
-              />
-              <Image
-                src={"/chevron-down.svg"}
-                alt="arrow-down"
-                width={20}
-                height={20}
-                className={`invert transition-all duration-200 ${isOpen && "rotate-180"}`}
-              />
-            </div>
+            <>
+              <div
+                onClick={() => toggleOpen()}
+                className={`flex items-center gap-1 cursor-pointer `}
+              >
+                <Avatar
+                  image={`${user?.image?.url}`}
+                  username={user?.name}
+                  classname={`${isOpen ? "bg-white/10 p-1 " : ""}  transition-all duration-200`}
+                />
+                <Image
+                  src={"/chevron-down.svg"}
+                  alt="arrow-down"
+                  width={20}
+                  height={20}
+                  className={`invert transition-all duration-200 ${isOpen && "rotate-180"}`}
+                />
+              </div>
+
+              {/* userPoints  */}
+              <div className="flex gap-2 items-center">
+                <Image
+                  src={'/trophy-icon.svg'}
+                  alt="points"
+                  width={20}
+                  height={20}
+                  
+                />
+                <span className="text-white font-semibold text-sm">{mcqPoints + problemPoints}</span>
+              </div>
+            </>
           ) : (
             <HamburgerIcon isOpen={isOpen} toggleOpen={toggleOpen} />
           )}
