@@ -209,7 +209,13 @@ const TaskSection = ({ task, courseInfo, actions }) => {
         fetchProblemSubmission();
 
         if (isSubmitted?.status !== "rejected") {
-          handleNextTopicUnlock();
+          const isLastProblem =
+            task?.problems?.length ===
+            problemSubmissions?.filter((p) => p.status === "submitted")?.length;
+
+          if (isLastProblem) {
+            handleNextTopicUnlock();
+          }
         }
       }
     } catch (error) {
@@ -235,6 +241,7 @@ const TaskSection = ({ task, courseInfo, actions }) => {
         !problemSubmissions?.some((p) => p.problem_id === prob.id) || false
     );
     setFirstNonSubmittedProblem(firstNonSubmitted);
+
   }, [problemSubmissions, task]);
 
   return (

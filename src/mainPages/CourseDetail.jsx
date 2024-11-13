@@ -89,14 +89,14 @@ const CourseDetail = ({ course }) => {
                             unlockedVideos[roadmapIndex]?.[topicIndex];
 
                           return (
-                            <div className="bg-gradient-to-r from-slate-950 rounded-md grid md:grid-cols-[250px,1fr] cursor-pointer hover:from-green-900 transition-all">
+                            <div className="bg-gradient-to-r from-slate-950 rounded-md grid gap-5 md:grid-cols-[40%,1fr] cursor-pointer hover:from-green-900 transition-all">
                               {/* topic thumbnail  */}
                               <div
                                 onClick={() => {
                                   if (isUnlocked) {
                                     setSelectedVideo({
                                       video: topic?.video,
-                                      thumbnail: topic?.videoThumbnail?.url,
+                                      thumbnail: topic?.videoThumbnail,
                                       topic: topic?.topic,
                                       shortDesc: topic?.shortDesc,
                                     });
@@ -105,14 +105,19 @@ const CourseDetail = ({ course }) => {
                                     toast.error("Enroll to unlock this video");
                                   }
                                 }}
-                                className="bg-black aspect-video h-full rounded-md hover:brightness-90 grid place-items-center group"
-                                style={{
-                                  backgroundImage: `url(${topic?.videoThumbnail?.url})`,
-                                  backgroundSize: "cover",
-                                  backgroundPosition: "center",
-                                }}
+                                className="bg-black w-full rounded-md hover:brightness-90 group relative overflow-hidden"
                               >
-                                <div className="bg-white/20 w-[50px] aspect-square rounded-full grid place-items-center opacity-0 translate-y-10 scale-75 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 select-none transition-all duration-500">
+                                {/* thubmnail  */}
+                                <Image
+                                  src={
+                                    process.env.NEXT_PUBLIC_CDN_URL +
+                                    topic?.videoThumbnail?.filename
+                                  }
+                                  alt={topic?.topic}
+                                  fill
+                                />
+
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/20 w-[50px] aspect-square rounded-full grid place-items-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 select-none transition-all duration-500">
                                   {isUnlocked ? (
                                     <Image
                                       src={"/play.svg"}
@@ -138,8 +143,10 @@ const CourseDetail = ({ course }) => {
                                   <GradientText>{topic.topic}</GradientText>
                                 </div>
                                 {/* desc  */}
-                                <P className="md:text-base lg:text-base">
-                                  {topic.shortDesc}
+                                <P className="md:text-sm lg:text-sm text-ellipsis ">
+                                  {topic.shortDesc.length > 100
+                                    ? topic.shortDesc.slice(0, 100) + "..."
+                                    : topic.shortDesc}
                                 </P>
                               </div>
                             </div>

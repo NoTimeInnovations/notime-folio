@@ -13,7 +13,10 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
-      },
+      },{
+        protocol : "https",
+        hostname : "d226h5j12693lp.cloudfront.net"
+      }
     ],
   },
 };

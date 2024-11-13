@@ -38,7 +38,7 @@ const NavMenu = ({ isOpen, setIsOpen }) => {
     },
     {
       name: "Register",
-      url: "/register",
+      url: "/registration",
       icon: "/register-icon.svg",
     },
   ]);
@@ -101,7 +101,7 @@ const NavMenu = ({ isOpen, setIsOpen }) => {
           },
           {
             name: "Register",
-            url: "/register",
+            url: "/registration",
             icon: "/register-icon.svg",
           },
         ])

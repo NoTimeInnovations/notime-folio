@@ -59,7 +59,7 @@ export const DetailCard = ({
           <div className=" relative w-full aspect-video rounded overflow-hidden">
             <Image
               className="w-full h-full"
-              src={image}
+              src={`${process.env.NEXT_PUBLIC_CDN_URL}${image?.filename}`}
               alt={title}
               fill
             />
@@ -69,8 +69,8 @@ export const DetailCard = ({
           <div>
             <H1 className={"flex justify-center sm:justify-start lg:text-[2.5rem]  items-center gap-2"}>
               <GradientText>{title}</GradientText>
-              <div className="font-semibold text-green-500 text-lg">
-                - Level {courseLevel}
+              <div className="font-semibold text-green-500 text-lg text-nowrap">
+                -&nbsp;Level&nbsp;{courseLevel}
               </div>
             </H1>
             <P className={"text-center sm:text-start"}>{description}</P>

@@ -39,7 +39,7 @@ const Header = () => {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?where[student_id][equals]=${userCookie.id}&depth=0`,
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/mcq-submissions?select[pointsScored]=true&where[student_id][equals]=${userCookie.id}&depth=0`,
         {
           method: "GET",
           headers: {
@@ -49,6 +49,8 @@ const Header = () => {
         }
       );
       const data = await res?.json();
+      console.log(data);
+      
       const points = data?.docs?.reduce(
         (acc, curr) => acc + curr.pointsScored,
         0
@@ -159,7 +161,7 @@ const Header = () => {
                 className={`flex items-center gap-1 cursor-pointer `}
               >
                 <Avatar
-                  image={`${user?.image?.url}`}
+                  image={`${process.env.NEXT_PUBLIC_CDN_URL}${user?.image?.filename}`}
                   username={user?.name}
                   classname={`${isOpen ? "bg-white/10 p-1 " : ""}  transition-all duration-200`}
                 />

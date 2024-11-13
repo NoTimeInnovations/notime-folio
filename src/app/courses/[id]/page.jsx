@@ -29,7 +29,7 @@ const fetchCourseDetail = async (id) => {
       preRequirements: data?.pre_requirements,
       learnings: data?.learnings,
       description: data?.shortDesc,
-      image: data?.image?.url,
+      image: data?.image,
       roadmap: data?.Roadmap,
       reviews: data?.reviews || [],
       courseLevel: data?.courseLevel,

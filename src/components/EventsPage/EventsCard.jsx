@@ -17,7 +17,7 @@ const EventsCard = ({ event }) => {
       >
         <div className="relative  w-full aspect-[16/9] overflow-hidden">
           <Image
-            src={event?.image?.url}
+            src={`${process.env.NEXT_PUBLIC_CDN_URL}${event?.image?.filename}`}
             alt={event?.title}
             fill
             className="object-cover w-full h-full"
@@ -28,20 +28,26 @@ const EventsCard = ({ event }) => {
           <div className="mb-1">
             <h5 className=" sm:text-2xl flex items-center gap-2 font-bold tracking-tight text-white">
               {event?.title}
-              <span className={`${event?.status === "upcoming" ? 'text-green-500' : 'text-orange-500'} font-medium text-sm`}>- {event?.status}</span>
+              <span
+                className={`${event?.status === "upcoming" ? "text-green-500" : "text-orange-500"} text-nowrap font-medium text-sm`}
+              >
+                -&nbsp;{event?.status}
+              </span>
             </h5>
           </div>
 
-            <div className="flex items-center gap-2 opacity-80 mb-2">
-              <Image
-                src={'/calander.svg'}
-                alt="date"
-                width={20}
-                height={20}
-                className="invert"
-              />
-              <span className="text-white font-medium text-sm">{formatedDate}</span>
-            </div>
+          <div className="flex items-center gap-2 opacity-80 mb-5 mt-1">
+            <Image
+              src={"/calander.svg"}
+              alt="date"
+              width={20}
+              height={20}
+              className="invert"
+            />
+            <span className="text-white font-medium text-sm">
+              {formatedDate}
+            </span>
+          </div>
 
           <p className="mb-3 font-normal text-gray-400 text-xs sm:text-base overflow-hidden text-ellipsis">
             {event?.description}

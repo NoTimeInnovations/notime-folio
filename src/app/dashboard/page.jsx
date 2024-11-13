@@ -24,7 +24,7 @@ const fetchCourses = async () => {
       id: course.id,
       title: course.title,
       description: course.shortDesc,
-      image: course.image.url,
+      image: course.image,
       courseLevel: course.courseLevel,
     }));
 

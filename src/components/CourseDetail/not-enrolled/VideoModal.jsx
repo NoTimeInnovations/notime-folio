@@ -1,14 +1,14 @@
+import GradientText from "@/components/common/GradientText";
 import Image from "next/image";
 import React, { useRef } from "react";
 
 const VideoModal = ({ selectedVideo, setOpen, isOpen }) => {
   const videoRef = useRef(null);
 
-
   const handleClose = () => {
     if (videoRef.current) {
       videoRef.current.pause();
-      videoRef.current.currentTime = 0; 
+      videoRef.current.currentTime = 0;
     }
     setOpen(false);
   };
@@ -24,12 +24,10 @@ const VideoModal = ({ selectedVideo, setOpen, isOpen }) => {
           controls
           controlsList="nodownload"
           poster={
-            process.env.NEXT_PUBLIC_PAYLOAD_URL +
-            selectedVideo?.videoThumbnail?.url
+            process.env.NEXT_PUBLIC_CDN_URL +
+            selectedVideo?.videoThumbnail?.filename
           }
-          src={
-            process.env.NEXT_PUBLIC_CLOUDFRONT_URL + "/" + selectedVideo?.video
-          }
+          src={process.env.NEXT_PUBLIC_CDN_URL + selectedVideo?.video?.filename}
         />
 
         {/* close button */}
@@ -48,13 +46,13 @@ const VideoModal = ({ selectedVideo, setOpen, isOpen }) => {
       </div>
 
       {/* video details */}
-      <div className="w-[90%] lg:w-full text-white justify-self-center bg-black p-3 lg:p-5 rounded-b-md">
+      <div className="w-[90%] lg:w-[50vw] text-white justify-self-center bg-black p-3 lg:p-5 rounded-b-md">
         {/* title */}
         <div className="font-bold text-xl lg:text-2xl">
-          {selectedVideo?.topic}
+          <GradientText>{selectedVideo?.topic}</GradientText>
         </div>
         {/* description */}
-        <div className="mt-1 text-sm lg:text-base">
+        <div className="mt-1 text-sm  text-white/70">
           {selectedVideo?.shortDesc}
         </div>
       </div>

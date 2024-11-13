@@ -265,7 +265,7 @@ const CourseDetailForRegistered = ({ courseData }) => {
           <H1 className="font-bold text-white text-[1.5rem]">
             {selectedTopic?.topic}
           </H1>
-          <P className="text-white/70 mt-2 text-[1rem]">
+          <P className="text-white/70 mt-2 text-[.9rem] md:text-[.9rem] lg:text-[.9rem]">
             {selectedTopic?.shortDesc}
           </P>
         </div>
@@ -278,8 +278,8 @@ const CourseDetailForRegistered = ({ courseData }) => {
             return (
               <VideoCard
                 isUnlocked={isUnlocked}
-                videoThumbnail={video?.videoThumbnail?.url}
-                videoUrl={process.env.NEXT_PUBLIC_CLOUDFRONT_URL + "/" + video?.video}
+                videoThumbnail={process.env.NEXT_PUBLIC_CDN_URL + video?.videoThumbnail?.filename}
+                videoUrl={process.env.NEXT_PUBLIC_CDN_UR + video?.video?.filename}
                 onClick={() => {
                   if (!isUnlocked) {
                     toast.error(

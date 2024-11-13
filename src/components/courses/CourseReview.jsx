@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import Button from "../home/Button";
+import Image from "next/image";
 
 export const CourseReview = ({ reviews }) => {
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
@@ -46,9 +47,11 @@ export const CourseReview = ({ reviews }) => {
                   <div key={index} className="flex-none w-full px-4">
                     <div className="bg-gray-700 p-6 rounded-lg shadow-md mt-10 relative">
                       <div className="absolute top-[-25px] left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full overflow-hidden">
-                        <img
+                        <Image
+                          width={64}
+                          height={64}
                           className="w-full h-full object-cover"
-                          src={`${review.user.image.url}`}
+                          src={`${process.env.NEXT_PUBLIC_CDN_URL}${review.user.image.filename}`}
                           alt={review.user.name}
                         />
                       </div>
