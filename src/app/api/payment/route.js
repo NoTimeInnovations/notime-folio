@@ -31,7 +31,7 @@ export async function POST(req) {
       try {
         // Fetch current user data to get existing courses
         const currentUserResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/${userId}&depth=2`,
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/${userId}?select[courses]=true`,
           {
             headers: {
               Authorization: `Bearer ${authToken}`,
@@ -58,7 +58,7 @@ export async function POST(req) {
 
         // Send the updated courses array back to the server
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/${userId}`,
+          `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users/${userId}?select[courses]=true&select[isEnrolled]=true`,
           {
             method: "PATCH",
             headers: {
@@ -72,7 +72,7 @@ export async function POST(req) {
         const user = await response.json();
 
         if (user?.errors?.length > 0) {
-          throw new Error(user.errors[0].message);
+          throw new Error(user);
         }
         console.log("User enrolled successfully");
         return Response.redirect(`${host}/payment?type=success`);
