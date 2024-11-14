@@ -25,7 +25,7 @@ export async function POST(req) {
       return Response.redirect(`${host}/payment`);
     }
 
-    const courseDetails = await getCourseDetails(courseId);
+    const courseDetails = await getCourseDetails(courseId, authToken);
 
     if (data.order_status === "Success") {
       try {
@@ -40,6 +40,8 @@ export async function POST(req) {
         );
         const currentUserData = await currentUserResponse.json();
 
+        console.log("Current user data", currentUserData);
+
         // Get existing courses array or initialize it if undefined
         const existingCourses = currentUserData?.courses || [];
 
@@ -48,13 +50,12 @@ export async function POST(req) {
           ...existingCourses,
           {
             course: courseId,
-            roadmap_id: courseDetails?.Roadmap[0]?.id,
-            topic_id: courseDetails?.Roadmap[0]?.Topics[0]?.id,
+            roadmap_id: courseDetails?.Roadmap[0]?.id || null,
+            topic_id: courseDetails?.Roadmap[0]?.Topics[0]?.id || null,
           },
         ];
 
         console.log("Updated courses", updatedCourses);
-        
 
         // Send the updated courses array back to the server
         const response = await fetch(
@@ -65,7 +66,7 @@ export async function POST(req) {
               "Content-Type": "application/json",
               Authorization: `Bearer ${authToken}`,
             },
-            body: JSON.stringify({ courses: updatedCourses , isEnrolled : true }),
+            body: JSON.stringify({ courses: updatedCourses, isEnrolled: true }),
           }
         );
 
@@ -90,10 +91,15 @@ export async function POST(req) {
   }
 }
 
-async function getCourseDetails(courseId) {
+async function getCourseDetails(courseId, authToken) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/courses/${courseId}`
+      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/courses/${courseId}?select[Roadmap]=true`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
     );
     return await response.json();
   } catch (error) {
